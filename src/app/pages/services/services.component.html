@@ -1,0 +1,71 @@
+<section class="Services pb-5  overflow-y-auto" id="SERVICE">
+  <div class="container">
+    <div class="d-flex justify-content-center flex-column align-items-center">
+      <h1 class="mt-3 anmieLeft servicesText position-relative text-center">{{ 'servicex.SERVICES' | translate }}</h1>
+      @if(isServicesPage()) {
+        <div class="d-flex w-100 mt-3  ms-0 mx-lg-1 pb-3 mb-lg-0" role="search">
+          <input class="form-control me-2" type="search" [placeholder]="'navbar.searchPlaceHolder' | translate"
+            aria-label="Search" (input)="onSearch($event)"[value]="searchText" />
+        </div>
+        }
+    </div>
+    <div class="row h-100 overflow-hidden">
+      @for (service of services | filterServices: searchText ; track $index) {
+        <div class="col-12  col-md-6 col-lg-4 col-xl-3 my-4" routerLink='service-details' (click)="divCilcked(service.jobId)">
+          <div class="inner anmieLeftInner h-100 shadow d-flex flex-column rounded-5 border position-relative  overflow-hidden">
+            <div class="overlay bg-dark">
+              <img [src]="service.image" class="w-100 d-block serviceImageCol" [alt]="service.job | translate" [title]="service.job | translate" />
+            </div>
+            <div class="p-5 fixDetails d-flex justify-content-center align-items-center flex-column">
+              <h6 class="text-center plumbingTxt fw-bolder fs-5 ">
+                @if(service.job === 'PLUMBING') {
+                  {{ 'servicex.PLUMBING' | translate }}
+                }
+                @if(service.job === 'PAINTING') {
+                  {{ 'servicex.PAINTING' | translate }}
+                }
+                @if(service.job === 'WOODEN_FLOORS') {
+                  {{ 'servicex.WOODEN_FLOORS' | translate }}
+                }
+                @if(service.job === 'HOME_APPLIANCES') {
+                  {{ 'servicex.HOME_APPLIANCES' | translate }}
+                }
+                @if(service.job === 'ALUMETAL') {
+                  {{ 'servicex.ALUMETAL' | translate }}
+                }
+                @if(service.job === 'AIR_CONDITION') {
+                  {{ 'servicex.AIR_CONDITION' | translate }}
+                }
+                @if(service.job === 'CURTAINS') {
+                  {{ 'servicex.CURTAINS' | translate }}
+                }
+                @if(service.job === 'CARPENTRY') {
+                  {{ 'servicex.CARPENTRY' | translate }}
+                }
+                @if(service.job === 'GYPSUM_BOARD') {
+                  {{ 'servicex.GYPSUM_BOARD' | translate }}
+                }
+                @if(service.job === 'SATELLITE') {
+                  {{ 'servicex.SATELLITE' | translate }}
+                }
+                @if(service.job === 'INTERNET_NETWORKS') {
+                  {{ 'servicex.INTERNET_NETWORKS' | translate }}
+                }
+                @if(service.job === 'ELECTRICITY') {
+                  {{ 'servicex.ELECTRICITY' | translate }}
+                }
+                </h6>
+                <button class = "rounded-1 border-0 px-3 py-1"> {{ 'servicex.workers' | translate }} </button>
+            </div>
+            <div class="borderLineInfo"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+@if(isNotFound) {
+  <div class="min-vh-100 mt-3  d-flex justify-content-start align-items-center text-center flex-column">
+    <p class="text-danger fw-bolder">Oops, Service Not Found !</p>
+  </div>
+}

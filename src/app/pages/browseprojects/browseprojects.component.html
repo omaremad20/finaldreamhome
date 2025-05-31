@@ -1,0 +1,50 @@
+@if(posts) {
+  @if(posts.length) {
+      <section class="container">
+    <h1 class="py-2 text-center anmieLeft">{{"posts.Posts" | translate}}</h1>
+    @for (post of posts; track post._id) {
+      <div class="row  container mx-auto">
+        <div class="col-12">
+          <div class="inner py-1 px-3  rounded-1">
+            <p class="customerName mb-0 fw-bolder"> {{"posts.Customer" | translate }} : {{post.userName}}</p>
+            <small class="time mx-1 ">
+              @if (+post.createdAt.split('').slice(11 , 13).join('') + 3  >= 24) {
+                {{((+post.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 : (+post.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24) }}:{{post.createdAt.split('').slice(14
+                , 16).join('')}} {{'notifications.AM' | translate}}
+                }@else if (+post.createdAt.split('').slice(11 , 13).join('') + 3 === 12) {
+                  12:{{post.createdAt.split('').slice(14 , 16).join('')}} {{'notifications.PM' | translate}}
+                }@else if (+post.createdAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                  {{+post.createdAt.split('').slice(11 , 13).join('') + 3 }}:{{post.createdAt.split('').slice(14 ,
+                  16).join('')}} {{'notifications.AM' | translate}} }
+                  @else if (+post.createdAt.split('').slice(11 , 13).join('') + 3 > 12 && +post.createdAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                    {{(+post.createdAt.split('').slice(11 , 13).join('') + 3 - 12 )}}:{{post.createdAt.split('').slice(14 ,
+                  16).join('')}} {{'notifications.PM' | translate}}
+                  }
+            </small>
+            <div class="postcontent rounded-1 mt-2 mx-3">
+              <div class="py-2">
+                <p class="contentBE mb-0 px-2">{{post.content}}</p>
+              </div>
+              <div class="parentImage  position-relative">
+                <img [src]="post.image" alt="" class="w-100 d-block" srcset="">
+              </div>
+            </div>
+            <!--  -->
+              <div class=" mx-3 d-flex justify-content-center mt-3 " [routerLink]="['/comments' , post._id]">
+                <p class="cursor-pointer w-fit comments text-center">
+                  <span class="mx-1">{{ "posts.Comments" | translate }}</span>
+                  <i class="fa-solid  fa-comment"></i></p>
+              </div>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+  }@else {
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+      <div class="w-100 text-center">
+          <p class="mb-0 text-danger fw-bolder fs-5 text-capitalize"> No Posts Yet !</p>
+      </div>
+    </div>
+  }
+}

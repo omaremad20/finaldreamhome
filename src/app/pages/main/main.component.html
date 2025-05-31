@@ -1,0 +1,12 @@
+
+
+@if(authService.getRole() === 'customer'){
+  <app-home ></app-home>
+  <app-services ></app-services>
+  <app-aboutus></app-aboutus>
+  <app-contact-us></app-contact-us>
+}@else if(authService.getRole() === 'employee'){
+  <app-my-profile></app-my-profile>
+  <app-contact-us></app-contact-us>
+  <app-aboutus></app-aboutus>
+}

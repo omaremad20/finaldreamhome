@@ -1,0 +1,351 @@
+@if(userRole === 'customer'){
+@if(isNotfaied) {
+<section class="container">
+  <h1 class="text-center anmieWord fw-bolder pb-3">{{'notifications.yourNotifications' | translate}} </h1>
+  <div class="container  mx-auto ">
+    <!-- neededReviews -->
+    @if(reviewsNotficationResCustomer) {
+    @if(reviewsNotficationResCustomer.length) {
+    @for (notfi of reviewsNotficationResCustomer; track notfi._id) {
+    <div class="row">
+      <div class="col-12 ">
+        <div class="inner m-2 p-2 rounded-2 cursor-pointer">
+          <div class=" pb-2  d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center w-100">
+              <div class="imgParent">
+                <img src="./images/none.jpg" class="w-100 d-block rounded-circle align-self-start" alt="">
+              </div>
+              <div class="nameParent">
+                <p class="mb-0 px-2">
+                  <span class="fw-bolder">
+                    {{notfi.message.employeeName}}
+                  </span>
+                  <span class="mb-0 text-capitalize"> {{'notifications.NeededReview' | translate}} </span>
+                </p>
+              </div>
+            </div>
+            <div class="removerparent align-self-start">
+              <i class="fa-solid fa-xmark fs-4  removeNotfi align-self-start"
+                (click)="deleteNotification(notfi._id , reviewsNotficationResCustomer , reviewsNotficationResCustomer.indexOf(notfi))"
+                title="Remove"></i>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mx-1">
+            <div>
+              <small class="time  timeComment  fw-bolder  ">
+                {{notfi.createdAt.split('').slice(8 , 10).join('')}}/{{notfi.createdAt.split('').slice(5
+                ,7).join('')}}/{{notfi.createdAt.split('').slice(0 , 4).join('')}}
+              </small>
+              <small class="time  timeComment  fw-bolder">|</small>
+              <small class="time  timeComment  fw-bolder">
+                @if (+notfi.createdAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+                {{((+notfi.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+                (+notfi.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+                }}:{{notfi.createdAt.split('').slice(14
+                , 16).join('')}}{{'notifications.AM' | translate}}
+                }@else if (+notfi.createdAt.split('').slice(11 , 13).join('') + 3 === 12) {
+                12:{{notfi.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+                }@else if (+notfi.createdAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                  {{+notfi.createdAt.split('').slice(11 , 13).join('') + 3 }}:{{notfi.createdAt.split('').slice(14 ,
+                  16).join('')}}{{'notifications.AM' | translate}} }@else if (+notfi.createdAt.split('').slice(11 ,
+                  13).join('') + 3> 12 &&
+                  +notfi.createdAt.split('').slice(11 , 13).join('') + 3 < 24) { {{(+notfi.createdAt.split('').slice(11
+                    , 13).join('') + 3 - 12 )}}:{{notfi.createdAt.split('').slice(14 ,
+                    16).join('')}}{{'notifications.PM' | translate}} } <i class="fa-solid fa-clock"></i>
+              </small>
+            </div>
+            <div>
+              <button type="button" class="border-0 rounded-2 px-2 py-1" data-bs-toggle="modal"
+                [attr.data-bs-target]="'#'+notfi._id">
+                {{'notifications.Accept' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="reviewForm"
+      (ngSubmit)="submitReview(notfi.message.reviewId , notfi._id , reviewsNotficationResCustomer , reviewsNotficationResCustomer.indexOf(notfi))">
+      <div class="modal fade" [id]="notfi._id" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content inner modal-sumbtion">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reviewModalLabel">{{'notifications.submitYourReview' | translate }}</h5>
+            </div>
+            <div class="modal-body">
+              <label for="reviewText" class="mb-2"> {{'notifications.comment' | translate }} </label>
+              <textarea formControlName="comment" id="reviewText" class="form-control text-note"
+                placeholder="{{'notifications.enterComment' | translate}}"></textarea>
+              @if(reviewForm.get('comment')?.errors && reviewForm.get('comment')?.touched) {
+              @if(reviewForm.get('comment')?.getError('required')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{'notifications.req' | translate}} </p>
+              }@else if (reviewForm.get('comment')?.getError('maxlength')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i>{{'notifications.asLong' | translate}}</p>
+              }@else if (reviewForm.get('comment')?.getError('minlength')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{'notifications.asShort' | translate}}
+              </p>
+              }
+              }
+              <label for="rating" class="my-2"> {{'notifications.rating' | translate }} </label>
+              <input type="number" formControlName="rating" id="rating" class="form-control"
+                placeholder="{{'notifications.enterRating' | translate}}" min="1" max="5" />
+              @if(reviewForm.get('rating')?.errors && reviewForm.get('rating')?.touched) {
+              @if(reviewForm.get('rating')?.getError('required')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{'notifications.req' | translate}}</p>
+              }@else if (reviewForm.get('rating')?.getError('max')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i>{{'notifications.max' | translate}}</p>
+              }@else if (reviewForm.get('rating')?.getError('min')) {
+              <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+                  class="me-1 fa-solid fa-circle-exclamation text-danger"></i>{{'notifications.mini' | translate}}</p>
+              }
+              }
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+              <span type="button" class="btn " data-bs-dismiss="modal">{{'notifications.close' | translate }}</span>
+              <button type="submit" class="btn">{{ 'notifications.send' | translate }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    }
+    }
+    }
+
+    <!-- comments on post -->
+    @if(commentsNotficationsRes) {
+    @if(commentsNotficationsRes.length) {
+    @for (comment of commentsNotficationsRes; track comment.message.commentId) {
+    <div class="row">
+      <div class="col-12 ">
+        <div class="inner m-2 p-2 rounded-2 cursor-pointer " title="Tap To View">
+          <div class="pb-2  d-flex justify-content-between align-items-center ">
+            <div class="d-flex align-items-center  w-100"
+              (click)="goToSinglePost(comment.message.postId , comment.message.commentId)">
+              <div class="imgParent">
+                <img src="./images/none.jpg" class="w-100 d-block rounded-circle align-self-start" alt="">
+              </div>
+              <div class="nameParent">
+                <p class="mb-0 px-2">
+                  <span class="fw-bolder">
+                    {{comment.message.userMakeComment}}
+                  </span>
+                  <span class="mb-0 text-capitalize">
+                    {{'notifications.commentedOn' | translate}}
+                    @if(comment.message.jobTitle === 'plumbing') {
+                      {{ 'servicex.PLUMBING' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'painting') {
+                    {{ 'servicex.PAINTING' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'electricity') {
+                    {{ 'servicex.WOODEN_FLOORS' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'satellite') {
+                    {{ 'servicex.HOME_APPLIANCES' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'gypsum-board') {
+                    {{ 'servicex.ALUMETAL' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'carpentry') {
+                    {{ 'servicex.AIR_CONDITION' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'internet-networks') {
+                    {{ 'servicex.CURTAINS' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'alumetal') {
+                    {{ 'servicex.CARPENTRY' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'curtains') {
+                    {{ 'servicex.GYPSUM_BOARD' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'air-condition') {
+                    {{ 'servicex.SATELLITE' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'home-appliances') {
+                    {{ 'servicex.INTERNET_NETWORKS' | translate }}
+                    }
+                    @if(comment.message.jobTitle === 'wooden-floors') {
+                    {{ 'servicex.ELECTRICITY' | translate }}
+                    }
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="removerparent align-self-start">
+              <i class="fa-solid fa-xmark fs-4  removeNotfi align-self-start"
+                (click)="deleteNotification(comment._id , commentsNotficationsRes , commentsNotficationsRes.indexOf(comment))"
+                title="Remove"></i>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mx-1 pt-1"
+            (click)="goToSinglePost(comment.message.postId , comment.message.commentId)">
+            <small class="time  timeComment  fw-bolder  ">
+              {{comment.createdAt.split('').slice(8 , 10).join('')}}/{{comment.createdAt.split('').slice(5
+              ,7).join('')}}/{{comment.createdAt.split('').slice(0 , 4).join('')}}
+            </small>
+            <small class="time  timeComment  fw-bolder">
+              @if (+comment.createdAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+              {{((+comment.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+              (+comment.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+              }}:{{comment.createdAt.split('').slice(14
+              , 16).join('')}}{{'notifications.AM' | translate}}
+              }@else if (+comment.createdAt.split('').slice(11 , 13).join('') + 3 === 12) {
+              12:{{comment.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+              }@else if (+comment.createdAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                {{+comment.createdAt.split('').slice(11 , 13).join('') + 3 }}:{{comment.createdAt.split('').slice(14 ,
+                16).join('')}}{{'notifications.AM' | translate}} }@else if (+comment.createdAt.split('').slice(11 ,
+                13).join('') + 3> 12 &&
+                +comment.createdAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                  {{(+comment.createdAt.split('').slice(11 , 13).join('') + 3 - 12
+                  )}}:{{comment.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} } <i
+                  class="fa-solid fa-clock"></i>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+    }
+    }
+  </div>
+
+</section>
+} @else {
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="w-100 text-center">
+    @if(isloading === false) {
+    <p class="mb-0  text-danger fw-bolder fs-5 text-capitalize"> {{'notifications.noNotifications' | translate}} </p>
+    }
+  </div>
+</div>
+}
+}
+@else if (userRole === 'employee') {
+@if(isNotfaied) {
+<section>
+  <h1 class="text-center anmieWord fw-bolder pb-3">{{'notifications.yourNotifications' | translate}}</h1>
+  @for (notfication of reviewsNotficationsResEmployee; track notfication._id) {
+  <!-- acceptedReviewsAndSumbits -->
+  @if(notfication.message.reviewContent) {
+  <div class="row  container">
+    <div class="col-12 ">
+      <div class="inner m-2 p-2 rounded-2 ">
+        <div class=" mx-1 d-flex justify-content-between align-items-center ">
+          <div class="d-flex flex-column ">
+            <p class="mb-0 py-1">
+              <span class="fw-bolder">{{notfication.message.review}}</span>
+              <span class="mx-1">{{'notifications.AcceptedYour' | translate}}</span>
+            </p>
+            <p class="mb-0 py-1">
+              <span class="fw-bolder">
+                {{'notifications.rate' | translate}}
+              </span>
+              <span>
+                {{notfication.message.reviewRate}}
+              </span>
+            </p>
+            <p class="mb-0 py-1">
+              <span class="fw-bolder">
+                {{'notifications.Comment' | translate}}
+              </span>
+              <span>
+                {{notfication.message.reviewContent}}
+              </span>
+            </p>
+          </div>
+          <div class="removerparent align-self-start">
+            <i class="fa-solid fa-xmark fs-4  removeNotfi align-self-start cursor-pointer"
+              (click)="deleteNotification(notfication._id , reviewsNotficationsResEmployee , reviewsNotficationsResEmployee.indexOf(notfication))"
+              title="Remove"></i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mx-1">
+          <small class="time  timeComment  fw-bolder">
+            {{notfication.createdAt.split('').slice(8 , 10).join('')}}/{{notfication.createdAt.split('').slice(5
+            ,7).join('')}}/{{notfication.createdAt.split('').slice(0 , 4).join('')}}
+          </small>
+          <small class="time  timeComment  fw-bolder">
+            @if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+            {{((+notfication.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+            (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+            }}:{{notfication.createdAt.split('').slice(14
+            , 16).join('')}}{{'notifications.AM' | translate}}
+            }@else if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 === 12) {
+            12:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+            }@else if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 < 12) {
+              {{+notfication.createdAt.split('').slice(11 , 13).join('') + 3
+              }}:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.AM' | translate}} }@else if
+              (+notfication.createdAt.split('').slice(11 , 13).join('') + 3> 12 &&
+              +notfication.createdAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                {{(+notfication.createdAt.split('').slice(11 , 13).join('') + 3 - 12
+                )}}:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} } <i
+                class="fa-solid fa-clock"></i>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+  <!-- sended reviews -->
+  @else if (!notfication.message.reviewContent) {
+  <div class="row  container">
+    <div class="col-12 ">
+      <div class="inner m-2 p-2 rounded-2">
+        <div class=" mx-1 d-flex justify-content-between align-items-center ">
+          <div class="d-flex flex-column ">
+            <span class="mb-0 text-capitalize py-1">{{'notifications.YouHaveSent' | translate}}</span>
+            <span class="py-1"><span class="fw-bolder">{{'notifications.Customer' | translate}}</span>
+              {{notfication.message.customerName}}</span>
+          </div>
+          <div class="removerparent align-self-start">
+            <i class="fa-solid fa-xmark fs-4  removeNotfi align-self-start cursor-pointer"
+              (click)="deleteNotification(notfication._id , reviewsNotficationsResEmployee , reviewsNotficationsResEmployee.indexOf(notfication))"
+              title="Remove"></i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mx-1">
+          <small class="time  timeComment  fw-bolder">
+            {{notfication.createdAt.split('').slice(8 , 10).join('')}}/{{notfication.createdAt.split('').slice(5
+            ,7).join('')}}/{{notfication.createdAt.split('').slice(0 , 4).join('')}}
+          </small>
+          <small class="time  timeComment  fw-bolder">
+            @if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+            {{((+notfication.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+            (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+            }}:{{notfication.createdAt.split('').slice(14
+            , 16).join('')}}{{'notifications.AM' | translate}}
+            }@else if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 === 12) {
+            12:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+            }@else if (+notfication.createdAt.split('').slice(11 , 13).join('') + 3 < 12) {
+              {{+notfication.createdAt.split('').slice(11 , 13).join('') + 3
+              }}:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.AM' | translate}} }@else if
+              (+notfication.createdAt.split('').slice(11 , 13).join('') + 3> 12 &&
+              +notfication.createdAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                {{(+notfication.createdAt.split('').slice(11 , 13).join('') + 3 - 12
+                )}}:{{notfication.createdAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} } <i
+                class="fa-solid fa-clock"></i>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  }
+</section>
+} @else {
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="w-100 text-center">
+    @if (isloading === false) {
+    <p class="mb-0 text-danger fw-bolder fs-5 text-capitalize">{{'notifications.noNotifications' | translate}} </p>
+    }
+  </div>
+</div>
+}
+}

@@ -1,0 +1,82 @@
+.inner {
+    cursor: pointer;
+}
+button.fixbtn {
+    all: unset;
+    background-color: #FAC600;
+    border: transparent solid 3px;
+    border-radius: 50rem;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    transition: ease-in-out 0.3s color, ease-in-out 0.3s border, ease-in-out 0.3s background-color;
+}
+.inner {
+    position: relative;
+}
+.inner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    transition: ease-in-out 0.3s height;
+}
+.inner {
+    transition: ease-in-out 0.3s transform;
+}
+.inner:hover {
+    transform: translatey(-10px);
+    transform: scale(1.02);
+}
+.inner:hover::after {
+    height: 10px;
+}
+.servicesText {
+    cursor: pointer;
+    margin-block: 1rem;
+}
+.servicesText::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -17.5%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 5px;
+    transition: ease-in-out 0.3s width;
+}
+.servicesText:hover::after {
+    width: 100%;
+}
+
+.anmieLeft {
+  animation: slideLeft ease-in-out 1s ;
+}
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
+}
+.anmieLeftInner {
+  animation: slideLeftInner ease-in-out 1.5s;
+}
+@keyframes slideLeftInner {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+section.Services {
+  margin-top: 6rem;
+}
+

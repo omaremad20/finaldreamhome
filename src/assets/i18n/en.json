@@ -1,0 +1,340 @@
+{
+  "posts": {
+    "Posts": "Posts",
+    "Customer": "Customer",
+    "Comments": "Comments"
+  },
+  "comments": {
+    "Start": "Start Conversation",
+    "EditComment": "Edit Comment",
+    "DeleteComment": "Delete Comment",
+    "Cancel": "Cancel",
+    "Save": "Save",
+    "ConfirmDelete": "Confirm Delete Comment?",
+    "Delete": "Delete",
+    "Leaveacomment": "Leave a comment here"
+  },
+  "uploadPost": {
+    "UploadPost": "Upload Post",
+    "Problem": "Problem",
+    "asShort": "10 Chars As Short",
+    "asLong": "2000 Chars As Long",
+    "Optional": "Optional",
+    "onlyImages": "Only images Accepted",
+    "Post": "Post",
+    "whatsProblem": "What's Your Problem"
+  },
+  "servicex": {
+    "workers": "Workers",
+    "SERVICES": "Services",
+    "FIX_NOW": "Fix Now",
+    "PLUMBING": "Plumbing",
+    "PAINTING": "Painting",
+    "ELECTRICITY": "Electricity",
+    "SATELLITE": "Satellite",
+    "GYPSUM_BOARD": "Gypsum Board",
+    "CARPENTRY": "Carpentry",
+    "INTERNET_NETWORKS": "Internet Networks",
+    "ALUMETAL": "Alumetal",
+    "CURTAINS": "Curtains",
+    "AIR_CONDITION": "Air Condition",
+    "HOME_APPLIANCES": "Home Appliance",
+    "WOODEN_FLOORS": "Wooden Floors"
+  },
+  "navbar": {
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "Dream": "Dream",
+    "Home": "Home",
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "login": "Login",
+    "register": "Register",
+    "toggleThemeDark": "Switch to Dark Mode",
+    "toggleThemeLight": "Switch to Light Mode",
+    "browseprojects": "Browse Projects",
+    "language": "اللغه العربيه",
+    "searchPlaceHolder": "Search By Service..."
+  },
+  "login": {
+    "title": "Login Form",
+    "emailPlaceholder": "Your Email...",
+    "emailLabel": "Email",
+    "passwordPlaceholder": "Password...",
+    "passwordLabel": "Password",
+    "button": "Sign In",
+    "donot": "Don't Have An Account ?",
+    "register": "Register Now",
+    "invaild": "Invaild Email Or Password !",
+    "LoginSucces": "Login Successful !",
+    "welcomeMessage": "Welcome to Dream Home! You are now logged in.",
+    "close": "Close",
+    "thisField": "Required.",
+    "InvaildEmail": "Invaild Email",
+    "wrongPassword": "Wrong Password",
+    "gotohome": "Go To Home"
+  },
+  "footer": {
+    "get_app": "Get The DreamHome app",
+    "app_description": "We will send you a link, open on your phone to download the app.",
+    "email_placeholder": "Your Email...",
+    "share_link": "Share App Link",
+    "follow_us": "Follow Us On These Platforms",
+    "copyright": "© 2025 DreamHome. All rights reserved.",
+    "designed_by": "Designed By Belal Wael."
+  },
+  "registration": {
+    "otpSend": "We Have Sent Code To Your Email 6 Numbers As Long",
+    "OtpPlaceHolder": "Enter OTP",
+    "register": "Register",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "email": "Email",
+    "password": "Password",
+    "repassword": "Re-enter Password",
+    "contactNumber": "Contact Number",
+    "selectRole": "Select Role",
+    "customer": "Customer",
+    "employee": "Employee",
+    "selectJob": "Select Your Job",
+    "registerButton": "Register",
+    "req": "Required.",
+    "errormessagePattern": "Numbers Not Allowed",
+    "errorMessageShort": "3 Chars As Short",
+    "errorMessageLong": "10 Chars As Long",
+    "invaild": "Invaild Email",
+    "emailerrormessage": "Must End With",
+    "errorinpass": "Weak Password",
+    "PasswordDoesn't": "Password Not Match",
+    "Egyptianphonenumber": "Enter Egyptian Phone",
+    "roleerror": "Required",
+    "errorConatin": "Contain ABC & 123",
+    "plumb": "Plumbing",
+    "paint": "Painting",
+    "Electricity": "Electricity",
+    "Satellite": "Satellite",
+    "GYPSUM-BOARD": "GYPSUM-BOARD",
+    "Carpentry": "Carpentry",
+    "InternetNetworks": "Internet Networks",
+    "Alumetal": "Alumetal",
+    "Curtains": "Curtains",
+    "AirCondition": "Air Condition",
+    "Homeappliances": "Home appliances",
+    "Woodenfloors": "Wooden floors",
+    "exsit": "Email Is Already Exsits !",
+    "LoginNow": "Login Now",
+    "Have": "Have An Account ?",
+    "RegistrationSuccess": "Registration Successful !",
+    "welcome": "Welcome to dream home. Please enter the OTP sent to your email.",
+    "verfiy": "Verify OTP",
+    "loginNow": "Login Now",
+    "Close": "Close"
+  },
+  "about_section": {
+    "title": "ABOUT US",
+    "what_we_do": {
+      "title": "What We Do ?",
+      "description": "We connect homeowners with trusted professionals for home repair and improvement. From plumbing to painting, our platform ensures fast, reliable, and hassle-free service. Whether it's a small fix or major work, we bridge the gap efficiently."
+    },
+    "who_we_are": {
+      "title": "Who We Are ?",
+      "description": "We are a passionate team committed to simplifying home maintenance for everyone. Using innovative technology, we match clients with vetted experts. Our goal is to provide reliable services that build trust and long-term relationships."
+    },
+    "our_mission": {
+      "title": "Our Mission",
+      "description": "Our mission is to make finding reliable home repair experts simple and stress-free. We focus on quality, trust, and customer satisfaction. By saving your time and effort, we aim to deliver the best home maintenance experience."
+    }
+  },
+  "stats_section": {
+    "works_completed": "WORKS COMPLETED",
+    "years_of_experience": "YEARS OF EXPERIENCE",
+    "total_clients": "TOTAL CLIENTS",
+    "award_won": "AWARD WON"
+  },
+  "contact_section": {
+    "message_inner_placeholder": "Leave a Comment Here",
+    "send_message_title": "Send Message Us",
+    "name_placeholder": "Your Name...",
+    "email_placeholder": "Your Email...",
+    "subject_placeholder": "Subject...",
+    "message_placeholder": "Message...",
+    "send_button": "Send Message",
+    "get_in_touch_title": "Get in Touch",
+    "contact_description": "We'd love to hear from you! Whether you have questions, feedback, or want to book a service, feel free to reach out. Our team is always ready to assist you.",
+    "address": "90 Saqr Quraish, Maadi",
+    "phone": "+201123456789",
+    "email": "dreamhome@gmail.com"
+  },
+  "notifications": {
+    "Accept" :  "Accept" ,
+    "PM": "PM",
+    "AM": "AM",
+    "enterComment": "Enter your comment...",
+    "yourNotifications": "Your Notifications",
+    "notification": "Notification",
+    "customerName": "Customer Name",
+    "employeeName": "Employee Name",
+    "submitYourReview": "Submit Your Review",
+    "comment": "Comment",
+    "rating": "Rating",
+    "enterRating": "Enter rating",
+    "close": "Close",
+    "send": "Send",
+    "noNotifications": "No Notifications Found !",
+    "rate": "Rate" ,
+    "NeededReview" : "Needed Your Review",
+    "req" : "Required",
+    "asLong" : "256 Char As Long" ,
+    "asShort" : "3 Char As Short" ,
+    "max" : " Maximum 5" ,
+    "mini" : "Minimum 1" ,
+    "commentedOn" : "Commented on your post you created about " ,
+    "Problem" : "Problem" ,
+    "AcceptedYour" : "Accepted Your Request !" ,
+    "Comment" : "Comment :" ,
+    "YouHaveSent" : "You Have Sent A Review Request." ,
+    "Customer" : "Customer :"
+  },
+  "chatMessages": {
+    "emailDot" : "Email : " ,
+    "messages" : "Messages" ,
+    "search": "Search...",
+    "chats": "Chats",
+    "worker": "Worker",
+    "email": "Email",
+    "noChats": "No Chats Found !",
+    "allChats": "All Chats",
+    "senderWorker": "Sender: Worker",
+    "sendMessage": "Send Message",
+    "senderCustomer": "Sender: Customer",
+    "makeReviewRequest": "Make Request Review",
+    "okayButton": "Okay",
+    "reviewRequestSent": "Review request sent successfully!"
+  },
+  "myprofile": {
+    "welcomeMessage": "Welcome",
+    "yourDashboard": "Your Dashboard",
+    "uploadPost": {
+      "title": "Upload A Post",
+      "description": "If you have an issue at home, you can upload a post describing the problem.",
+      "noteTitle": "Please note that:",
+      "noteContent": "Only workers from the relevant department (e.g., plumbing, electricity, etc.) will be able to view your issue. For example, if your problem is related to plumbing, only plumbing workers will see it."
+    },
+    "messagesAndNotifications": {
+      "title": "Messages and Notifications",
+      "description": "You can check your private messages and see which workers are requesting your review. Only rate workers who have actually completed a job for you.",
+      "noteTitle": "Please note that:",
+      "noteContent": "If a worker asks for a review without doing any work, do not provide a rating."
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "You can switch between dark and light mode, change your preferred language, update your name, and log out of your account.",
+      "noteTitle": "Please note that:",
+      "noteContent": "Make sure to save your settings to keep your preferences updated."
+    }
+  },
+  "browseprojectscomponent": {
+    "underbuilding": "This Page Is Under Building !"
+  },
+  "Home": {
+    "welcomeMessage": "Welcome To Dream Home"
+  },
+  "serviceDetails": {
+    "errorMessage": "No employees found for this service!",
+    "serviceTitle": "Service Workers",
+    "rateLabel": "Rate:",
+    "employeeJobLabel": "Employee Job:",
+    "contactNumberLabel": "Contact Number:",
+    "sendMessageLabel": "Send Message",
+    "recommendedWorkersLabel": "Recommended Workers For You",
+    "loadingMessage": "Loading Please Wait..."
+  },
+  "settings": {
+    "changeLanguage": "Change Language",
+    "arabic": "Arabic (اللغه العربيه)",
+    "english": "English (United Kingdom)",
+    "saveLanguage": "Save Language",
+    "changeTheme": "Change Theme",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "saveTheme": "Save Theme",
+    "updateProfile": "Update your profile",
+    "updateProfileHint": "Hint: Updating your profile helps build trust with customers and enhances your credibility.",
+    "logout": "Log out",
+    "confirmLogout": "Confirm Logout",
+    "logoutMessage": "Are you sure you want to log out?",
+    "close": "Close",
+    "yesLogout": "Yes, Log Out"
+  },
+  "main-chat": {
+    "chatNow": "Chat Now With Customer",
+    "You": "You",
+    "chatNowTwo": "Chat Now With Worker",
+    "placeHolder": "Type a message..."
+  },
+  "myprofile-emp": {
+    "welcome": "Welcome",
+    "browse_projects": "Browse Projects",
+    "browse_projects_desc": "As a worker, you can browse available projects in your department and check details to submit a suitable offer.",
+    "browse_projects_note": "You can only browse projects that belong to your department.",
+    "chats": "Chats",
+    "chats_desc": "As a worker, you can view your private messages and stay connected with your clients.",
+    "chats_note": "Your private messages are confidential and only visible to you and the sender.",
+    "notifications": "Notifications",
+    "notifications_desc": "As a worker, you can view review requests, see who accepted your reviews, and check replies to your comments.",
+    "notifications_note": "Notifications help you stay updated with all activity related to your interactions and tasks.",
+    "profile": "Profile",
+    "profile_desc": "As a worker, you can view and manage your profile information, including your skills, experience, and account settings.",
+    "profile_note": "Your profile is how clients get to know you—make sure it's always up to date."
+  },
+  "profile": {
+    "name": "First Name",
+    "job": "Employee Job",
+    "email": "Email",
+    "contactNumber": "Contact Number",
+    "rate": "Rate"
+  },
+  "sections": {
+    "details": "Details",
+    "sendMessage": "Send Message",
+    "reviewsAndComments": "Reviews & Comments"
+  },
+  "details": {
+    "employeeJob": "Employee Job",
+    "email": "Email",
+    "contactNumber": "Contact Number",
+    "employeeRate": "Employee Rate"
+  },
+  "reviews": {
+    "noReviews": "This user has no reviews yet!",
+    "rate": "Rate",
+    "comment": "Comment",
+    "reviewBy": "Review by"
+  },
+  "not-found": {
+    "h2": "Oops, This Page Not Found",
+    "h3": "The Link Might Be Corrupted",
+    "p": "Or The Page May Have Been Removed",
+    "button": "Go Back Home"
+  },
+  "dashboard": {
+    "welcomeMessage": "Welcome",
+    "dashboardTitle": "Dashboard",
+    "uploadPostTitle": "Upload Post",
+    "uploadPostDescription": "As a client, you can upload a post describing your issue, and only workers in the relevant category will be able to view and respond to it.",
+    "uploadPostNote": "Make sure to choose the right category so your post reaches the right experts.",
+    "chatsTitle": "Chats",
+    "chatsDescription": "As a client, you can view and manage your private messages with workers, ask questions, and track project discussions.",
+    "chatsNote": "Your chats are private and only visible to you and the worker you're speaking with.",
+    "notificationsTitle": "Notifications",
+    "notificationsDescription": "As a client, you can track review requests on your posts, see which workers interacted with your issues, and follow up on replies.",
+    "notificationsNote": "Notifications keep you informed about all activity related to your posts and communication with workers.",
+    "profileTitle": "Profile",
+    "profileDescription": "As a client, you can view and manage your profile details, track your activity history, and keep your account information up to date.",
+    "profileNote": "Your profile shows all your interactions, posts, and updates—keep it organized and current."
+  }
+}

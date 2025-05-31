@@ -1,0 +1,87 @@
+section{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 6rem;
+}
+.anmieWord {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 1s ease-out forwards;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.RegisteritionTxt {
+  width: fit-content;
+}
+.RegisteritionTxt::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+
+  height: 3px;
+  bottom: 5%;
+  left: 0;
+}
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  border: 6px solid ;
+  border-top: 6px solid ;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.content {
+  padding: 20px;
+}
+.inner {
+  animation: slideFromTop 1s ease-out;
+}
+@keyframes slideFromTop {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-100);
+    opacity: 1;
+  }
+}
+.counter {
+  position: absolute;
+  width: 30px ;
+  height: 30px;
+  background-color: rgb(245, 54, 54);
+  top: -15px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white !important;
+  font-size: 1.25rem;
+}

@@ -1,0 +1,255 @@
+<section class="">
+  <div class="container formDarkNdlight  py-4 px-2  rounded rounded-3">
+    <h1 class="mb-4 fw-bolder text-center position-relative ">
+      {{ 'registration.register' | translate }}
+    </h1>
+    <form [formGroup]="registerFormData" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="mb-3 col-12 col-md-6">
+          <label for="firstName" class="form-label">{{ 'registration.firstname' | translate }}</label>
+          <input formControlName="firstName" type="text" class="form-control py-2" id="firstName"
+            [placeholder]="'registration.firstname' | translate" />
+          @if(registerFormData.get('firstName')?.errors && registerFormData.get('firstName')?.touched) {
+          @if(registerFormData.get('firstName')?.getError('required')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('firstName')?.getError('pattern')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errormessagePattern" |
+            translate }} </p>
+          }@else if(registerFormData.get('firstName')?.getError('maxlength')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorMessageLong" |
+            translate }} </p>
+          }@else if(registerFormData.get('firstName')?.getError('minlength')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorMessageShort" |
+            translate }} </p>
+          }
+          }
+        </div>
+        <div class=" mb-3 col-12 col-md-6">
+          <label for="lastName" class="form-label">{{ 'registration.lastname' | translate }}</label>
+          <input formControlName="lastName" type="text" class="form-control py-2" id="lastName"
+            [placeholder]="'registration.lastname' | translate" />
+          @if(registerFormData.get('lastName')?.errors && registerFormData.get('lastName')?.touched) {
+          @if(registerFormData.get('lastName')?.getError('required')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('lastName')?.getError('pattern')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errormessagePattern" |
+            translate }} </p>
+          }@else if(registerFormData.get('lastName')?.getError('maxlength')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorMessageLong" |
+            translate }} </p>
+          }@else if(registerFormData.get('lastName')?.getError('minlength')) {
+          <p class="text-danger errorMessages  anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorMessageShort" |
+            translate }} </p>
+          }
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <label for="email" class="form-label">{{ 'registration.email' | translate }}</label>
+          <input formControlName="email" type="email" class="form-control py-2" id="email"
+            [placeholder]="'registration.email' | translate" />
+          @if(registerFormData.get('email')?.errors && registerFormData.get('email')?.touched) {
+          @if(registerFormData.get('email')?.getError('required')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('email')?.getError('email')) {
+          <p class="text-danger errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.invaild" | translate }} </p>
+          }@else if(registerFormData.get('email')?.getError('pattern')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.emailerrormessage" |
+            translate }} {{atChar}}gmail.com</p>
+          }
+          }
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <label for="contactNumber" class="form-label">{{ 'registration.contactNumber' | translate }}</label>
+          <input formControlName="contactNumber" type="tel" class="form-control py-2" id="contactNumber"
+            [placeholder]="'registration.contactNumber' | translate" />
+          @if(registerFormData.get('contactNumber')?.errors && registerFormData.get('contactNumber')?.touched) {
+          @if(registerFormData.get('contactNumber')?.getError('required')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('contactNumber')?.getError('pattern')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{"registration.Egyptianphonenumber" |
+            translate }} </p>
+          }
+          }
+        </div>
+      </div>
+      <div class="row">
+        <div class="  col-12 col-md-6  mb-3">
+          <label for="password" class="form-label">{{ 'registration.password' | translate }}</label>
+          <div class="position-relative">
+            <input formControlName="password" [type]="passwordVisible ? 'text' : 'password'" class="form-control py-2"
+              id="password" [placeholder]="'registration.password' | translate" />
+            @if(currentLang === 'en'){
+            <div class="icon-eye right-2 position-absolute" (click)="togglePasswordVisibility()">
+              <i class="fa-solid " [class.fa-eye]="passwordVisible" [class.fa-eye-slash]="!passwordVisible"></i>
+            </div>
+            }
+            @else if (currentLang === 'ar') {
+            <div class="icon-eye left-2 position-absolute" (click)="togglePasswordVisibility()">
+              <i class="fa-solid " [class.fa-eye]="passwordVisible" [class.fa-eye-slash]="!passwordVisible"></i>
+            </div>
+            }
+          </div>
+          @if(registerFormData.get('password')?.errors && registerFormData.get('password')?.touched) {
+          @if(registerFormData.get('password')?.getError('required')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('password')?.getError('pattern')) {
+          <ul class="px-2">
+            <li class="text-danger errorMessages anmieError my-2 d-flex align-items-center "><i
+                class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorinpass" | translate
+              }} </li>
+            <ul class="dotted">
+              <small class="mini d-flex justify-content-start align-items-center">
+                <i class="fa-solid fa-circle text-danger"></i>
+                <li class="text-danger  anmieError">{{ 'registration.errorConatin' | translate }}</li>
+              </small>
+              <small class="mini d-flex justify-content-start align-items-center">
+                <i class="fa-solid fa-circle text-danger"></i>
+                <li class="text-danger  anmieError">{{'registration.errorMessageShort' | translate }}</li>
+              </small>
+              <small class="mini d-flex justify-content-start align-items-center">
+                <i class="fa-solid fa-circle text-danger"></i>
+                <li class="text-danger  anmieError">{{'registration.errorMessageLong' | translate }}</li>
+              </small>
+            </ul>
+          </ul>
+          }@else if (registerFormData.get('password')?.getError('maxlength')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.errorinpass" | translate }}
+          </p>
+          }
+          }
+        </div>
+        <div class="position-relative col-12 col-md-6 mb-3">
+          <label for="password" class="form-label">{{ 'registration.repassword' | translate }}</label>
+          <div class="position-relative ">
+            <input formControlName="repassword" [type]="repasswordVisible ? 'text' : 'password'"
+              class="form-control py-2" id="repassword" [placeholder]="'registration.repassword' | translate" />
+            @if(currentLang === 'en') {
+            <div class="icon-eye position-absolute right-2" (click)="togglerePasswordVisibility()">
+              <i class="fa-solid " [class.fa-eye]="repasswordVisible" [class.fa-eye-slash]="!repasswordVisible"></i>
+            </div>
+            }@else if (currentLang === 'ar') {
+            <div class="icon-eye position-absolute left-2" (click)="togglerePasswordVisibility()">
+              <i class="fa-solid " [class.fa-eye]="repasswordVisible" [class.fa-eye-slash]="!repasswordVisible"></i>
+            </div>
+            }
+          </div>
+          @if(registerFormData.get('repassword')?.errors && registerFormData.get('repassword')?.touched) {
+          @if(registerFormData.get('repassword')?.getError('required')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if(registerFormData.get('repassword')?.getError('notMatch')) {
+          <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+              class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{"registration.PasswordDoesn't" | translate
+            }} </p>
+          }
+          }
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="fw-bold">{{ 'registration.selectRole' | translate }}</label>
+        @if(registerFormData.get('role')?.errors && registerFormData.get('role')?.touched) {
+        <p class="text-danger errorMessages anmieError ms-2 my-2 d-flex align-items-center "><i
+            class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{"registration.roleerror" | translate }} </p>
+        }
+        @if(currentLang === 'en') {
+        <div class="form-check">
+          <input formControlName="role" class="form-check-input" type="radio" value="customer" id="workerCheck" />
+          <label class="form-check-label" for="workerCheck">{{ 'registration.customer' | translate }}</label>
+        </div>
+        }
+        @else if (currentLang === 'ar') {
+        <div
+          class="form-check mt-2 w-fit d-flex  pb-2 align-items-center flex-row-reverse justify-content-center  flex-wrap">
+          <label class="form-check-label me-4" for="workerCheck">{{ 'registration.customer' | translate }}</label>
+          <input formControlName="role" class="form-check-input" type="radio" value="customer" id="workerCheck" />
+        </div>
+        }
+        @if (currentLang == 'ar') {
+        <div class="form-check  w-fit d-flex flex-row-reverse align-items-center justify-content-center  flex-wrap">
+          <label class="form-check-label me-4" for="employeeCheck">{{ 'registration.employee' | translate }}</label>
+          <input formControlName="role" class="form-check-input" type="radio" value="employee" id="employeeCheck"
+            checked />
+        </div>
+        }@else if (currentLang == 'en') {
+        <div class="form-check ">
+          <input formControlName="role" class="form-check-input" type="radio" value="employee" id="employeeCheck"
+            checked />
+          <label class="form-check-label" for="employeeCheck">{{ 'registration.employee' | translate }}</label>
+        </div>
+        }
+      </div>
+      @if(registerFormData.get('role')?.value === 'employee') {
+      <div class=" my-3">
+        <select formControlName="job" class="form-select" id="serviceSelect">
+          <option value="" disabled selected>{{ 'registration.selectJob' | translate }} </option>
+          <option value="plumbing"> {{"registration.plumb" | translate }} </option>
+          <option value="painting"> {{"registration.paint" | translate }} </option>
+          <option value="electricity"> {{"registration.Electricity" | translate }} </option>
+          <option value="satellite"> {{"registration.Satellite" | translate }} </option>
+          <option value="gypsum-board"> {{"registration.GYPSUM-BOARD" | translate }} </option>
+          <option value="carpentry"> {{"registration.Carpentry" | translate }} </option>
+          <option value="internet-networks"> {{"registration.InternetNetworks" | translate }} </option>
+          <option value="alumetal"> {{"registration.Alumetal" | translate }} </option>
+          <option value="curtains"> {{"registration.Curtains" | translate }} </option>
+          <option value="air-condition"> {{"registration.AirCondition" | translate }} </option>
+          <option value="home-appliances"> {{"registration.Homeappliances" | translate }} </option>
+          <option value="wooden-floors"> {{"registration.Woodenfloors" | translate }} </option>
+        </select>
+      </div>
+      }
+      @if(isLoading === true) {
+      <div class="d-flex justify-content-center py-3">
+        <button class="btn btn-FED754 w-100 disabled">
+          <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </button>
+      </div>
+      }@else if (isLoading === false) {
+      <div class="d-flex justify-content-center py-3">
+        <button class="btn btn-FED754 w-100 ">{{ 'registration.registerButton' | translate }} <i
+            class="fa-solid fa-right-to-bracket"></i> </button>
+      </div>
+      }
+    </form>
+    @if(emailExists === true) {
+    <p class="text-danger text-center"> <i class="me-1 fa-solid fa-circle-exclamation text-danger"></i>
+      {{"registration.exsit" | translate }} </p>
+    }
+    <p class="text-center haveAcc"> {{"registration.Have" | translate }} <span
+        class="cursor-pointer fw-bold text-decoration-underline" routerLink="/login"> {{"registration.LoginNow" |
+        translate }} </span></p>
+  </div>
+  @if(done === true) {
+  <div class="modal-overlay ">
+    <div class=" modal-content position-relative d-flex py-5 justify-content-center  shadow">
+      <div class="flex flex-column">
+        <p class="text-note"> {{"registration.otpSend" | translate }} </p>
+      </div>
+      <div class="otp-verification d-flex justify-content-center align-items-center flex-column">
+        <input type="text" [placeholder]="'registration.OtpPlaceHolder' | translate" [(ngModel)]="enteredOtp"
+          class="form-control w-100 mb-3" />
+        <button class="btn btn-primary w-100" (click)="verifyAndSubmit()"> {{"registration.verfiy" | translate }}
+        </button>
+      </div>
+      <button class="w-fit bg-transparent rounded-3 closemodalBtn cursor-pointer" (click)="closeModal()"> <i
+          class="fa-solid fa-xmark"></i> </button>
+    </div>
+  </div>
+  }
+</section>

@@ -1,0 +1,124 @@
+<section class="sec-image">
+  <div class="row container m-auto">
+    <div class="col-12 col-lg-4">
+      <div class="inner-items  shadow d-flex flex-column text-center py-1 py-lg-5">
+        <ul class="for-ul-items">
+          <li><i class="fa-solid fa-check icon-counter text-white my-3"></i></li>
+          <li class="fs-2">450</li>
+          <li class=" ">{{ 'stats_section.works_completed' | translate }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="inner-items shadow d-flex flex-column text-center py-1 py-lg-5">
+        <ul class="for-ul-items">
+          <li><i class="fa-solid fa-book  icon-counter text-white my-3"></i></li>
+          <li class="fs-2">25</li>
+          <li class=" ">{{ 'stats_section.years_of_experience' | translate }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4 ">
+      <div class="inner-items shadow d-flex flex-column text-center py-1 py-lg-5">
+        <ul class="for-ul-items">
+          <li><i class="fa-solid fa-users icon-counter text-white my-3"></i></li>
+          <li class="fs-2">550</li>
+          <li class=" ">{{ 'stats_section.total_clients' | translate }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="main-section-form  py-5" id="CONTACTUS">
+  <div class="form-touch px-5 py-5  container shadow rounded rounded-4 ">
+    <div class="row row-padding ">
+      <form class="col-12 col-lg-6" (ngSubmit)="sumbitForm()" [formGroup]="contactUsForm">
+        <h5 class="RegisteritionTxt pb-2  position-relative">{{'contact_section.send_message_title' | translate}}</h5>
+        <div class="my-4">
+          <input type="text" class=" form-control nameMessageUs rounded-2"
+            [placeholder]="'contact_section.name_placeholder' | translate" required id="floatingInput"
+            formControlName="name" autocomplete="off" />
+          @if(contactUsForm.get('name')?.errors && contactUsForm.get('name')?.touched) {
+          @if(contactUsForm.get('name')?.getError('required')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if (contactUsForm.get('name')?.getError('maxlength')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> 10 Chars As Long </p>
+          }
+          }
+        </div>
+        <div class="mb-3 ">
+          <input type="email" class="form-control emailMessageUs rounded-2" id="floatingInput"
+            aria-describedby="emailHelp" [placeholder]="'contact_section.email_placeholder' | translate" required
+            formControlName="email" autocomplete="off" />
+          @if(contactUsForm.get('email')?.errors && contactUsForm.get('email')?.touched) {
+          @if(contactUsForm.get('email')?.getError('required')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if (contactUsForm.get('email')?.getError('email')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> Invaild Email</p>
+          }
+          }
+        </div>
+        <div class="mb-3 ">
+          <input type="text" class="form-control subjectMsg rounded-2"
+            [placeholder]="'contact_section.subject_placeholder' | translate" required id="floatingTextarea2"
+            autocomplete="off" formControlName="subject" />
+          @if (contactUsForm.get('subject')?.errors && contactUsForm.get('subject')?.touched) {
+          @if(contactUsForm.get('subject')?.getError('required')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if (contactUsForm.get('subject')?.getError('maxlength')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> 32 Char As Long </p>
+          }
+          }
+        </div>
+        <div class="">
+          <textarea class="form-control" [placeholder]="'contact_section.message_inner_placeholder' | translate"
+            id="floatingTextarea2" style="height: 100px" formControlName="message" autocomplete="off"></textarea>
+          @if(contactUsForm.get('message')?.errors && contactUsForm.get('message')?.touched) {
+          @if(contactUsForm.get('message')?.getError('required')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i> {{ "registration.req" | translate }} </p>
+          }@else if (contactUsForm.get('message')?.getError('maxlength')) {
+          <p class="text-danger  errorMessages anmieError  ms-2 my-2 d-flex align-items-center "><i
+              class="me-1  fa-solid fa-circle-exclamation text-danger"></i>1000 Char As Long</p>
+          }
+          }
+        </div>
+        <button id="" class="rounded-2 btn my-4 d-flex justify-content-center align-items-center "> <span class="p-1">
+            {{'contact_section.send_button' | translate}} </span> </button>
+      </form>
+      <div class="col-12 col-lg-6 position-relative">
+        <h5 class="RegisteritionTxt pb-2 position-relative">{{'contact_section.get_in_touch_title' | translate}}</h5>
+        <p class="lead text-capitalize  contactTxtAr mt-4">{{'contact_section.contact_description' | translate}}</p>
+        <ul class="d-flex flex-column justify-content-center align-items-start">
+          <li class="my-1"><i class="fa-solid fa-location-dot fa-fw me-1  touch-icons text-note"></i> <span
+              class="txt-touch ">{{'contact_section.address' | translate}}</span></li>
+          <li class="my-1"><i class="fa-solid fa-mobile fa-fw me-1 touch-icons text-note"></i> <span
+              class="txt-touch phoneTxt">{{'contact_section.phone' | translate}}</span>
+          </li>
+          <li class="my-1"><i class="fa-regular fa-envelope fa-fw me-1 touch-icons text-note"></i> <span
+              class="txt-touch">{{'contact_section.email' | translate}}</span></li>
+        </ul>
+        <ul class="contact-ways d-flex ms-1">
+          <a href="https://www.instagram.com/" target="_blank" class=" iconsLinkFooter">
+            <li class="instagram spcial-li me-3 fs-5"><i class="fa-brands fa-instagram icon1 spcial-icon icons-footer"></i></li>
+          </a>
+          <a href="https://www.facebook.com/" class=" iconsLinkFooter" target="_blank">
+            <li class="facebook spcial-li me-3 fs-5"><i class="fa-brands fa-facebook icon4 spcial-icon  icons-footer"></i></li>
+          </a>
+          <a href="https://www.linkedin.com/" class=" iconsLinkFooter" target="_blank">
+            <li class="linked spcial-li me-3 fs-5"><i class="fa-brands fa-tiktok icon3 spcial-icon icons-footer"></i></li>
+          </a>
+          <a href="https://x.com/?lang=en" target="_blank" class="text-decoration-none iconsLinkFooter">
+            <li class="twitter-x spcial-li me-3 fs-5"><i class="fa-brands fa-x-twitter icon2 spcial-icon icons-footer"></i></li>
+          </a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

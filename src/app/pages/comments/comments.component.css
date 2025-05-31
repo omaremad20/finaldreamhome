@@ -1,0 +1,79 @@
+section {
+  min-height: 100vh !important;
+  margin-top: 1rem !important;
+  /* display: flex !important; */
+  /* justify-content: space-between !important; */
+  /* flex-direction: column !important; */
+  /* align-items: center !important; */
+}
+
+
+textarea {
+  min-height: 5px !important;
+  max-height: 100px !important;
+}
+button.uploadComment:hover {
+  background-color: transparent !important;
+}
+.timeComment {
+  font-size: 0.75rem !important;
+}
+.comment {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.padding-140px {
+  padding-bottom: 140px !important;
+}
+.uploadComment:hover i {
+  color: rgb(108, 105, 105) !important;
+}
+
+div.modal-content.optionsModal {
+  width: 100% !important;
+}
+button.noneButton:hover {
+  background-color: unset !important;
+  cursor: auto !important;
+}
+button.noneButtonTwo:hover {
+  background-color: unset !important;
+}
+.horzint {
+  width: 100% ;
+  height: 2px !important;
+  background-color: gray !important;
+}
+button.deleteComment {
+  background-color: red !important;
+  border: unset !important;
+}
+button.deleteComment:hober {
+  background-color: rgba(255, 0, 0, 0.732) !important;
+}
+.noCommentsYet {
+  min-height: calc(100vh - 207px);
+}
+.imgParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+button.removeHover:hover {
+  background-color: unset !important;
+  /* cursor: pointer; */
+}
+i.closeEditModal {
+  transition: ease-in-out color 0.3s ;
+}
+i.closeEditModal:hover {
+  color: rgb(190, 69, 69) !important;
+  transform: rotateX(180deg);
+}
+button.colorHover:hover {
+  color: gray !important;
+}
+

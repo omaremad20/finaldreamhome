@@ -1,0 +1,53 @@
+section {
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+}
+.w-15 {
+  width: 15%;
+}
+
+.inner.active {
+  background-color: #007bff;
+  color: white;
+  transition:  ease-in-out 0.3s all;
+}
+.details {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.details.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.reviews {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+.reviews.slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

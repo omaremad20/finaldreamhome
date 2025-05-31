@@ -1,0 +1,14 @@
+.number {
+  font-size: 5rem;
+  font-weight: bolder;
+}
+.linkHome {
+  all: unset !important;
+  background-color: black !important;
+  color: white !important;
+  padding: 0.5rem !important;
+  border-radius: 0.75rem !important;
+  font-weight: bolder !important;
+  font-size: 0.75rem !important;
+  cursor: pointer !important;
+}

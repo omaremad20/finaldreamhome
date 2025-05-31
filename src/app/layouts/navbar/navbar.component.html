@@ -1,0 +1,77 @@
+@if(authService.isLoggedIn()){
+<nav class="navbar navbar-expand-lg text-capitalize" [attr.data-bs-theme]="theme">
+  <div class="container">
+    <div class="logoAndimages w-fit d-flex justify-content-center align-items-center" routerLink="dreamhome"
+      routerLinkActive="activeLinkNow">
+      <a class="navbar-brand fs-5"><i class="fa-solid fa-house"></i> {{ "navbar.Dream" | translate }}
+        <span class="hometxt text-3xl font-bold underline">{{
+          "navbar.Home" | translate
+          }}</span></a>
+    </div>
+    <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 mb-lg-0" #ul [ngClass]="currentLang === 'ar' ? 'ms-auto' : 'me-auto'">
+        <li class="nav-item w-fit">
+          <a class="nav-link homeLink" aria-current="page" routerLink="dreamhome" routerLinkActive="activeLinkNow">{{
+            "navbar.home" | translate }}</a>
+        </li>
+        <li class="nav-item w-fit">
+          <a class="nav-link servicelink mx-2 text-capitalize" routerLink="{{
+              authService.getRole() === 'employee'
+                ? '/browse-projects'
+                : '/services'
+            }}" routerLinkActive="activeLinkNow" aria-current="page">
+            {{
+            authService.getRole() === "employee"
+            ? ("navbar.browseprojects" | translate)
+            : ("navbar.services" | translate)
+            }}</a>
+        </li>
+        <li class="nav-item w-fit">
+          <a class="nav-link homeLink" aria-current="page" routerLink="/my-profile"
+            routerLinkActive="activeLinkNow">{{ "navbar.dashboard" | translate }}</a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-end align-items-center options-ul">
+        <li class="nav-item dropdown d-flex justify-content-center align-items-center">
+          <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-gear"></i>
+          </a>
+          <ul class="dropdown-menu inner">
+            <li class="darkBtn" (click)="toggleTheme()">
+              <a class="dropdown-item">
+                @if (theme === 'light') {
+                <span>
+                  {{ "navbar.darkMode" | translate }}
+                </span>
+                } @if(theme === 'dark') {
+                <span>
+                  {{ "navbar.lightMode" | translate }}
+                </span>
+                }</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="changeLanguage()">
+                {{ "navbar.language" | translate }}
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" (click)="logout()">{{ "navbar.logout" | translate }}</a></li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </div>
+</nav>
+} @else {
+<div class="language-toggle">
+  <button class="btn btn-outline-secondary" (click)="changeLanguage()">
+    <i class="fa-solid fa-globe"></i>
+  </button>
+</div>
+}

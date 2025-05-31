@@ -1,0 +1,70 @@
+<section>
+  <div class="container">
+    <div class="parent inner rounded  py-4  d-flex justify-content-center align-items-center flex-column">
+      <div class="parentImage parentImageInProfile  rounded rounded-circle  w-15">
+        @if (images === null) {
+          <img src = "./images/none.jpg"  class="w-100 rounded rounded-circle d-block" [alt]="[firstName]"/>
+        }@else {
+          <img [src] = "images"  class="w-100 rounded rounded-circle d-block" [alt]="[firstName]"/>
+        }
+      </div>
+      <div class="name">
+        <p class="fw-bolder mt-3">{{firstName}}</p>
+      </div>
+    </div>
+    <div class="main-details">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="inner  shadow  cursor-pointer"
+          [class.active]="activeSection === 'details'"
+          (click)="showSection('details')">
+       <p class="text-center border  border-top-0 border-1 py-2 mt-3"> {{ 'sections.details' | translate }} </p>
+     </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="inner  shadow cursor-pointer">
+            <p class="text-center border border-top-0 border-1 py-2 mt-3" routerLink="/chat"> {{ 'sections.sendMessage' | translate }} </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="inner  shadow cursor-pointer"
+          [class.active]="activeSection === 'reviews'"
+          (click)="showSection('reviews')">
+       <p class="text-center border border-top-0 border-1 py-2 mt-3"> {{ 'sections.reviewsAndComments' | translate }} </p>
+     </div>
+        </div>
+      </div>
+      @if(activeSection === 'details') {
+        <div class="rounded details slide-up rounded-2 container p-4 inner">
+          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-briefcase mx-1"></i> {{ 'details.employeeJob' | translate }} : </span>  {{job}}</p>
+          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-envelope mx-1"></i> {{ 'details.email' | translate }} :</span>  {{email}}</p>
+          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-phone mx-1"></i> {{ 'details.contactNumber' | translate }} : </span> {{contactnumber}} </p>
+          @if(rate !== undefined && rate !== 'null') {
+            <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{ 'details.employeeRate' | translate }} :</span> {{ rate.split('').slice(0, 3).join('') || '0' }}</p>
+          }@else if (rate !== undefined && rate === 'null') {
+            <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{ 'details.employeeRate' | translate }} :</span> 0</p>
+          }
+        </div>
+      }
+      @if (activeSection === 'reviews') {
+        {{activeSection}}
+        <div class="row reviews slide-up">
+          @for (review of completedReviews; track $index) {
+            @if(review.rating == "null") {
+              <p class="alert alert-danger"> {{'reviews.noReviews' | translate }} </p>
+            }@else {
+              <div class="col-12">
+                <div class="inner p-4 rounded rounded-2 mb-3">
+                  <p> <span class="fw-bolder">  {{'reviews.rate' | translate }} </span>  {{review.rating}}</p>
+                  <p> <span class="fw-bolder"> {{'reviews.comment' | translate }}  </span> {{review.review}}</p>
+                  <p class="mb-0"> <span class="fw-bolder"> {{'reviews.reviewBy' | translate }} </span>  {{custName}}</p>
+                </div>
+              </div>
+              no
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

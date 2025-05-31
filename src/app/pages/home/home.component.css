@@ -1,0 +1,26 @@
+.parent {
+  width: 85%;
+  margin-inline: auto !important;
+  margin-top: 6rem;
+  direction: ltr; /* Force LTR for carousel container */
+}
+
+img {
+  border-radius: 10px !important;
+  display: block; /* Ensure proper display */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure carousel items are properly displayed in RTL */
+.owl-carousel {
+  direction: ltr;
+}
+
+.owl-stage {
+  direction: ltr;
+}
+
+.owl-item {
+  direction: ltr;
+}

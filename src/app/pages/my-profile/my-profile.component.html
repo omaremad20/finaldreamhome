@@ -1,0 +1,181 @@
+<!-- customerSide -->
+@if(userRole === 'customer') {
+<section>
+  <h1 class="fw-bold pb-4 text-center text-capitalize anmieWord">
+    {{ 'dashboard.welcomeMessage' | translate }}
+    <span class="anmieWord">{{ userName }}</span>
+  </h1>
+  <div class="container">
+    <h2 class="fw-medium pb-2 text-capitalize position-relative RegisteritionTxt">
+      {{ 'dashboard.dashboardTitle' | translate }}
+    </h2>
+    <div class="row my-4 h-100">
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/upload-post">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-upload fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'dashboard.uploadPostTitle' | translate }}</h2>
+            <p class="text-secondary mb-0">
+              {{ 'dashboard.uploadPostDescription' | translate }}
+            </p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6 "></i>
+            <p class="text-muted small mb-0 fw-semibold text-capitalize">
+              {{ 'dashboard.uploadPostNote' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/messages">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-envelope fs-1 py-3"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'dashboard.chatsTitle' | translate }}</h2>
+            <p class="text-secondary mb-0">
+              {{ 'dashboard.chatsDescription' | translate }}
+            </p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-note fw-semibold text-muted small mb-0">
+              {{ 'dashboard.chatsNote' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/notifications">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-bell fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'dashboard.notificationsTitle' | translate }}</h2>
+            <p class="text-secondary mb-0">
+              {{ 'dashboard.notificationsDescription' | translate }}
+            </p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-muted small mb-0 fw-semibold">
+              {{ 'dashboard.notificationsNote' | translate }}
+            </p>
+          </div>
+          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">{{notficationCount}}</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-user fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'dashboard.profileTitle' | translate }}</h2>
+            <p class="text-secondary mb-0">
+              {{ 'dashboard.profileDescription' | translate }}
+            </p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-muted small mb-0 fw-semibold">
+              {{ 'dashboard.profileNote' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- employeeSide -->
+}@else if (userRole === 'employee') {
+<section class="">
+  <h1 class="fw-bold pb-4 text-capitalize text-center anmieWord">
+    {{ 'myprofile-emp.welcome' | translate }} <span class="anmieWord">{{userName}}</span>
+  </h1>
+  <div class="container">
+    <h2 class="fw-medium pb-2 text-capitalize position-relative RegisteritionTxt"> {{ 'dashboard.dashboardTitle' |
+      translate }} </h2>
+    <div class="row my-4 h-100">
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/browse-projects">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-eye fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'myprofile-emp.browse_projects' | translate }}</h2>
+            <p class="text-secondary mb-0">{{ 'myprofile-emp.browse_projects_desc' | translate }}</p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-muted small mb-0 fw-semibold text-capitalize">
+              {{ 'myprofile-emp.browse_projects_note' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/messages">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-envelope fs-1 py-3"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'myprofile-emp.chats' | translate }}</h2>
+            <p class="text-secondary mb-0">{{ 'myprofile-emp.chats_desc' | translate }}</p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-note text-muted small mb-0 fw-semibold">
+              {{ 'myprofile-emp.chats_note' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/notifications">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-bell fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'myprofile-emp.notifications' | translate }}</h2>
+            <p class="text-secondary mb-0">{{ 'myprofile-emp.notifications_desc' | translate }}</p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-muted small mb-0 fw-semibold">
+              {{ 'myprofile-emp.notifications_note' | translate }}
+            </p>
+          </div>
+          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">{{notficationCount}}</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
+        <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+          routerLink="/">
+          <div class="text-center mb-3">
+            <i class="fa-solid fa-user fs-1 py-3 d-flex justify-content-center"></i>
+            <h2 class="fs-5 fw-bold mb-2">{{ 'myprofile-emp.profile' | translate }}</h2>
+            <p class="text-secondary mb-0">{{ 'myprofile-emp.profile_desc' | translate }}</p>
+          </div>
+          <div class="d-flex align-items-start mt-3">
+            <i class="fa-solid fa-circle warningNote mt-1 me-2 fs-6"></i>
+            <p class="text-muted small mb-0 fw-semibold">
+              {{ 'myprofile-emp.profile_note' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+}
+@if(isLoading === true) {
+<section class="text-center vh-100 d-flex flex-column justify-content-center align-items-center">
+
+</section>
+}

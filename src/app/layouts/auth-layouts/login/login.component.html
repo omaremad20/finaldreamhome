@@ -1,0 +1,90 @@
+<section class="min-vh-100 d-flex justify-content-center align-items-center ">
+  <div class="container  formDarkNdlight py-3 px-5   rounded-1">
+    <!-- Logo Animation -->
+    <div class="logo-container">
+      <div class="logo-circle">
+        <i class="fa-solid fa-house logo-icon"></i>
+      </div>
+    </div>
+    <!--  -->
+    <h1 class="mb-4 fw-bolder position-relative text-center sign-in-title">
+      {{'login.button' | translate }}
+    </h1>
+    <form [formGroup]="loginFormData" (ngSubmit)="showLoginData()">
+      <div class="mb-3">
+        <label for="email" class="form-label">{{ 'login.emailLabel' | translate }}</label>
+        <input formControlName="email" type="email" class="form-control py-2" id="email"
+          [placeholder]="'login.emailPlaceholder' | translate" />
+      </div>
+      <div class="errors mb-3 ">
+        @if(loginFormData.get('email')?.errors && loginFormData.get('email')?.touched) {
+        @if(loginFormData.get('email')?.getError('required')) {
+        <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+            class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.thisField" | translate }}</p>
+        }
+        @if(loginFormData.get('email')?.getError('email')) {
+        <p class="text-danger anmieError errorMessages ms-3 my-2 d-flex align-items-center "><i
+            class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.InvaildEmail" | translate }} </p>
+        }
+        @if(loginFormData.get('email')?.getError('pattern')) {
+        <p class="text-danger anmieError errorMessages ms-3 my-2 d-flex align-items-center "><i
+            class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.InvaildEmail" | translate }} </p>
+        }
+        }
+      </div>
+      <div class="position-relative  mb-3">
+        <label for="password" class="form-label">{{ 'login.passwordLabel' | translate }}</label>
+        <input formControlName="password" [type]="passwordVisible ? 'text' : 'password'" class="form-control py-2 "
+          id="password" [placeholder]="'login.passwordPlaceholder' | translate">
+        @if (currentLang === 'ar') {
+        <div class="icon-eye left-2  position-absolute" (click)="togglePasswordVisibility()" #i>
+          <i class="fa-solid " [class.fa-eye]="passwordVisible"
+            [title]="passwordVisible ? 'اخفاء كلمة السر' : 'اظهار كلمة السر'"
+            [class.fa-eye-slash]="!passwordVisible"></i>
+        </div>
+        }@else {
+        <div class="icon-eye right-2   position-absolute" (click)="togglePasswordVisibility()" #i>
+          <i class="fa-solid " [title]="passwordVisible ? 'HidePassword' : 'ShowPassword'"
+            [class.fa-eye]="passwordVisible" [class.fa-eye-slash]="!passwordVisible"></i>
+        </div>
+        }
+      </div>
+      <div class="errors ">
+        @if(loginFormData.get('password')?.errors && loginFormData.get('password')?.touched) {
+        @if(loginFormData.get('password')?.getError('required')) {
+        <p class="text-danger anmieError errorMessages  ms-3 mt-2 d-flex align-items-center">
+          <i class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.thisField" | translate }}
+        </p>
+        }
+        @if(loginFormData.get('password')?.getError('pattern') && sumbited === true) {
+        <p class="text-danger ms-3 anmieError my-2 d-flex align-items-center">
+          <i class="me-1 fa-solid errorMessages fa-circle-exclamation text-danger"></i> {{ "login.wrongPassword" |
+          translate }}
+        </p>
+        }
+        }
+      </div>
+      @if(isLoading === true) {
+      <div class="d-flex justify-content-center py-3">
+        <button class="btn btn-FED754 w-100 disabled">
+          <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </button>
+      </div>
+      }@else if(isLoading === false) {
+      <div class="d-flex justify-content-center py-3">
+        <button class="btn btn-FED754 w-100">
+          {{ 'login.button' | translate }} <i class="fa-solid me-2 fa-right-to-bracket"></i>
+        </button>
+      </div>
+      }
+    </form>
+    @if (loginError === true) {
+    <div class="d-flex justify-content-center align-items-center my-3">
+      <p class=" text-center  text-danger mb-0"> {{ "login.invaild" | translate}} </p>
+    </div>
+    }
+    <p class="text-center mb-0"> {{ "login.donot" | translate }} </p>
+    <span class="cursor-pointer mt-1  w-100 d-flex justify-content-center fw-bold text-decoration-underline"
+      routerLink="/register"> {{ "login.register" | translate }} </span>
+  </div>
+</section>

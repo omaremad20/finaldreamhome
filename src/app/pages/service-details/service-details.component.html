@@ -1,0 +1,185 @@
+@if(employeesData) {
+@if(employeesData.length) {
+<section class="pb-5">
+  <div class="d-flex justify-content-center">
+    <h1 class="text-center mb-3 fw-bold RegisteritionTxt text-capitalize  position-relative" #jobID>
+      @if(currentLang === 'en'){
+      {{ "serviceDetails.serviceTitle" | translate }}
+      @if(jobId === 'plumbing') {
+      {{ "servicex.PLUMBING" | translate }}
+      }@else if(jobId === 'painting') {
+      {{ "servicex.PAINTING" | translate }}
+      }@else if(jobId === 'electricity') {
+      {{ "servicex.ELECTRICITY" | translate }}
+      }@else if(jobId === 'satellite') {
+      {{ "servicex.SATELLITE" | translate }}
+      }@else if(jobId === 'gypsum-board') {
+      {{ "servicex.GYPSUM_BOARD" | translate }}
+      }@else if(jobId === 'carpentry') {
+      {{ "servicex.CARPENTRY" | translate }}
+      }@else if(jobId === 'internet-networks') {
+      {{ "servicex.INTERNET_NETWORKS" | translate }}
+      }@else if(jobId === 'alumetal') {
+      {{ "servicex.ALUMETAL" | translate }}
+      }@else if(jobId === 'curtains') {
+      {{ "servicex.CURTAINS" | translate }}
+      }@else if(jobId === 'air-condition') {
+      {{ "servicex.AIR_CONDITION" | translate }}
+      }@else if(jobId === 'home-appliances') {
+      {{ "servicex.HOME_APPLIANCES" | translate }}
+      }@else if(jobId === 'wooden-floors') {
+      {{ "servicex.WOODEN_FLOORS" | translate }}
+      }
+      }
+      @else if(currentLang === 'en'){
+      @if(jobId === 'plumbing') {
+      {{ "servicex.PLUMBING" | translate }}
+      }@else if(jobId === 'painting') {
+      {{ "servicex.PAINTING" | translate }}
+      }@else if(jobId === 'electricity') {
+      {{ "servicex.ELECTRICITY" | translate }}
+      }@else if(jobId === 'satellite') {
+      {{ "servicex.SATELLITE" | translate }}
+      }@else if(jobId === 'gypsum-board') {
+      {{ "servicex.GYPSUM_BOARD" | translate }}
+      }@else if(jobId === 'carpentry') {
+      {{ "servicex.CARPENTRY" | translate }}
+      }@else if(jobId === 'internet-networks') {
+      {{ "servicex.INTERNET_NETWORKS" | translate }}
+      }@else if(jobId === 'alumetal') {
+      {{ "servicex.ALUMETAL" | translate }}
+      }@else if(jobId === 'curtains') {
+      {{ "servicex.CURTAINS" | translate }}
+      }@else if(jobId === 'air-condition') {
+      {{ "servicex.AIR_CONDITION" | translate }}
+      }@else if(jobId === 'home-appliances') {
+      {{ "servicex.HOME_APPLIANCES" | translate }}
+      }@else if(jobId === 'wooden-floors') {
+      {{ "servicex.WOODEN_FLOORS" | translate }}
+      }
+      {{ "serviceDetails.serviceTitle" | translate }}
+      }
+    </h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      @for (employee of employeesData; track $index) {
+      <div class="col-12  my-3 rounded rounded-3">
+        <div
+          class="inner flex-column flex-md-row  cursor-pointer px-3  position-relative py-3 rounded rounded-4 d-flex justify-content-between align-items-center">
+          <div class="w-75  service-details" title="view worker profile" (click)="divCilcked(employee._id)"
+            routerLink="/employee-profile">
+            <div class="main">
+              <a class="profileEmployee">
+                <h2 class=" fw-bolder">{{employee.firstName}}</h2>
+              </a>
+              <h3> <i class="fa-solid fa-envelope"></i> {{employee.email}}</h3>
+              <div class="jobTitle d-flex my-1 align-items-center ms-2">
+                <i class="fa-solid fa-briefcase mx-1"></i>
+                <p class="m-0 ms-2"> <span class="fw-bolder text-capitalize"> {{ "serviceDetails.employeeJobLabel" |
+                    translate }} </span> {{employee.job}}</p>
+              </div>
+              <div class="employeeTitle d-flex my-1 align-items-center ms-2 ">
+                <i class="fa-solid mx-1 fa-phone"></i>
+                <p class="ms-2 mb-0">
+                  <span class="fw-bolder text-capitalize">{{ "serviceDetails.contactNumberLabel" | translate
+                    }}</span>{{employee.contactNumber}}
+                </p>
+              </div>
+              <div class="parentRatejobTitle  d-flex flex-column justify-content-between">
+                @if(employee.rate === null ){
+                <p class="rate m-0 p-0 ms-2"> <span class="fw-bolder"> <i class="fa-solid fa-percent mx-2 "></i> {{
+                    "serviceDetails.rateLabel" | translate }} </span> 0
+                  } @else {
+                <p class="rate m-0 p-0 ms-2"> <span class="fw-bolder"> <i class="fa-solid fa-percent mx-2 "></i> {{
+                    "serviceDetails.rateLabel" | translate }} </span> {{employee.rate.toFixed(1)}}
+                  <i class="fa-solid fa-star text-warning"></i>
+                </p>
+                }
+              </div>
+            </div>
+          </div>
+          <button (click)="divCilckedMessage(employee._id)"
+            class="btn  d-flex justify-content-between align-items-center" [routerLink]="['/chat']"> <span class="mb-0">
+              {{ "serviceDetails.sendMessageLabel" | translate }} </span> </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  @if (noRecommend === false && noRecommend !== undefined) {
+  <div class="container">
+    <div class="row">
+      <h1 class="fw-bolder px-0 ms-3 my-4 text-center text-md-start RegisteritionTxt w-fit position-relative" #el>{{
+        "serviceDetails.recommendedWorkersLabel" | translate }}</h1>
+      @defer (on viewport(el)) {
+      @for (employee of employeesData; track $index) {
+      @if(employee.rate >= 3.5) {
+      <div class="col-12 px-3 my-3 rounded rounded-3">
+        <div
+          class="inner flex-column flex-md-row cursor-pointer px-3 position-relative py-3 rounded rounded-2 d-flex justify-content-between align-items-center">
+          <div class="w-75  service-details" title="view worker profile" (click)="divCilcked(employee._id)"
+            routerLink="/employee-profile">
+            <div class="main ">
+              <a class="profileEmployee">
+                <h2 class=" fw-bold">{{employee.firstName}}</h2>
+              </a>
+              <h3>{{employee.email}}</h3>
+              <div class="jobTitle d-flex my-1 align-items-center ms-2">
+                <i class="fa-solid mx-2 fa-briefcase"></i>
+                <p class="m-0 ms-1"> <span class="text-capitalize fw-bolder"> {{ "serviceDetails.employeeJobLabel" |
+                    translate }} </span> {{employee.job}}</p>
+              </div>
+              <div class="employeeTitle d-flex my-1 align-items-center ms-2 ">
+                <i class="fa-solid mx-2 fa-phone"></i>
+                <p class="m-0 ms-1">
+                  <span class="text-capitalize fw-bolder">{{ "serviceDetails.contactNumberLabel" | translate }}</span>
+                  {{employee.contactNumber}}
+                </p>
+              </div>
+              <div class="parentRatejobTitle  d-flex flex-column justify-content-between">
+                @if(employee.rate === null ){
+                <p class="rate m-0 p-0 ms-2"> <span class="fw-bolder"> <i class="fa-solid fa-percent mx-2 "></i> {{
+                    "serviceDetails.rateLabel" | translate }} </span> 0
+                  } @else {
+                <p class="rate m-0 p-0 ms-2"> <span class="fw-bolder"> <i class="fa-solid fa-percent mx-2 "></i> {{
+                    "serviceDetails.rateLabel" | translate }} </span> {{employee.rate.toFixed(1)}}
+                  <i class="fa-solid fa-star text-warning"></i>
+                </p>
+                }
+              </div>
+            </div>
+          </div>
+          <button class="btn  d-flex justify-content-between align-items-center" [routerLink]="['/chat']"
+            (click)="divCilckedMessage(employee._id)"> <span class="mb-0"> {{ "serviceDetails.sendMessageLabel" |
+              translate }} </span> </button>
+        </div>
+      </div>
+      }
+      }
+      } @loading() {
+      <p class="fw-bolder  fs-3 d-flex mt-4  justify-content-center align-items-center">
+        <span> {{ "serviceDetails.loadingMessage" | translate }}</span>
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+      </p>
+      }
+    </div>
+  </div>
+  }
+</section>
+}
+}
+@if(noEmployees === true) {
+<div class="text-center vh-100 d-flex justify-content-center align-items-center">
+  <p class="w-75 text-danger fw-bolder fs-5 text-capitalize"> {{ "serviceDetails.errorMessage" | translate }} </p>
+</div>
+}
+@if(isLoading === true) {
+<section class="text-center vh-100 d-flex flex-column justify-content-center align-items-center">
+  <div class="loading-container">
+    <div class="loading-pulse"></div>
+    <div class="loading-pulse"></div>
+    <div class="loading-pulse"></div>
+  </div>
+</section>
+}

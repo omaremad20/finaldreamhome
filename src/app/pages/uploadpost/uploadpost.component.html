@@ -1,0 +1,63 @@
+@if(userRole === 'customer') {
+  <section class="min-vh-100 d-flex justify-content-center align-items-center pt-5">
+  <form (ngSubmit)="uploadPost()" [formGroup]="postForm" class="shadow px-3 py-5 rounded">
+    <h1 class="text-center fs-4"> {{ "uploadPost.UploadPost" | translate }} </h1>
+    <div class=" my-3">
+      <select formControlName="job" class="form-select" id="serviceSelect">
+        <option value="" disabled selected> {{ "uploadPost.Problem" | translate }} </option>
+        <option value="plumbing"> {{"registration.plumb" | translate }} </option>
+        <option value="painting"> {{"registration.paint" | translate }} </option>
+        <option value="electricity"> {{"registration.Electricity" | translate }} </option>
+        <option value="satellite"> {{"registration.Satellite" | translate }} </option>
+        <option value="gypsum-board"> {{"registration.GYPSUM-BOARD" | translate }} </option>
+        <option value="carpentry"> {{"registration.Carpentry" | translate }} </option>
+        <option value="internet-networks"> {{"registration.InternetNetworks" | translate }} </option>
+        <option value="alumetal"> {{"registration.Alumetal" | translate }} </option>
+        <option value="curtains"> {{"registration.Curtains" | translate }} </option>
+        <option value="air-condition"> {{"registration.AirCondition" | translate }} </option>
+        <option value="home-appliances"> {{"registration.Homeappliances" | translate }} </option>
+        <option value="wooden-floors"> {{"registration.Woodenfloors" | translate }} </option>
+      </select>
+    </div>
+    <div class="errors mb-3 ">
+      @if(postForm.get('job')?.errors && postForm.get('job')?.touched) {
+      @if(postForm.get('job')?.getError('required')) {
+      <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+          class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.thisField" | translate }}</p>
+      }
+      }
+    </div>
+    <div class="mb-3">
+      <textarea name="" formControlName="content" id="formGroupExampleInput2" class="form-control"
+        style="resize: none; height: 100px; overflow-y: auto;" [placeholder]="'uploadPost.whatsProblem' | translate "></textarea>
+    </div>
+    @if(postForm.get('content')?.errors && postForm.get('content')?.touched) {
+    @if(postForm.get('content')?.getError('required')) {
+    <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+        class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "login.thisField" | translate }}</p>
+    }@else if (postForm.get('content')?.getError('minlength')) {
+    <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+        class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "uploadPost.asShort" | translate }}</p>
+    }@else if (postForm.get('content')?.getError('maxlength')) {
+    <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+        class="me-1 fa-solid fa-circle-exclamation text-danger"></i> {{ "uploadPost.asLong" | translate }}</p>
+    }
+    }
+    <div class="mb-3">
+      <label class="mb-2">({{ "uploadPost.Optional" | translate }})</label>
+      <input type="file"  class="form-control customInput" formControlName="image" id="formGroupExampleInput3" >
+    </div>s
+    @if(postForm.get('image')?.errors && postForm.get('image')?.touched) {
+    @if(postForm.get('image')?.getError('notMatch')) {
+    <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
+        class="me-1 fa-solid fa-circle-exclamation text-danger"></i>{{ "uploadPost.onlyImages" | translate }}</p>
+    }
+    }
+    @if(postForm.get('content')?.valid && postForm.get('job')?.valid && postForm.get('image')?.valid) {
+      <button class="btn w-100 border-0"  >{{ "uploadPost.Post" | translate }}</button>
+    }@else {
+      <button class="btn w-100 border-0" disabled >{{ "uploadPost.Post" | translate }}</button>
+    }
+  </form>
+</section>
+}

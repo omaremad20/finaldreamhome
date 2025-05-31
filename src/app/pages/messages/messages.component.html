@@ -1,0 +1,107 @@
+@if (AllChats) {
+@if(!AllChats.length) {
+<div class="text-center vh-100 d-flex justify-content-center align-items-center">
+  @if (isLoading === false) {
+  <p class="text-danger fw-bolder fs-5 text-capitalize">{{'chatMessages.noChats' | translate}}</p>
+  }
+</div>
+}@else {
+<section class="pb-5">
+  <div class="container">
+    <div class="col-12 border-0   px-0  position-relative  area-search  ">
+      <div class="z-3 border-0   rounded-bottom-1  main-area-search editAreaSearch">
+        <p class="pt-3 fw-bolder fs-3"> {{ 'chatMessages.chats' | translate }} </p>
+        <input type="search" class="form-control mb-2 " [(ngModel)]="searchText"
+          [placeholder]="'chatMessages.search' | translate" />
+      </div>
+      <div class="SideAllChats">
+        @for (chat of AllChats | chatSearch : searchText; track chat._id) {
+        <div class="row ">
+          <div class="col-12 ">
+            @if(userRole === 'customer') {
+            <div class="inner mb-2 chatHoverd rounded-1 cursor-pointer p-2 editInnerWidth"
+            [routerLink]="['/chat' , chat.user2._id , chat.messages[chat.messages.length - 1]._id]">
+              <p class="fw-bolder">{{chat.user2.email}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0 ">{{ chat.messages[chat.messages.length - 1]?.message?.split('')?.slice(0 ,
+                  16)?.join('')}}...</p>
+                <p class="mb-0 fw-bolder timeComment">{{ chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(8 ,
+                  10)?.join('')}}/{{
+                  chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(5 , 7)?.join('')}}/{{
+                  chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(0 , 4)?.join('')}}</p>
+              </div>
+            </div>
+            }@else if (userRole === 'employee') {
+            <div class="inner mb-2 mx-auto chatHoverd rounded-1 cursor-pointer p-2 editInnerWidth"
+              (click)="divCilcked(chat.user1._id , chat.messages[chat.messages.length - 1]._id)" routerLink="/main-chat">
+              <div class="d-flex mb-2 justify-content-between align-items-center">
+                <p class="fw-bolder mb-0">{{chat.user1.email}}</p>
+                @if(!customersNO.includes(chat.user1._id)) {
+                <span class="text-center m fw-bolder innerBtn position-relative"
+                  (click)="sendReviewRequest(chat.user1._id)">{{'chatMessages.makeReviewRequest' | translate}}</span>
+                }
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-0">{{ chat.messages[chat.messages.length - 1]?.message?.split('')?.slice(0 ,
+                  16)?.join('')}}...</p>
+                <p class="mb-0 fw-bolder timeComment">{{ chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(8 ,
+                  10)?.join('')}}/{{
+                  chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(5 , 7)?.join('')}}/{{
+                  chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(0 , 4)?.join('')}}</p>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+        }
+        @if (searchText !== '') {
+        <p class="px-3 fw-bolder fs-4">Messages</p>
+        }
+        @for (data of messagesSearch; track $index) {
+        @if(data.message.includes(searchText) && searchText !== '') {
+        <div class="inner  chatHoverd overflow-x-hidden rounded-1 p-2 cursor-pointer m-2 mb-3"
+          (click)="divCilcked(data.userId , data.messageId)" (click)="reload()">
+
+          <p class="mb-0 fw-bolder">{{ data.email }}</p>
+
+          <div class="d-flex">
+            @if(data.isSender === true) {
+            <p class="my-1">
+              <span class="mb-0 my-1 rounded-1 breakMessage w-fit">
+                {{ data.message.slice(0, 15) }} ...
+              </span>
+            </p>
+            } @else {
+            <p class="my-1">
+              <span class="mb-0 my-1 rounded-1 breakMessage w-fit">
+                {{ data.message.slice(0, 15) }} ...
+              </span>
+            </p>
+            }
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <small class="mb-0 timeComment fw-bolder">
+              @let hour = +data.timestamp.split('T')[1].slice(0, 2);
+              @let minute = data.timestamp.split('T')[1].slice(3, 5);
+              @if (hour + 3 >= 24) {
+              {{ ((hour + 3) % 24 === 0 ? 12 : (hour + 3) % 24) }}:{{ minute }}{{ 'notifications.AM' | translate }}
+              } @else if (hour + 3 === 12) {
+              12:{{ minute }}{{ 'notifications.PM' | translate }}
+              } @else if (hour + 3 < 12) { {{ hour + 3 }}:{{ minute }}{{ 'notifications.AM' | translate }} } @else if
+                (hour + 3> 12 && hour + 3 < 24) { {{ hour + 3 - 12 }}:{{ minute }}{{ 'notifications.PM' | translate }} }
+                  </small>
+                  <p class="mb-0 timeComment fw-bolder">
+                    {{ data.timestamp.split('T')[0].split('-')[2] }}/{{ data.timestamp.split('T')[0].split('-')[1] }}/{{ data.timestamp.split('T')[0].split('-')[0] }}
+                  </p>
+          </div>
+
+        </div>
+        }
+        }
+      </div>
+    </div>
+  </div>
+</section>
+}
+}

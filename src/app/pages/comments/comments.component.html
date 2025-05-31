@@ -1,0 +1,300 @@
+<section class="container " #parent>
+  <!-- post -->
+  @if (post) {
+  <div class="post w-100 ">
+    <div class="row ">
+      <div class="col-12">
+        <div class="inner p-3 p-3  rounded-1">
+          <div class="border-2 rounded-1 border-dark-subtle border p-2">
+            <div class="d-flex align-items-center">
+              <div class="imgParent align-self-start">
+                <img src="./images/none.jpg" class="d-block w-100 rounded-circle" alt="" srcset="">
+              </div>
+              <div class="mx-2  w-100">
+                <div class=" d-flex justify-content-between align-items-center">
+                  <p class="customerName mb-0 fw-bolder "> {{"posts.Customer" | translate }} : {{userNameMakePost}}
+                    @if (userIdMakePost === userId) {
+                    <small class="text-muted">(You)</small>
+                    }
+                  </p>
+                  @if(userIdMakePost === userId) {
+                  <button class="border-0 bg-transparent noneButton"
+                    [attr.data-bs-target]="'#exampleModalToggle2' + post._id" data-bs-toggle="modal"
+                    (click)="commentValue(post.content)"><i class="fa-solid fa-ellipsis cursor-pointer"></i></button>
+                  <div class="modal fade" [id]="'exampleModalToggle2' + post._id" aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content optionsModal">
+                        <div class="modal-body d-flex flex-column px-0 pb-0">
+                          <button class="border-0 bg-transparent rounded-1 fs-6 noneButton"
+                            [attr.data-bs-target]="'#formEdit' + post._id" data-bs-toggle="modal"
+                            (click)="commentValue(post.content)"> <span class="cursor-pointer">Edit Post</span>
+                          </button>
+                          <div class="horzint my-1"></div>
+                          <button class="border-0 bg-transparent rounded-1 fs-6  noneButton "
+                            [attr.data-bs-target]="'#exampleModalToggle' + post._id" data-bs-toggle="modal"> <span
+                              class="cursor-pointer text-danger">Delete Post</span>
+                          </button>
+                        </div>
+                        <div class="horzint my-1"></div>
+                        <button type="button" class="border-0 mb-2 bg-transparent noneButton" data-bs-dismiss="modal"
+                          aria-label="Close"> <span class="cursor-pointer">{{ "comments.Cancel" | translate
+                            }}</span></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade " tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                    [id]="'formEdit' + post._id">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                      <div class="modal-content optionsModal">
+                        <div class="modal-header d-flex justify-content-between align-items-center">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel"> Edit Post
+                          </h1>
+                          <button type="button" class="border-0 bg-transparent text-danger fs-3 removeHover"
+                            data-bs-dismiss="modal" aria-label="Close"><i
+                              class="closeEditModal fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="modal-body">
+                          <form [formGroup]="formUpdated" (ngSubmit)="updateComment(post._id)">
+                            <textarea class="form-control rounded-2" formControlName="comment"
+                              style="resize:  none; height: 100px;" (input)="disableChangeCommentButton()"
+                              #textAreaShadowTwo>
+                          </textarea>
+                            <div class="w-100 d-flex justify-content-end align-items-center">
+                              @if(this.disableButton === false) {
+                              <button class="mt-2 btn border-0">{{ "comments.Save" | translate }}</button>
+                              }@else {
+                              <button class="mt-2 btn border-0" disabled>{{ "comments.Save" | translate }}</button>
+                              }
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal fade" [id]="'exampleModalToggle' + post._id" aria-hidden="true"
+                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content optionsModal">
+                        <div class="modal-header">
+                          <h3 class="mb-0 fs-5">Confirm Delete Post</h3>
+                        </div>
+                        <div class="modal-body">
+                          <div class="d-flex  align-items-center justify-content-between">
+                            <button type="button" class="border-0 bg-transparent removeHover colorHover"
+                              data-bs-dismiss="modal" aria-label="Close">{{ "comments.Cancel" | translate }}</button>
+                            <button class="btn border-0 text-white deleteComment" (click)="deletePost(post._id)">Delete Post</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  }
+                </div>
+
+                <div class="mx-1">
+                  <small class="time  timeComment  fw-bolder  ">
+                    {{post.updatedAt.split('').slice(8 , 10).join('')}}/{{post.updatedAt.split('').slice(5
+                    ,7).join('')}}/{{post.updatedAt.split('').slice(0 , 4).join('')}}
+                  </small>
+                  <small>|</small>
+                  <small class="time  timeComment  fw-bolder">
+                    @if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+                    {{((+post.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+                    (+post.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+                    }}:{{post.updatedAt.split('').slice(14
+                    , 16).join('')}}{{'notifications.AM' | translate}}
+                    }@else if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 === 12) {
+                    12:{{post.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+                    }@else if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                      {{+post.updatedAt.split('').slice(11 , 13).join('') + 3 }}:{{post.updatedAt.split('').slice(14 ,
+                      16).join('')}}{{'notifications.AM' | translate}} }@else if (+post.updatedAt.split('').slice(11 ,
+                      13).join('') + 3> 12 && +post.updatedAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                        {{(+post.updatedAt.split('').slice(11 , 13).join('') + 3 - 12
+                        )}}:{{post.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} } <i
+                        class="fa-solid fa-clock"></i>
+                  </small>
+                </div>
+                <div class="postcontent">
+                  <div class="py-1 ">
+                    <p class="contentBE mb-0 fs-5 px-2">{{post.content}}</p>
+                  </div>
+                  <div class="parentImage  position-relative">
+                    <img [src]="post.image" alt="" class="w-100 d-block" srcset="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+  <!-- end-post -->
+
+  <!-- comments -->
+  @if (comments) {
+  @if(!comments.length) {
+  <div class="noCommentsYet flex-column d-flex justify-content-center align-items-center">
+    <i class="fa-brands fs-1 mb-lg-3 fa-rocketchat"></i>
+    <p class="mb-0 fw-bolder"> {{ "comments.Start" | translate }} </p>
+  </div>
+  }@else {
+  <div class="commentsOnPost  container mt-2 padding-140px" #commentsOnPost>
+    <h2>Comments</h2>
+    <div class="position-relative ">
+      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer z-3 position-relative " #mostRelevant (click)="showAllCommentsText()">Most Relevant <i class="fas fa-chevron-left" style="transform: rotate(270deg);"></i></p>
+      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer bg-white w-fit rounded-2 py-1 px-2 position-absolute top-0 z-0 opacity-0" (click)="removeMostRelevantText()">All Comments</p>
+    </div>
+    @for (comment of comments; track comment._id) {
+    <div class="row mx-2">
+      <div class="col-12 my-2  rounded-1 p-1 d-flex align-items-center" [class]="{
+        'targetComment' :commentTarget == comment._id
+      }">
+        <div class="imgParent mt-2 mx-1 align-self-start">
+          <img src="./images/none.jpg" class="d-block w-100 rounded-circle" alt="userImage" srcset="">
+        </div>
+        <div class="d-flex flex-column">
+          <div class="inner p-2 rounded-1 d-flex flex-column justify-content-start w-fit align-items-start"
+            [id]="comment._id">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+              <p class="userCreateComment mb-0 fw-bolder text-capitalize">
+                @if(comment.userId.firstName === undefined) {
+                {{userNameMakeComment}}
+                }@else {
+                {{comment.userId.firstName + " " + comment.userId.lastName }}
+                }
+              </p>
+              <!-- modaleditanddeletecomment -->
+              @if(userId === comment.userId._id ) {
+              <button class="border-0 bg-transparent noneButton"
+                [attr.data-bs-target]="'#exampleModalToggle2' + comment._id" data-bs-toggle="modal"
+                (click)="commentValue(comment.comment)"><i class="fa-solid fa-ellipsis cursor-pointer"></i></button>
+              <div class="modal fade" [id]="'exampleModalToggle2' + comment._id" aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content optionsModal">
+                    <div class="modal-body d-flex flex-column px-0 pb-0">
+                      <button class="border-0 bg-transparent rounded-1 fs-6 noneButton"
+                        [attr.data-bs-target]="'#formEdit' + comment._id" data-bs-toggle="modal"
+                        (click)="commentValue(comment.comment)"> <span class="cursor-pointer">{{ "comments.EditComment"
+                          | translate }}</span>
+                      </button>
+                      <div class="horzint my-1"></div>
+                      <button class="border-0 bg-transparent rounded-1 fs-6  noneButton "
+                        [attr.data-bs-target]="'#exampleModalToggle' + comment._id" data-bs-toggle="modal"> <span
+                          class="cursor-pointer text-danger">{{ "comments.DeleteComment" | translate }}</span> </button>
+                    </div>
+                    <div class="horzint my-1"></div>
+                    <button type="button" class="border-0 mb-2 bg-transparent noneButton" data-bs-dismiss="modal"
+                      aria-label="Close"> <span class="cursor-pointer">{{ "comments.Cancel" | translate
+                        }}</span></button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade " tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                [id]="'formEdit' + comment._id">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                  <div class="modal-content optionsModal">
+                    <div class="modal-header d-flex justify-content-between align-items-center">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">{{ "comments.EditComment" | translate }}</h1>
+                      <button type="button" class="border-0 bg-transparent text-danger fs-3 removeHover"
+                        data-bs-dismiss="modal" aria-label="Close"><i
+                          class="closeEditModal fa-solid fa-xmark"></i></button>
+                    </div>
+                    <div class="modal-body">
+                      <form [formGroup]="formUpdated" (ngSubmit)="updateComment(comment._id)">
+                        <textarea class="form-control rounded-2" formControlName="comment"
+                          style="resize:  none; height: 100px;" (input)="disableChangeCommentButton()"
+                          #textAreaShadowTwo>
+                          </textarea>
+                        <div class="w-100 d-flex justify-content-end align-items-center">
+                          @if(this.disableButton === false) {
+                          <button class="mt-2 btn border-0">{{ "comments.Save" | translate }}</button>
+                          }@else {
+                          <button class="mt-2 btn border-0" disabled>{{ "comments.Save" | translate }}</button>
+                          }
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" [id]="'exampleModalToggle' + comment._id" aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content optionsModal">
+                    <div class="modal-header">
+                      <h3 class="mb-0 fs-5">{{ "comments.ConfirmDelete" | translate }}</h3>
+                    </div>
+                    <div class="modal-body">
+                      <div class="d-flex  align-items-center justify-content-between">
+                        <button type="button" class="border-0 bg-transparent removeHover colorHover"
+                          data-bs-dismiss="modal" aria-label="Close">{{ "comments.Cancel" | translate }}</button>
+                        <button class="btn border-0 text-white deleteComment"
+                          (click)="deleteComment(comment._id, comments.indexOf(comment))">{{ "comments.Delete" |
+                          translate }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+            <!--end-modaleditanddeletecomment -->
+            <!-- commentContent -->
+            <p class="comment w-100 mb-0">{{comment.comment}}</p>
+            <div class="d-flex my-1 w-100 justify-content-between align-items-center">
+              @if(comment?.updatedAt) {
+              <small class="mx-1 align-self-end timeComment fw-bolder">
+                {{comment.updatedAt.split('').slice(8 , 10).join('')}}/{{comment.updatedAt.split('').slice(5 ,
+                7).join('')}}/{{comment.updatedAt.split('').slice(0 , 4).join('')}}
+              </small>
+              <small class="mx-1 align-self-end timeComment fw-bolder">
+                @if (+comment.updatedAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+                {{((+comment.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ?
+                12:(+comment.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+                }}:{{comment.updatedAt.split('').slice(14
+                , 16).join('')}}{{'notifications.AM' | translate}}
+                }@else if (+comment.updatedAt.split('').slice(11 , 13).join('') + 3 === 12) {
+                12:{{comment.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+                }@else if (+comment.updatedAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                  {{+comment.updatedAt.split('').slice(11 , 13).join('') + 3 }}:{{comment.updatedAt.split('').slice(14 ,
+                  16).join('')}}{{'notifications.AM' | translate}} } @else if (+comment.updatedAt.split('').slice(11 ,
+                  13).join('') + 3> 12 && +comment.updatedAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                    {{(+comment.updatedAt.split('').slice(11 , 13).join('') + 3 - 12
+                    )}}:{{comment.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} }
+                    </small>
+                    }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end-commentContent -->
+    }
+  </div>
+  }
+  }
+
+  <!-- end-comments -->
+
+  <!-- upload-comment -->
+  <div class="inputToMakeComment container mx-auto inner p-3 rounded-top-2 position-fixed bottom-0 start-0 end-0">
+    <form (ngSubmit)="postComment()" [formGroup]="formComment"
+      class=" position-relative d-flex justify-content-center align-items-center">
+      <textarea class="form-control px-4" (input)="value()" formControlName="comment"
+        [placeholder]='"comments.Leaveacomment" | translate' id="floatingTextarea2"
+        style="height: 40px; resize: none; overflow-y: auto;" (input)="adjustTextarea($event)"
+        #textAreaShadow></textarea>
+      <button
+        class="d-flex border-0 w-fit bg-transparent position-absolute  cursor-pointer fs-5 mx-4 justify-content-center uploadComment align-items-center"
+        [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+  </div>
+  <!-- end-upload-comment -->
+</section>
+<!-- <button class="btn btn-dark text-white" (click)="commentsUser()">hello</button> -->
