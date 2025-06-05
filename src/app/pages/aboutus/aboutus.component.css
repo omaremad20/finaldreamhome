@@ -2,6 +2,7 @@
   cursor: pointer;
   margin-block: 2rem;
 }
+
 .servicesText::after {
   content: "";
   position: absolute;
@@ -13,17 +14,21 @@
   transition: ease-in-out 0.3s width;
 
 }
+
 .servicesText:hover::after {
   width: 100%;
 }
+
 .aboutus {
-  padding-top: 2.75rem ;
+  padding-top: 2.75rem;
   padding-bottom: 4.5rem;
 }
+
 .aboutText {
   cursor: pointer;
   margin-block: 2rem;
 }
+
 .aboutText::after {
   content: "";
   position: absolute;
@@ -34,9 +39,11 @@
   height: 5px;
   transition: ease-in-out 0.3s width;
 }
+
 .aboutText:hover::after {
   width: 100%;
 }
+
 i.icon-process {
   border-radius: 50%;
   width: 100px;

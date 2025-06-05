@@ -11,9 +11,9 @@
         </div>
         <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
         @if(userProfileData.images === null){
-        <img src="./images/none.jpg" alt="none image" class="w-100 h-100 rounded rounded-circle d-block" />
+        <img src="./images/none.jpg" [alt]="'mineprofile.noneImage' | translate" class="w-100 h-100 rounded rounded-circle d-block" />
         }@else {
-        <img [src]="userProfileData.images" alt="none image"
+        <img [src]="userProfileData.images" [alt]="userProfileData.firstName + 'mineprofile.profilePhoto' | translate"
           class="w-100 h-100 rounded rounded-circle EditImage d-block" />
         }
       </div>
@@ -92,7 +92,7 @@
         <div class="col-12 relatedAboutme">
           <div class="inner p-3 rounded  rounded-3 shadow">
             @if (userProfileData) {
-            <ul class="list-unstyled my-0">
+            <ul class="list-unstyled my-0 px-0">
               <p>
                 <li> <span class="fw-bolder">{{"mineprofile.Name" | translate }} : </span> {{userProfileData.firstName}}
                   {{userProfileData.lastName}}
@@ -125,7 +125,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="inner cursor-pointer my-3 p-3 rounded rounded-2 shadow" title="log out" (click)="logOut()">
+              <div class="inner cursor-pointer my-3 p-3 rounded rounded-2 shadow" [title] = "'mineprofile.LogOut' |  translate" (click)="logOut()">
                 <p class="fw-bolder fs-4 mb-0">{{"mineprofile.LogOut" | translate }} <i
                     class="fa-solid fa-right-from-bracket"></i></p>
               </div>
@@ -142,7 +142,7 @@
               <div class="border-2 rounded-1 border-dark-subtle border p-2">
                 <div class="d-flex align-items-center ">
                   <p class="customerName mb-0 fw-bolder fs-4">{{"mineprofile.Me" | translate }}</p>
-                  <small class="fw-light mx-1">({{"mineprofile.About" | translate }}{{post.job}}{{"mineprofile.Problem"
+                  <small class="fw-light mx-1">({{"mineprofile.ABOUT" | translate }} {{post.job}} {{"mineprofile.Problem"
                     | translate }})</small>
                 </div>
                 <div class="mx-1">
@@ -173,11 +173,11 @@
                     <p class="contentBE mb-0 px-2">{{post.content}}</p>
                   </div>
                   <div class="parentImagePost position-relative" (click)="openImage(post.image)">
-                    <img [src]="post.image" alt="" class="w-100 cursor-pointer rounded rounded-2 d-block" />
+                    <img [src]="post.image" [alt] = "'mineprofile.minePostPhoto' | translate" class="w-100 cursor-pointer rounded rounded-2 d-block" />
                   </div>
                   @if (selectedImage) {
                   <div class="image-modal" (click)="closeImage()">
-                    <img [src]="selectedImage" alt="Full Image" (click)="$event.stopPropagation()" />
+                    <img [src]="selectedImage" [alt]="'mineprofile.fullImage'| translate" (click)="$event.stopPropagation()" />
                     <button class="rounded rounded-2 close-btn" (click)="closeImage()"><i
                         class="fa-solid fa-xmark"></i></button>
                   </div>
@@ -200,7 +200,7 @@
             {{"mineprofile.noPosts" | translate }}
           </p>
           <a routerLink="/upload-post" class="text-decoration-none fw-bold text-decoration-underline"
-            title="Upload Post">{{"mineprofile.UploadPostNow" | translate }}</a>
+            [title] = "'mineprofile.UploadPostNow' | translate" >{{"mineprofile.UploadPostNow" | translate }}</a>
         </div>
         }
         }
@@ -241,17 +241,17 @@
           <div class="row">
             @for (comment of comments; track comment._id) {
             <div class="col-12">
-              <div class="inner cursor-pointer p-3 rounded rounded-3 shadow my-3" title="Tap To View"
+              <div class="inner cursor-pointer p-3 rounded rounded-3 shadow my-3" [title]=" 'mineprofile.tapToview' | translate"
                 [routerLink]="['/comments' , comment.postId]">
                 @if (comment.comment.split('').length > 11) {
                 <p class=" mb-0">{{"mineprofile.YouAreCommented" | translate }}'{{comment.comment.split('').slice(0 ,
                   10).join('')}}...' {{"mineprofile.OnCustomer" | translate }}
-                  <span class="fw-bolder">{{comment.customerData.firstName}} </span> Post.
+                  <span class="fw-bolder">{{comment.customerData.firstName}} </span>
                 </p>
                 }@else {
                 <p class="mb-0">{{"mineprofile.YouAreCommented" | translate }}'{{comment.comment}}'
                   {{"mineprofile.OnCustomer" | translate }} <span class="fw-bolder">{{comment.customerData.firstName}}
-                  </span> Post.</p>
+                  </span> </p>
                 }
               </div>
             </div>
@@ -295,11 +295,11 @@
                     <p class="contentBE mb-0 px-2">{{post.content}}</p>
                   </div>
                   <div class="parentImagePost position-relative" (click)="openImage(post.image)">
-                    <img [src]="post.image" alt="" class="w-100 cursor-pointer rounded rounded-2 d-block" />
+                    <img [src]="post.image" [alt]= "'mineprofile.MyProjectPhoto' | translate" class="w-100 cursor-pointer rounded rounded-2 d-block" />
                   </div>
                   @if (selectedImage) {
                   <div class="image-modal" (click)="closeImage()">
-                    <img [src]="selectedImage" alt="Full Image" (click)="$event.stopPropagation()" />
+                    <img [src]="selectedImage" [alt]="'mineprofile.fullImage'| translate" (click)="$event.stopPropagation()" />
                     <button class="rounded rounded-2 close-btn" (click)="closeImage()"><i
                         class="fa-solid fa-xmark"></i></button>
                   </div>
@@ -321,7 +321,7 @@
           <p class="text-capitalize text-danger fw-light fs-5 text-center">
             {{"mineprofile.noProjects" | translate }}
           </p>
-          <p class="fw-bolder text-decoration-underline cursor-pointer text-center" title="Upload Project"
+          <p class="fw-bolder text-decoration-underline cursor-pointer text-center" [title]="'mineprofile.UploadProject' | translate"
             (click)="changeActiveName('uploadProject')">{{"mineprofile.AddProjectNow" | translate }}</p>
         </div>
         }

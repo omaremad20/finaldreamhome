@@ -4,28 +4,34 @@ section {
   min-height: 100vh !important;
 }
 
-.comments:hover span  , .comments:hover i {
+.comments:hover span,
+.comments:hover i {
   color: rgb(169, 169, 169) !important;
 }
+
 .anmieLeft {
-  animation: slideLeft ease-in-out 1s ;
+  animation: slideLeft ease-in-out 1s;
 }
+
 @keyframes slideLeft {
   from {
     opacity: 0;
     transform: translateX(-1rem);
   }
+
   to {
     opacity: 1;
     transform: translateX(0rem);
   }
 }
+
 .inner {
   position: relative !important;
   margin-block: 0.5rem;
 }
+
 .inner::after {
-  position: absolute ;
+  position: absolute;
   content: "";
   height: 2px;
   bottom: -0.5rem;
@@ -33,11 +39,3 @@ section {
   right: 0;
   width: 100%;
 }
-/* .parentImage::after {
-  content: '';
-  position: absolute;
-  height: 1px;
-  width: 100%;
-  background-color: gray;
-  top: 0;
-} */

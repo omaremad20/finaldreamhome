@@ -83,3 +83,6 @@ button.colorHover:hover {
   color: gray !important;
 }
 
+div.userPhoto img {
+  object-fit: cover !important;
+}

@@ -1,3 +1,9 @@
+@if (userRoleOnplat === "customer") {
+<app-not-found></app-not-found>
+}@else if (userRoleOnplat === "employee") {
+@if (isloading === true) {
+<section class="min-vh-100"></section>
+} @else {
 @if(posts) {
 @if(posts.length) {
 <section class="container">
@@ -25,11 +31,11 @@
                 <div class="py-2">
                   <p class="contentBE mb-0 px-2">{{post.content}}</p>
                 </div>
-                <div class="parentImage  position-relative">
-                  <img [src]="post.image" alt="" class="w-100 d-block" srcset="">
+                <div class="parentImage   position-relative">
+                  <img [src]="post.image" [alt]=" 'browse-projects.postPhoto' | translate"
+                    class="w-100 rounded rounded-2 cursor-pointer  d-block" />
                 </div>
               </div>
-              <!--  -->
               <div class=" mx-3 d-flex justify-content-center mt-3 " [routerLink]="['/comments' , post._id]">
                 <p class="cursor-pointer w-fit comments text-center">
                   <span class="mx-1">{{ "posts.Comments" | translate }}</span>
@@ -45,8 +51,10 @@
 }@else {
 <div class="vh-100 d-flex justify-content-center align-items-center">
   <div class="w-100 text-center">
-    <p class="mb-0 text-danger fw-bolder fs-5 text-capitalize"> No Posts Yet !</p>
+    <p class="mb-0 text-danger fw-bolder fs-5 text-capitalize">{{"browse-projects.noPosts" | translate }}</p>
   </div>
 </div>
+}
+}
 }
 }

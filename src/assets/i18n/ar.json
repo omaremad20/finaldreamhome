@@ -382,6 +382,17 @@
     "OnCustomer": "على منشور العميل",
     "Post": "منشور",
     "noProjects": "أنت لم تقم بإضافة أي مشاريع حتى الآن. عرض شغلك بيساعد العملاء يفهموا مهاراتك ويزود ثقتهم فيك.",
-    "AddProjectNow": "أضف مشروع الآن"
+    "AddProjectNow": "أضف مشروع الآن",
+    "noneImage": "لا توجد صورة",
+    "profilePhoto": "صورة الملف الشخصي",
+    "tapToview": "اضغط للعرض",
+    "minePostPhoto": "صورة منشوري",
+    "fullImage": "الصورة الكاملة",
+    "MyProjectPhoto": "صورة مشروعي",
+    "ABOUT": "حول"
+  },
+    "browse-projects": {
+    "postPhoto": "Post Photo",
+    "noPosts": "No Posts Yet !"
   }
 }

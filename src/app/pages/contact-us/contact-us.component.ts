@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../core/services/Auth/auth.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -18,7 +19,8 @@ export class ContactUsComponent implements OnInit, OnDestroy {
   private _PLATFORM_ID = inject(PLATFORM_ID);
   private _NgxSpinnerService = inject(NgxSpinnerService);
   private _ToastrService = inject(ToastrService);
-
+  private _AuthService = inject(AuthService);
+  userRole!: string
   contactUsForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.maxLength(10)]),
     email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(128)]),
@@ -41,6 +43,7 @@ export class ContactUsComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit(): void {
+    this.userRole = this._AuthService.getRole()!;
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       this.currentLang = sessionStorage.getItem('language') || 'en';
       this.translate.setDefaultLang(this.currentLang);

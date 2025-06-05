@@ -374,6 +374,17 @@
     "OnCustomer": "On Customer",
     "Post": "Post",
     "noProjects": "You haven't added any projects yet. Showcasing your work helps clients understand your skills and builds their trust in you.",
-    "AddProjectNow": "Add Project Now"
+    "AddProjectNow": "Add Project Now",
+    "noneImage": "none image",
+    "profilePhoto": "profile photo",
+    "tapToview": "Tap To View",
+    "minePostPhoto": "My Post Photo",
+    "fullImage": "Full Image",
+    "MyProjectPhoto": "My Project Photo",
+    "ABOUT": "About"
+  },
+  "browse-projects": {
+    "postPhoto" : "Post Photo" ,
+    "noPosts" : "No Posts Yet !"
   }
 }
