@@ -1,0 +1,57 @@
+.ChatBot {
+  top: 92.5%;
+}
+.gradient-ring {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FAC600, #181A1B, #181A1B);
+  background-size: 300% 300%;
+  animation: spinGradient 5s linear infinite forwards alternate;
+  padding: 4px;
+}
+.icon-inner {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+.chatWith {
+  height: 40px;
+}
+@keyframes spinGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.ChatBot {
+  right: -8rem;
+  z-index: 999;
+}
+.chat-icon {
+  transition: transform 0.4s ease;
+}
+.shift-left {
+  transform: translateX(-170px);
+}
+.chatWith {
+  opacity: 0;
+  transform: translateX(-200px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.show-chat {
+  opacity: 1;
+  transform: translateX(-170px);
+  pointer-events: auto;
+}
+.hide-chat {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+

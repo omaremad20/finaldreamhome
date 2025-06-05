@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SinglepostComponent } from './singlepost.component';
+import { MineProfileComponent } from './mine-profile.component';
 
-describe('SinglepostComponent', () => {
-  let component: SinglepostComponent;
-  let fixture: ComponentFixture<SinglepostComponent>;
+describe('MineProfileComponent', () => {
+  let component: MineProfileComponent;
+  let fixture: ComponentFixture<MineProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SinglepostComponent]
+      imports: [MineProfileComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SinglepostComponent);
+    fixture = TestBed.createComponent(MineProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

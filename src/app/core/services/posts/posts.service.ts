@@ -8,7 +8,10 @@ import { enviroment } from '../../../shared/enviroment/enviroment';
 })
 export class PostsService {
   private _HttpClient = inject(HttpClient);
-  posts:BehaviorSubject<any> = new BehaviorSubject([])
+  posts: BehaviorSubject<any> = new BehaviorSubject([])
+  sendImageToCloudinary(cloudUrl: string, file: object): Observable<any> {
+    return this._HttpClient.post(cloudUrl, file)
+  }
   // posts
   Createanewpost(postForm: object): Observable<any> {
     return this._HttpClient.post(`${enviroment.baseUrl}/api/posts/`, postForm);
@@ -22,11 +25,26 @@ export class PostsService {
   Deletepostanditscomments(postId: string): Observable<any> {
     return this._HttpClient.delete(`${enviroment.baseUrl}/api/posts/${postId}`);
   }
-  Getpostsbyjobtype(jobTitle: string): Observable<any> {
+  Getpostsbyjobtype(jobTitle: any): Observable<any> {
     return this._HttpClient.get(`${enviroment.baseUrl}/api/posts/job/${jobTitle}`);
+  }
+  GetpostsbyjobtypeLimted(jobTitle: any , limit:any): Observable<any> {
+    return this._HttpClient.get(`${enviroment.baseUrl}/api/posts/job/${jobTitle}?limit=${limit}`);
   }
   Getallpostswithfiltering(): Observable<any> {
     return this._HttpClient.get(`${enviroment.baseUrl}/api/posts`);
+  }
+  GetallpostswithfilteringLimited(limit:any): Observable<any> {
+    return this._HttpClient.get(`${enviroment.baseUrl}/api/posts?limit=${limit}`);
+  }
+
+  // withOutLimit
+  Getcommentsforajobcategory(jobTitle: string): Observable<any> {
+    return this._HttpClient.get(`${enviroment.baseUrl}/api/comments/job/${jobTitle}`)
+  }
+  // withLimit
+  Getcommentsforajobcategorylimted(jobTitle: string , limit:any): Observable<any> {
+    return this._HttpClient.get(`${enviroment.baseUrl}/api/comments/job/${jobTitle}?limit=${limit}`)
   }
   // comments
   Createanewcomment(commentForm: object): Observable<any> {

@@ -1,3 +1,4 @@
+@if (userRole === "customer") {
 @if(employeesData) {
 @if(employeesData.length) {
 <section class="pb-5">
@@ -67,8 +68,8 @@
       <div class="col-12  my-3 rounded rounded-3">
         <div
           class="inner flex-column flex-md-row  cursor-pointer px-3  position-relative py-3 rounded rounded-4 d-flex justify-content-between align-items-center">
-          <div class="w-75  service-details" title="view worker profile" (click)="divCilcked(employee._id)"
-            routerLink="/employee-profile">
+          <div class="w-75  service-details" title="view worker profile"
+            [routerLink]="['/employee-profile' , employee._id]">
             <div class="main">
               <a class="profileEmployee">
                 <h2 class=" fw-bolder">{{employee.firstName}}</h2>
@@ -99,8 +100,8 @@
               </div>
             </div>
           </div>
-          <button (click)="divCilckedMessage(employee._id)"
-            class="btn  d-flex justify-content-between align-items-center" [routerLink]="['/chat']"> <span class="mb-0">
+          <button [routerLink]="['/chat' , employee._id]"
+            class="btn  d-flex justify-content-between align-items-center"> <span class="mb-0">
               {{ "serviceDetails.sendMessageLabel" | translate }} </span> </button>
         </div>
       </div>
@@ -118,8 +119,8 @@
       <div class="col-12 px-3 my-3 rounded rounded-3">
         <div
           class="inner flex-column flex-md-row cursor-pointer px-3 position-relative py-3 rounded rounded-2 d-flex justify-content-between align-items-center">
-          <div class="w-75  service-details" title="view worker profile" (click)="divCilcked(employee._id)"
-            routerLink="/employee-profile">
+          <div class="w-75  service-details" title="view worker profile"
+            [routerLink]="['/employee-profile' , employee._id]">
             <div class="main ">
               <a class="profileEmployee">
                 <h2 class=" fw-bold">{{employee.firstName}}</h2>
@@ -150,8 +151,8 @@
               </div>
             </div>
           </div>
-          <button class="btn  d-flex justify-content-between align-items-center" [routerLink]="['/chat']"
-            (click)="divCilckedMessage(employee._id)"> <span class="mb-0"> {{ "serviceDetails.sendMessageLabel" |
+          <button class="btn  d-flex justify-content-between align-items-center"
+            [routerLink]="['/chat' , employee._id]"> <span class="mb-0"> {{ "serviceDetails.sendMessageLabel" |
               translate }} </span> </button>
         </div>
       </div>
@@ -182,4 +183,9 @@
     <div class="loading-pulse"></div>
   </div>
 </section>
+}
+}
+
+@else if (userRole === "employee") {
+<app-not-found></app-not-found>
 }

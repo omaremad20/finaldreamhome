@@ -62,7 +62,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
   cancelgetUserProfile!: Subscription;
   cancelSetTimeOut!: any
   commentTarget: string = '';
-  randomArr: any[] = []
+  randomArr: any[] = [] ;
+  userProfileData: any ;
+  isDone:boolean = false ;
   // forms
   formComment: FormGroup = new FormGroup({
     comment: new FormControl(null, [Validators.maxLength(1000), Validators.required, Validators.pattern(/\S/)])
@@ -133,6 +135,9 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.cancelgetUserProfile = this._UserProfileService.getUserProfile(this.post.userId).subscribe({
             next: (res) => {
               console.log(res);
+              this.isDone = true ;
+              this.userProfileData = res.user
+              console.log(this.userProfileData);
 
               this.userNameMakePost = res.user.firstName + " " + res.user.lastName
               this._NgxSpinnerService.hide();

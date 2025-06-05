@@ -98,10 +98,12 @@ button {
 .content {
   padding: 20px;
 }
+
 .message {
   width: fit-content !important;
   max-width: 50% !important;
 }
+
 .sendBtn {
   font-size: 1.5rem;
   display: flex;
@@ -138,6 +140,7 @@ button {
     transform: translateY(-1rem);
   }
 }
+
 a.BackToHome {
   text-decoration: none !important;
 }
@@ -145,29 +148,36 @@ a.BackToHome {
 .main-area-search {
   width: 25% !important;
 }
+
 textarea:focus {
   outline: unset !important;
 }
+
 .endSend:hover {
   color: gray !important;
 }
+
 .messageContent {
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
 }
+
 .timeComment {
   font-size: 0.75rem;
   color: #666;
   white-space: nowrap;
 }
+
 .breakMessage {
   white-space: normal !important;
   overflow-wrap: break-word !important;
   word-break: break-word !important;
 }
+
 button.editButtonHoverColor:hover i.editSend {
   transform: scale(1.125);
 }
+
 .toEndChat {
   bottom: 100px !important;
   left: -25px;
@@ -195,9 +205,11 @@ button.editButtonHoverColor:hover i.editSend {
   0% {
     box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
   }
+
   50% {
     box-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
   }
+
   100% {
     box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
   }
@@ -235,3 +247,160 @@ button.editButtonHoverColor:hover i.editSend {
   background-color: #f8f9fa;
 }
 
+.side-nav {
+  margin-top: 7rem !important;
+  height: calc(100vh - 7rem);
+  overflow-y: auto;
+}
+
+.nav-links {
+  padding: 1rem 0;
+}
+
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa;
+  color: #2196f3;
+}
+
+.nav-link i {
+  width: 1.5rem;
+  text-align: center;
+}
+
+.btn-outline-primary {
+  border-color: #2196f3;
+  color: #2196f3;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* Dark Theme Styles */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --hover-bg: #f8f9fa;
+  --border-color: #dee2e6;
+}
+
+.dark-theme {
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --hover-bg: #2d2d2d;
+  --border-color: #404040;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.nav-link {
+  color: var(--text-color);
+}
+
+.nav-link:hover {
+  background-color: var(--hover-bg);
+}
+
+.btn-outline-primary {
+  border-color: #2196f3;
+  color: #2196f3;
+}
+
+.dark-theme .btn-outline-primary {
+  border-color: #64b5f6;
+  color: #64b5f6;
+}
+
+.dark-theme .btn-outline-primary:hover {
+  background-color: #64b5f6;
+  color: var(--bg-color);
+}
+
+.number {
+  font-size: 5rem;
+  font-weight: bolder;
+}
+
+.linkHome {
+  all: unset !important;
+  background-color: black !important;
+  color: white !important;
+  padding: 0.5rem !important;
+  border-radius: 0.75rem !important;
+  font-weight: bolder !important;
+  font-size: 0.75rem !important;
+  cursor: pointer !important;
+}
+
+.messages-container {
+  position: relative;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.scroll-to-bottom {
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-to-bottom:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-bottom i {
+  color: #2196f3;
+  font-size: 1.2rem;
+}
+
+/* RTL Support */
+[dir="rtl"] .scroll-to-bottom {
+  right: auto;
+  left: 20px;
+}
+
+@media (max-width: 768px) {
+  .scroll-to-bottom {
+    right: 15px;
+    bottom: 80px;
+  }
+
+  [dir="rtl"] .scroll-to-bottom {
+    right: auto;
+    left: 15px;
+  }
+}
+* {
+  scrollbar-width: none !important;        /* Firefox */
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {    /* Chrome, Safari */
+  display: none !important;
+}

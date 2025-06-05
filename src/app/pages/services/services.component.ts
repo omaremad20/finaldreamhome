@@ -1,19 +1,21 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IServices } from '../../core/interfaces/iservices';
 import { SearchService } from '../../core/services/Search/search.service';
 import { FilterServicesPipe } from '../../shared/pipes/FilterServices/filter-services.pipe';
+import { AuthService } from '../../core/services/Auth/auth.service';
+import { NotFoundComponent } from "../not-found/not-found.component";
 
 @Component({
   selector: 'app-services',
-  imports: [RouterLink, TranslatePipe, FilterServicesPipe],
+  imports: [RouterLink, TranslatePipe, FilterServicesPipe, NotFoundComponent],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css'
 })
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnInit , OnDestroy {
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchService.updateSearchText(input.value);
@@ -34,6 +36,10 @@ export class ServicesComponent implements OnInit {
   }
   searchText = '';
   callingSearch!: Subscription;
+  userRole!:string ;
+  currentLang: string = 'en';
+
+  private _AuthService = inject(AuthService) ;
   servicesTS: string[] = [
     'PLUMBING', 'PAINTING', 'ELECTRICITY', 'SATELLITE', 'GYPSUM_BOARD', 'CARPENTRY', 'INTERNET_NETWORKS'
     , 'ALUMETAL', 'CURTAINS', 'AIR_CONDITION', 'HOME_APPLIANCES', 'WOODEN_FLOORS'
@@ -52,14 +58,14 @@ export class ServicesComponent implements OnInit {
     { image: './images/appliens.webp', job: 'HOME_APPLIANCES', jobId: 'home-appliances' },
     { image: './images/woodenFlooring.webp', job: 'WOODEN_FLOORS', jobId: 'wooden-floors' }
   ];
-  currentLang: string = 'en';
   private translate = inject(TranslateService);
   private _PLATFORM_ID = inject(PLATFORM_ID);
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.searchService.searchText$.subscribe(text => {
+    this.userRole = this._AuthService.getRole() !;
+    this.callingSearch = this.searchService.searchText$.subscribe(text => {
       this.searchText = text;
     });
     if (isPlatformBrowser(this._PLATFORM_ID)) {
@@ -68,15 +74,6 @@ export class ServicesComponent implements OnInit {
       this.translate.use(this.currentLang);
     }
   }
-
-  divCilcked(jobId: string): void {
-    if (isPlatformBrowser(this._PLATFORM_ID)) {
-      if (sessionStorage.getItem('userId')) {
-        sessionStorage.setItem('jobId', jobId);
-      }
-    }
-  }
-
   // Helper method to normalize Arabic text for search
   private normalizeArabicText(text: string): string {
     return text
@@ -86,5 +83,8 @@ export class ServicesComponent implements OnInit {
       .replace(/ى/g, 'ي') // Normalize Ya
       .replace(/ة/g, 'ه') // Normalize Ta Marbuta
       .trim();
+  }
+  ngOnDestroy(): void {
+    this.callingSearch?.unsubscribe();
   }
 }

@@ -1,72 +1,59 @@
+@if(userRole === "customer") {
 <section class="row">
-  <div class="col-3 me-auto px-0 position-relative area-search d-none d-lg-block" style="height: calc(100vh - 100px);">
+  @if(isSideNavVisible) {
+  <div class="col-3 me-auto px-0 position-relative area-search d-none d-lg-block " style="height: calc(100vh - 120px);">
     <div class="z-3 px-3 rounded-bottom-1 position-fixed main-area-search">
-      <p class="pt-3 fw-bolder fs-4"> {{'chatMessages.chats' |translate }} </p>
+      <div class="d-flex align-items-center justify-content-between">
+        <p class="pt-3 fw-bolder fs-4">{{'chatMessages.chats' |translate }}</p>
+        <i class="fas fa-bars cursor-pointer fw-bolder rounded-1 chatHoverd p-1 fs-4 me-2"
+          (click)="toggleSideNav()"></i>
+      </div>
       <input type="search" class="form-control mb-2" [(ngModel)]="searchText"
         [placeholder]="'chatMessages.search' | translate" />
     </div>
     <div class="SideAllChats" style="height: calc(100%); overflow-y: auto; overflow-x: hidden; margin-top: 100px;">
+      @if (NoChatsYet === true) {
+      <p class="text-center text-danger my-3">No Chats Yet !</p>
+      }@else {
       @for (chat of AllChats | chatSearch : searchText; track chat._id) {
       <div class="row ">
         @if(chat.user2._id === currentChat){
         <div class="col-12">
-          <div class="m-2 rounded-1 shadow-light cursor-pointer p-2"
+          <div class="m-2 rounded-1 shadow-light cursor-pointer p-2" #specificChat
             [routerLink]="['/chat' , chat.user2._id  , chat.messages[chat.messages.length - 1]._id]">
             <div class="d-flex my-1  justify-content-between align-items-center">
-              <p class="fw-bolder mb-0">{{chat.user2.email}}</p>
+              <p class="fw-bolder mb-0">{{chat.user2.email.split('@')[0]}}</p>
               <small class="mb-0 timeComment fw-bolder">
-                @let hours = +chat.messages[chat.messages.length - 1].timestamp.split('T')[1].slice(0, 2);
-                @let minutes = chat.messages[chat.messages.length - 1].timestamp.split('T')[1].slice(3, 5);
-                @if (hours + 3 >= 24) {
-                {{ ((hours + 3) % 24 === 0 ? 12 : (hours + 3) % 24) }}:{{ minutes }}{{ 'notifications.AM' | translate }}
-                } @else if (hours + 3 === 12) {
-                12:{{ minutes }}{{ 'notifications.PM' | translate }}
-                } @else if (hours + 3 < 12) { {{ hours + 3 }}:{{ minutes }}{{ 'notifications.AM' | translate }} } @else if
-                  (hours + 3> 12 && hours + 3 < 24) { {{ hours + 3 - 12 }}:{{ minutes }}{{ 'notifications.PM' | translate }}
-                    } </small>
+                {{ formatMessageTime(chat.messages[chat.messages.length - 1].timestamp) }}
+              </small>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <p class="mb-0">{{ chat.messages[chat.messages.length - 1]?.message?.split('')?.slice(0 ,
                 16)?.join('')}}...</p>
-              <p class="mb-0 timeComment  fw-bolder">{{ chat.messages[chat.messages.length -
-                1]?.timestamp?.split('')?.slice(8 ,
-                10)?.join('')}}/{{
-                chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(5 , 7)?.join('')}}/{{
-                chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(0 , 4)?.join('')}}</p>
             </div>
           </div>
         </div>
         } @else {
-        <div class="col-12">
-          <div class="inner m-2 chatHoverd rounded-1  cursor-pointer p-2"
+        <div class="col-12 sideNavbarr">
+          <div class="inner m-2 chatHoverd rounded-1 cursor-pointer p-2" #specificChat
             [routerLink]="['/chat' , chat.user2._id  , chat.messages[chat.messages.length - 1]._id]">
-            <div class="d-flex my-1  justify-content-between align-items-center">
-              <p class="fw-bolder mb-0">{{chat.user2.email}}</p>
+            <div class="d-flex my-1 justify-content-between align-items-center">
+              <p class="fw-bolder mb-0">{{chat.user2.email.split('@')[0]}}</p>
               <small class="mb-0 timeComment fw-bolder">
-                @let hours = +chat.messages[chat.messages.length - 1].timestamp.split('T')[1].slice(0, 2);
-                @let minutes = chat.messages[chat.messages.length - 1].timestamp.split('T')[1].slice(3, 5);
-                @if (hours + 3 >= 24) {
-                {{ ((hours + 3) % 24 === 0 ? 12 : (hours + 3) % 24) }}:{{ minutes }}{{ 'notifications.AM' | translate }}
-                } @else if (hours + 3 === 12) {
-                12:{{ minutes }}{{ 'notifications.PM' | translate }}
-                } @else if (hours + 3 < 12) { {{ hours + 3 }}:{{ minutes }}{{ 'notifications.AM' | translate }} } @else if
-                  (hours + 3> 12 && hours + 3 < 24) { {{ hours + 3 - 12 }}:{{ minutes }}{{ 'notifications.PM' | translate }}
-                    } </small>
+                {{ formatMessageTime(chat.messages[chat.messages.length - 1].timestamp) }}
+              </small>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <p class="mb-0">{{ chat.messages[chat.messages.length - 1]?.message?.split('')?.slice(0 ,
                 16)?.join('')}}...</p>
-              <p class="mb-0 timeComment fw-bolder">{{ chat.messages[chat.messages.length -
-                1]?.timestamp?.split('')?.slice(8 ,
-                10)?.join('')}}/{{
-                chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(5 , 7)?.join('')}}/{{
-                chat.messages[chat.messages.length - 1]?.timestamp?.split('')?.slice(0 , 4)?.join('')}}</p>
             </div>
           </div>
         </div>
         }
       </div>
       }
+      }
+
       @if (searchText !== '') {
       <p class="px-3 fw-bolder fs-4">{{'chatMessages.messages' |translate }}</p>
       }
@@ -111,18 +98,75 @@
       }
     </div>
   </div>
-  <div class="col-12 d-flex flex-column  justify-content-between px-0 col-lg-9   position-relative">
-    <div class="inner d-flex py-2  flex-column  position-fixed container z-3 ">
-      <p class=" cursor-pointer mb-0 w-100 my-1 mx-auto "> <span class="fw-bolder">
-          {{'chatMessages.worker'|translate}} : </span> {{workerName}} </p>
-      <p class=" cursor-pointer mb-0 w-100 my-1 mx-auto ">
-        <span class="fw-bolder "> {{'chatMessages.email'|translate}} : </span>
-        <span class="" title="View Profile"  [routerLink]="['/employee-profile' , receiverId]"> {{userEmail}} </span>
+  }
+  @else {
+  <div class="col-3 px-0 position-relative area-search d-none d-lg-block" #sideNavbarr>
+    <div class="container">
+      <div class="pt-3  d-flex justify-content-between align-items-center">
+        <p class="mb-0 fw-bolder fs-4 cursor-pointer"><i class="fas fa-home"></i> {{'navbar.Dream' | translate }}
+          {{'navbar.Home' | translate }}</p>
+        <i class="fas chatHoverd rounded-1 p-1 fa-xmark fs-4 me-2 cursor-pointer" (click)="toggleSideNav()"></i>
+      </div>
+      <ul
+        class="list-unstyled my-5 px-0 text-center rounded rounded-2 inner  d-flex justify-content-center align-items-center flex-column">
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/dreamhome">
+          <li class="fw-bold">{{'navbar.home'| translate}}
+          <li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/dashboard">
+          <li class="fw-bold">{{'navbar.dashboard'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2"
+          routerLink="/browse-projects">
+          <li class="fw-bold">{{'myprofile.uploadPost.title'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/messages">
+          <li class="fw-bold">{{'navbar.messages'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/notifications">
+          <li class="fw-bold">{{'myprofile-emp.notifications'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/profile">
+          <li class="fw-bold">{{'navbar.profile'| translate}}</li>
+        </a>
+      </ul>
+      <div class="justify-content-between d-flex align-items-center">
+        <button class="border-0 rounded-1 buttonsSideNav p-2" (click)="changeLanguage()">{{ "navbar.language" |
+          translate }}</button>
+        <button class="border-0 rounded-1 buttonsSideNav p-2" (click)="toggleTheme()">
+          @if(theme === 'dark') {
+          {{ "navbar.lightMode" | translate }}
+          }@else if(theme === 'light') {
+          {{ "navbar.darkMode" | translate }}
+          }
+        </button>
+      </div>
+      <p class="chatHoverd w-100 rounded-1 mb-0  my-3 fs-5  p-2 cursor-pointer fw-bold">{{'settings.logout' | translate
+        }}
+        @if (currentLang === 'ar') {
+        <i class="fa-solid fa-right-from-bracket fa-rotate-180 mx-2"></i>
+        }@else {
+        <i class="fa-solid fa-right-from-bracket mx-2"></i>
+        }
       </p>
     </div>
-    <div class="flex-grow-1 messages overflow-auto px-3 mb-5 " style="padding-bottom: 100px;">
+  </div>
+  }
+  <div class="col-12 d-flex flex-column justify-content-between px-0 col-lg-9 position-relative" #mainChatContainer>
+    <div class="inner rounded-bottom-2 d-flex py-2 justify-content-between position-fixed w-100 z-3">
+      <div class="flex-column d-flex mx-3">
+        <p class="cursor-pointer mb-0 w-100 my-1 "> <span class="fw-bolder">
+            {{'chatMessages.worker'|translate}} : </span> {{workerName}} </p>
+        <p class="cursor-pointer mb-0 w-100 my-1  ">
+          <span class="fw-bolder"> {{'chatMessages.email'|translate}} : </span>
+          <span class="" title="View Profile" [routerLink]="['/employee-profile' , receiverId]"> {{userEmail}} </span>
+        </p>
+      </div>
+    </div>
+    <div class="flex-grow-1 messages overflow-auto px-3 mb-5 position-relative" style="padding-bottom: 120px;"
+      #messagesContainer (scroll)="onScroll($event)">
       @for(msg of messages; track $index) {
-      <div class="d-flex mb-2 " [class]="{'justify-content-end': msg.sender._id === senderId,
+      <div class="d-flex mb-2" [class]="{'justify-content-end': msg.sender._id === senderId,
                     'justify-content-start': msg.sender._id !== senderId}">
         <p class="rounded px-2 py-1 d-flex flex-column justify-content-center w-fit message" [class]="{'sender-bg': msg.sender._id === senderId,
                     'reciver-bg': msg.sender._id !== senderId}">
@@ -131,35 +175,38 @@
           }@else {
           <span class="breakMessage">{{ msg.message }}</span>
           }
-          <small class="time timeComment  justify-content-end  d-flex">
+          <small class="time timeComment justify-content-end d-flex">
             @if (+msg.timestamp.split('').slice(11 , 13).join('') + 3 >= 24) {
             {{((+msg.timestamp.split('').slice(11 , 13).join('') + 3 ) % 24 === 0 ? 12 :
             (+msg.timestamp.split('').slice(11 , 13).join('') + 3 ) % 24)
             }}:{{msg.timestamp.split('').slice(14
-            , 16).join('')}}{{'notifications.AM' | translate}}
+            , 16).join('')}} {{ 'notifications.AM' | translate }}
             }
             @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3 === 12) {
-            12:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+            12:{{msg.timestamp.split('').slice(14 , 16).join('')}} {{ 'notifications.PM' | translate }}
             }
             @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3 < 12) { {{+msg.timestamp.split('').slice(11 ,
-              13).join('') + 3 }}:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.AM' | translate}}
-              } @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3> 12 &&
+              13).join('') + 3 }}:{{msg.timestamp.split('').slice(14 , 16).join('')}} {{ 'notifications.AM' | translate
+              }} } @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3> 12 &&
               +msg.timestamp.split('').slice(11 , 13).join('') + 3 < 24) { {{(+msg.timestamp.split('').slice(11 ,
-                13).join('') + 3 - 12 )}}:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.PM' |
-                translate}} } </small>
+                13).join('') + 3 - 12 )}}:{{msg.timestamp.split('').slice(14 , 16).join('')}} {{ 'notifications.PM' |
+                translate }} } </small>
         </p>
       </div>
       }
     </div>
+    @if(showGoToBottom) {
+    <button class="scroll-to-bottom" (click)="scrollToBottom()">
+      <i class="fas fa-arrow-down"></i>
+    </button>
+    }
     <div class="position-fixed bottom-0 col-12 col-lg-9 px-3 py-2 inner rounded-top-1 shadow" style="z-index: 10;">
       <form [formGroup]="formMessage" (ngSubmit)="sendMessage()" class="d-flex align-items-center gap-2 w-100">
-
         <textarea [(ngModel)]="messageText" formControlName="message"
           class="form-control flex-grow-1 border-0 shadow-none px-3 py-2  bg-light"
           [placeholder]="'main-chat.placeHolder' | translate" rows="1" style="resize: none; overflow-y: auto;"
           (input)="adjustTextarea($event)">
     </textarea>
-
         @if(currentLang === 'en') {
         <button
           class="bg-transparent editButtonHoverColor rounded-1  border-0 d-flex justify-content-center align-items-center"
@@ -172,11 +219,21 @@
           <i class="fa-solid fa-paper-plane"></i>
         </button>
         }
-
       </form>
     </div>
-
   </div>
 
-</section>
 
+</section>
+}
+@else {
+<section class="">
+  <div class="d-flex min-vh-100 flex-column justify-content-center align-items-center">
+    <h1 class="number">404</h1>
+    <h2 class="fw-bolder fs-1 middle"> {{'not-found.h2' | translate}} </h2>
+    <h3 class="middle">{{'not-found.h3' | translate}}</h3>
+    <p>{{'not-found.p' | translate}}</p>
+    <button class="linkHome text-decoration-none" routerLink="/dreamhome"> {{'not-found.button'| translate}} </button>
+  </div>
+</section>
+}

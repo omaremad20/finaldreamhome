@@ -9,7 +9,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/services/Auth/auth.service';
 import { NotficationsService } from '../../core/services/notfications/notfications.service';
 import { ReviewsService } from '../../core/services/reviews/reviews.service';
-import { PostsService } from '../../core/services/posts/posts.service';
 declare var bootstrap: any;
 @Component({
   selector: 'app-notfications',
@@ -27,7 +26,6 @@ export class NotficationsComponent implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _ReviewsService = inject(ReviewsService);
   private _Router = inject(Router);
-  private _PostsService = inject(PostsService)
   // variables
   NotficationsRes: any[] = [];
   // commentsOnPost ---> customer && employee(if one replay to his comment)
@@ -60,15 +58,16 @@ export class NotficationsComponent implements OnInit, OnDestroy {
   })
   // componentstart
   ngOnInit(): void {
-    this.isloading = true;
     this._NgxSpinnerService.show();
+    this.isloading = true;
+    this.userId = this._AuthService.getUserId()!;
+    this.userRole = this._AuthService.getRole()!;
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       this.currentLang = sessionStorage.getItem('language') || 'en';
       this.translate.setDefaultLang(this.currentLang);
       this.translate.use(this.currentLang);
     }
-    this.userId = this._AuthService.getUserId()!;
-    this.userRole = this._AuthService.getRole()!;
+
     this.cancelgetUserNotifications = this._NotficationsService.getUserNotifications(this.userId).subscribe({
       next: (res) => {
         console.log(res);
@@ -105,18 +104,6 @@ export class NotficationsComponent implements OnInit, OnDestroy {
       }
     });
   }
-  // cancelReview(reviewId:string , notificationId: string, arr: any, index: any):void {
-  //   this._NgxSpinnerService.show();
-  //   this._ReviewsService.cancelReview(reviewId).subscribe({
-  //     next : (res) => {
-  //       this._NgxSpinnerService.hide();
-  //       this._ToastrService.success('Successfull Canceled !' , '' , {
-  //         toastClass : 'toastarSuccess'
-  //       })
-  //       this.deleteNotification(notificationId , arr , index)
-  //     }
-  //   })
-  // }
   // sendreview
   submitReview(reviewId: any, notficationId: any, arr: any, index: any) {
     this._NgxSpinnerService.show();

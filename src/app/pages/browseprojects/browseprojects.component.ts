@@ -10,12 +10,12 @@ import { PostsService } from '../../core/services/posts/posts.service';
 import { UserProfileService } from '../../core/services/UserProfile/user-profile.service';
 @Component({
   selector: 'app-browseprojects',
-  imports: [TranslatePipe , RouterLink],
+  imports: [TranslatePipe, RouterLink],
   templateUrl: './browseprojects.component.html',
   styleUrl: './browseprojects.component.css'
 })
 export class BrowseprojectsComponent implements OnInit, OnDestroy {
-  posts!: Doc[]
+  posts: any[] = []
   isloading!: boolean;
   private _PostsService = inject(PostsService);
   private _NgxSpinnerService = inject(NgxSpinnerService);
@@ -28,6 +28,7 @@ export class BrowseprojectsComponent implements OnInit, OnDestroy {
   currentLang: string = 'en';
   jobTitle!: string;
   userCache: { [userId: string]: string } = {};
+  userRoleCache: { [key: string]: string } = {};
 
   ngOnInit(): void {
     const pollingInterval = 10000;
@@ -41,13 +42,28 @@ export class BrowseprojectsComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       if (sessionStorage.getItem('userId')) {
         this.jobTitle = sessionStorage.getItem('jobTitle')!;
-        /*
-        this.cancelGetPosts = timer(0 , timerefresh).pipe(switchMap( ()=> this.service.func()))       .
-        */
+
         this.cancelGetPosts = timer(0, pollingInterval).pipe(switchMap(() => this._PostsService.Getpostsbyjobtype(this.jobTitle))).subscribe({
           next: (res) => {
             this._NgxSpinnerService.hide();
             this.posts = res.data.docs;
+            this.posts.forEach((post) => {
+              if (this.userRoleCache[post.userId]) {
+                post.userRole = this.userRoleCache[post.userId];
+              } else {
+                this._UserProfileService.getUserProfile(post.userId).subscribe({
+                  next: (res) => {
+                    post.userRole = res.user.role;
+                    this.userRoleCache[post.userId] = res.user.role;
+                  },
+                  error: () => {
+                    post.userRole = 'Unknown';
+                    this.userRoleCache[post.userId] = 'Unknown';
+                  }
+                });
+              }
+
+            })
             for (let i = 0; i < this.posts.length; i++) {
               const userId = this.posts[i].userId;
               if (this.userCache[userId]) {

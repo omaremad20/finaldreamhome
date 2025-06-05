@@ -7,9 +7,18 @@
         <div class="inner p-3 p-3  rounded-1">
           <div class="border-2 rounded-1 border-dark-subtle border p-2">
             <div class="d-flex align-items-center">
-              <div class="imgParent align-self-start">
-                <img src="./images/none.jpg" class="d-block w-100 rounded-circle" alt="" srcset="">
+              @if (isDone === true) {
+              @if(userProfileData.images !== null) {
+              <div class="imgParent align-self-start ">
+                <img [src]="userProfileData.images" class="d-block w-100 " alt="" srcset="">
               </div>
+              }@else {
+              <div class="imgParent align-self-start ">
+                <img src="./images/none.jpg" class="d-block w-100 " alt="" srcset="">
+              </div>
+              }
+
+              }
               <div class="mx-2  w-100">
                 <div class=" d-flex justify-content-between align-items-center">
                   <p class="customerName mb-0 fw-bolder "> {{"posts.Customer" | translate }} : {{userNameMakePost}}
@@ -83,7 +92,8 @@
                           <div class="d-flex  align-items-center justify-content-between">
                             <button type="button" class="border-0 bg-transparent removeHover colorHover"
                               data-bs-dismiss="modal" aria-label="Close">{{ "comments.Cancel" | translate }}</button>
-                            <button class="btn border-0 text-white deleteComment" (click)="deletePost(post._id)">Delete Post</button>
+                            <button class="btn border-0 text-white deleteComment" (click)="deletePost(post._id)">Delete
+                              Post</button>
                           </div>
                         </div>
                       </div>
@@ -144,8 +154,11 @@
   <div class="commentsOnPost  container mt-2 padding-140px" #commentsOnPost>
     <h2>Comments</h2>
     <div class="position-relative ">
-      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer z-3 position-relative " #mostRelevant (click)="showAllCommentsText()">Most Relevant <i class="fas fa-chevron-left" style="transform: rotate(270deg);"></i></p>
-      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer bg-white w-fit rounded-2 py-1 px-2 position-absolute top-0 z-0 opacity-0" (click)="removeMostRelevantText()">All Comments</p>
+      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer z-3 position-relative " #mostRelevant
+        (click)="showAllCommentsText()">Most Relevant <i class="fas fa-chevron-left"
+          style="transform: rotate(270deg);"></i></p>
+      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer bg-white w-fit rounded-2 py-1 px-2 position-absolute top-0 z-0 opacity-0"
+        (click)="removeMostRelevantText()">All Comments</p>
     </div>
     @for (comment of comments; track comment._id) {
     <div class="row mx-2">

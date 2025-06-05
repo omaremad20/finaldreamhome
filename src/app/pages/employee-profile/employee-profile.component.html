@@ -1,70 +1,179 @@
-<section>
+@if (userRole === 'customer') {
+  @if (isLoadData === false) {
+    <section class="min-vh-100 d-flex justify-content-start align-items-center flex-column">
   <div class="container">
-    <div class="parent inner rounded  py-4  d-flex justify-content-center align-items-center flex-column">
-      <div class="parentImage parentImageInProfile  rounded rounded-circle  w-15">
-        @if (images === null) {
-          <img src = "./images/none.jpg"  class="w-100 rounded rounded-circle d-block" [alt]="[firstName]"/>
-        }@else {
-          <img [src] = "images"  class="w-100 rounded rounded-circle d-block" [alt]="[firstName]"/>
-        }
-      </div>
+    @if (!isLoading) {
+    <div class="parent inner rounded  d-flex justify-content-center align-items-center flex-column py-4">
+      @if (employeeData.images === null) {
+      <img src="./images/none.jpg" class="w-120 h-120  EditImage rounded rounded-circle d-block"
+        [alt]="[employeeData.firstName]" />
+      }@else {
+      <img [src]="employeeData.images" class="w-120 h-120 EditImage rounded rounded-circle d-block"
+        [alt]="[employeeData.firstName]" />
+      }
       <div class="name">
-        <p class="fw-bolder mt-3">{{firstName}}</p>
+        <p class="fw-bolder mt-3">{{employeeData.firstName}}</p>
       </div>
     </div>
+    }
+
     <div class="main-details">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="inner  shadow  cursor-pointer"
-          [class.active]="activeSection === 'details'"
-          (click)="showSection('details')">
-       <p class="text-center border  border-top-0 border-1 py-2 mt-3"> {{ 'sections.details' | translate }} </p>
-     </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="inner  shadow cursor-pointer">
-            <p class="text-center border border-top-0 border-1 py-2 mt-3" routerLink="/chat"> {{ 'sections.sendMessage' | translate }} </p>
+        <div class="col-3">
+          <div class="inner rounded rounded-2 shadow  cursor-pointer" [class.active]="activeSectionName === 'about'"
+            (click)="showSection('about')">
+            <p class="text-center border  border-top-0 border-1 py-2 mt-3"> {{ 'sections.details' | translate }} </p>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <div class="inner  shadow cursor-pointer"
-          [class.active]="activeSection === 'reviews'"
-          (click)="showSection('reviews')">
-       <p class="text-center border border-top-0 border-1 py-2 mt-3"> {{ 'sections.reviewsAndComments' | translate }} </p>
-     </div>
+        <div class="col-3">
+          <div class="inner rounded rounded-2 shadow cursor-pointer">
+            @if(isNoChats === true) {
+            <p class="text-center border border-top-0 border-1 py-2 mt-3" [routerLink]="['/chat' , employeeId ]">Chat
+            </p>
+            }@else {
+            <p class="text-center border border-top-0 border-1 py-2 mt-3"
+              [routerLink]="['/chat' , employeeId , '683cb58cecaf6e69db783f87']">Chat</p>
+            }
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="inner rounded rounded-2  shadow cursor-pointer" [class.active]="activeSectionName === 'reviews'"
+            (click)="showSection('reviews')">
+            <p class="text-center border border-top-0 border-1 py-2 mt-3">Reviews</p>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="inner rounded rounded-2  shadow cursor-pointer" [class.active]="activeSectionName === 'projects'"
+            (click)="showSection('projects')">
+            <p class="text-center border border-top-0 border-1 py-2 mt-3">Projects</p>
+          </div>
         </div>
       </div>
-      @if(activeSection === 'details') {
-        <div class="rounded details slide-up rounded-2 container p-4 inner">
-          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-briefcase mx-1"></i> {{ 'details.employeeJob' | translate }} : </span>  {{job}}</p>
-          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-envelope mx-1"></i> {{ 'details.email' | translate }} :</span>  {{email}}</p>
-          <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-phone mx-1"></i> {{ 'details.contactNumber' | translate }} : </span> {{contactnumber}} </p>
-          @if(rate !== undefined && rate !== 'null') {
-            <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{ 'details.employeeRate' | translate }} :</span> {{ rate.split('').slice(0, 3).join('') || '0' }}</p>
-          }@else if (rate !== undefined && rate === 'null') {
-            <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{ 'details.employeeRate' | translate }} :</span> 0</p>
-          }
-        </div>
+      @if(activeSectionName === 'about' && !isLoading) {
+      <div class="rounded details slide-up rounded-2 container p-4 inner">
+        <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-briefcase mx-1"></i> {{ 'details.employeeJob'
+            | translate }} : </span> {{employeeData.job}}</p>
+        <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-envelope mx-1"></i> {{ 'details.email' |
+            translate }} :</span> {{employeeData.email}}</p>
+        <p> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-phone mx-1"></i> {{ 'details.contactNumber' |
+            translate }} : </span> {{employeeData.contactNumber}} </p>
+        @if(employeeData.rate !== null) {
+        <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{
+            'details.employeeRate' | translate }} :</span> {{ employeeData.rate.toFixed(1) }}</p>
+        }@else if (employeeData.rate === null) {
+        <p class="mb-0"> <span class="fw-bolder text-capitalize"><i class="fa-solid fa-percent mx-1"></i> {{
+            'details.employeeRate' | translate }} :</span> 0</p>
+        }
+      </div>
       }
-      @if (activeSection === 'reviews') {
-        {{activeSection}}
-        <div class="row reviews slide-up">
-          @for (review of completedReviews; track $index) {
-            @if(review.rating == "null") {
-              <p class="alert alert-danger"> {{'reviews.noReviews' | translate }} </p>
-            }@else {
-              <div class="col-12">
-                <div class="inner p-4 rounded rounded-2 mb-3">
-                  <p> <span class="fw-bolder">  {{'reviews.rate' | translate }} </span>  {{review.rating}}</p>
-                  <p> <span class="fw-bolder"> {{'reviews.comment' | translate }}  </span> {{review.review}}</p>
-                  <p class="mb-0"> <span class="fw-bolder"> {{'reviews.reviewBy' | translate }} </span>  {{custName}}</p>
-                </div>
-              </div>
-              no
-            }
-          }
+      @if (activeSectionName === 'reviews') {
+      @if (!isReviewd) {
+        <div class="py-5">
+          <p class="text-danger fw-bold text-center">This User Not Rated Before Yet !</p>
         </div>
+      }@else {
+      <div class="row reviews slide-up">
+        @for (review of completedReviews; track $index) {
+        @if(review.rating == "null") {
+        <p class="alert alert-danger"> {{'reviews.noReviews' | translate }} </p>
+        }@else {
+        <div class="col-12">
+          <div class="inner p-4 rounded rounded-2 mb-3">
+            <p> <span class="fw-bolder"> {{'reviews.rate' | translate }} </span> {{review.rating}}</p>
+            <p> <span class="fw-bolder"> {{'reviews.comment' | translate }} </span> {{review.review}}</p>
+            <p class="mb-0"> <span class="fw-bolder"> {{'reviews.reviewBy' | translate }} </span>
+              {{review.customerName}}</p>
+          </div>
+        </div>
+        }
+        }
+      </div>
+      }
+
+
+      }
+      @if (activeSectionName === 'projects' && !isLoading) {
+      @if (postsEmployee) {
+      @if(postsEmployee.length === 0){
+      <div class="py-5">
+        <p class="mb-0 text-center fw-bold text-danger">This Employee Don't Have Any Projects Yet !</p>
+      </div>
+      }@else {
+      @for (post of postsEmployee; track post._id) {
+      <div class="row my-2 container mx-auto">
+        <div class="col-12">
+          <div class="inner  p-3  rounded-1">
+            <div class="border-2 rounded-1 border-dark-subtle border p-2">
+              <p class="customerName mb-0 fw-bolder fs-4">{{employeeData.firstName}}</p>
+              <div class="mx-1">
+                <small class="time  timeComment  fw-bolder  ">
+                  {{post.updatedAt.split('').slice(8 , 10).join('')}}/{{post.updatedAt.split('').slice(5
+                  ,7).join('')}}/{{post.updatedAt.split('').slice(0 , 4).join('')}}
+                </small>
+                <small>|</small>
+                <small class="time  timeComment  fw-bolder">
+                  @if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 >= 24) {
+                  {{((+post.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24 ===0 ? 12 :
+                  (+post.updatedAt.split('').slice(11 , 13).join('') + 3 ) % 24)
+                  }}:{{post.updatedAt.split('').slice(14
+                  , 16).join('')}}{{'notifications.AM' | translate}}
+                  }@else if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 === 12) {
+                  12:{{post.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}}
+                  }@else if (+post.updatedAt.split('').slice(11 , 13).join('') + 3 < 12) {
+                    {{+post.updatedAt.split('').slice(11 , 13).join('') + 3 }}:{{post.updatedAt.split('').slice(14 ,
+                    16).join('')}}{{'notifications.AM' | translate}} }@else if (+post.updatedAt.split('').slice(11 ,
+                    13).join('') + 3> 12 && +post.updatedAt.split('').slice(11 , 13).join('') + 3 < 24) {
+                      {{(+post.updatedAt.split('').slice(11 , 13).join('') + 3 - 12
+                      )}}:{{post.updatedAt.split('').slice(14 , 16).join('')}}{{'notifications.PM' | translate}} } <i
+                      class="fa-solid fa-clock"></i>
+                </small>
+              </div>
+              <div class="postcontent rounded-1 mt-2 mx-3">
+                <div class="py-2">
+                  <p class="contentBE mb-0 px-2">{{post.content}}</p>
+                </div>
+                <div class="parentImagePost position-relative" (click)="openImage(post.image)">
+                  <img [src]="post.image" alt="" class="w-100 cursor-pointer rounded rounded-2 d-block" />
+                </div>
+                @if (selectedImage) {
+                <div class="image-modal" (click)="closeImage()">
+                  <img [src]="selectedImage" alt="Full Image" (click)="$event.stopPropagation()" />
+                  <button class="rounded rounded-2 close-btn" (click)="closeImage()"><i
+                      class="fa-solid fa-xmark"></i></button>
+                </div>
+                }
+              </div>
+              <div class=" mx-3 d-flex justify-content-center mt-3 " [routerLink]="['/comments' , post._id]">
+                <p class="cursor-pointer w-fit comments text-center">
+                  <span class="mx-1">{{ "posts.Comments" | translate }}</span>
+                  <i class="fa-solid  fa-comment"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      }
+      }
       }
     </div>
   </div>
 </section>
+  }@else if (isLoadData === true) {
+    <section class="min-vh-100">
+
+    </section>
+  }
+
+}@else {
+<section class="">
+  <div class="d-flex min-vh-100 flex-column justify-content-center align-items-center">
+    <h1 class="number">404</h1>
+    <h2 class="fw-bolder fs-1 middle"> {{'not-found.h2' | translate}} </h2>
+    <h3 class="middle">{{'not-found.h3' | translate}}</h3>
+    <p>{{'not-found.p' | translate}}</p>
+    <button class="linkHome text-decoration-none" routerLink="/dreamhome"> {{'not-found.button'| translate}} </button>
+  </div>
+</section>
+}

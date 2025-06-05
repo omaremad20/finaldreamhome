@@ -1,5 +1,5 @@
 @if(userRole === 'customer') {
-  <section class="min-vh-100 d-flex justify-content-center align-items-center pt-5">
+<section class="min-vh-100 d-flex justify-content-center align-items-center pt-5">
   <form (ngSubmit)="uploadPost()" [formGroup]="postForm" class="shadow px-3 py-5 rounded">
     <h1 class="text-center fs-4"> {{ "uploadPost.UploadPost" | translate }} </h1>
     <div class=" my-3">
@@ -29,7 +29,8 @@
     </div>
     <div class="mb-3">
       <textarea name="" formControlName="content" id="formGroupExampleInput2" class="form-control"
-        style="resize: none; height: 100px; overflow-y: auto;" [placeholder]="'uploadPost.whatsProblem' | translate "></textarea>
+        style="resize: none; height: 100px; overflow-y: auto;"
+        [placeholder]="'uploadPost.whatsProblem' | translate "></textarea>
     </div>
     @if(postForm.get('content')?.errors && postForm.get('content')?.touched) {
     @if(postForm.get('content')?.getError('required')) {
@@ -44,9 +45,10 @@
     }
     }
     <div class="mb-3">
-      <label class="mb-2">({{ "uploadPost.Optional" | translate }})</label>
-      <input type="file"  class="form-control customInput" formControlName="image" id="formGroupExampleInput3" >
-    </div>s
+      <label class="mb-2">Choose Image ({{ "uploadPost.Optional" | translate }})</label>
+      <input type="file" class="form-control " (change)="onFileSelected($event)" formControlName="image"
+        id="formGroupExampleInput3">
+    </div>
     @if(postForm.get('image')?.errors && postForm.get('image')?.touched) {
     @if(postForm.get('image')?.getError('notMatch')) {
     <p class="text-danger anmieError errorMessages ms-3 my-2  d-flex align-items-center "><i
@@ -54,10 +56,12 @@
     }
     }
     @if(postForm.get('content')?.valid && postForm.get('job')?.valid && postForm.get('image')?.valid) {
-      <button class="btn w-100 border-0"  >{{ "uploadPost.Post" | translate }}</button>
+    <button class="btn w-100 border-0">{{ "uploadPost.Post" | translate }}</button>
     }@else {
-      <button class="btn w-100 border-0" disabled >{{ "uploadPost.Post" | translate }}</button>
+    <button class="btn w-100 border-0" disabled>{{ "uploadPost.Post" | translate }}</button>
     }
   </form>
 </section>
+}@else {
+  <app-not-found></app-not-found>
 }

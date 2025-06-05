@@ -7,6 +7,10 @@
   left: 2.5% !important;
 }
 
+.w-15 {
+  width: 15% !important;
+}
+
 body {
   font-family: var(--app-font-family) !important;
   letter-spacing: 1px;
@@ -49,7 +53,7 @@ body {
   --bs-dark-btn-color: #000;
   --bs-middle-text-color: #2C3930 !important;
   --bs-black-middle: rgba(0, 0, 0, 0.5) !important;
-  --bs-text-area: #F8FAFC ;
+  --bs-text-area: #F8FAFC;
 
   --bs-slate-50: oklch(98.4% 0.003 247.858) !important;
   --bg-slate-100: oklch(95.2% 0.006 247.331) !important;
@@ -67,7 +71,7 @@ body {
 }
 
 [data-bs-theme="dark"] {
-  --bs-text-area: #030407 ;
+  --bs-text-area: #030407;
 
   --bg-gray-400: oklch(47.4% 0.029 270.000) !important;
   --bg-gray-300: oklch(36.5% 0.022 270.000) !important;
@@ -103,20 +107,25 @@ body {
   --bg-special: #161a28 !important;
   --bg-reciever-bg: oklch(27.4% 0.006 286.033);
 }
+
 .toEndChat div {
   background-color: var(--bs-buttonsAndIcons-bgColor) !important;
   transition: ease-in-out all 0.3s;
 }
+
 .toEndChat div:hover {
   background-color: var(--bs-third-other) !important;
 }
+
 .targetComment {
-  animation:  1.5s lighter backwards;
+  animation: 1.5s lighter backwards;
 }
+
 @keyframes lighter {
   from {
     background-color: none;
   }
+
   to {
     background-color: var(--bg-special);
   }
@@ -125,6 +134,7 @@ body {
 textarea.form-control {
   background-color: var(--bs-text-area) !important;
 }
+
 .chatHoverd:hover {
   background-color: var(--bg-gray-300) !important;
 }
@@ -217,7 +227,7 @@ textarea.form-control {
 }
 
 footer,
-.main-text-area {
+.main-text-area , .upload-project-form {
   background-color: var(--bs-slate-50) !important;
   transition: ease-in-out all 0.3s;
 }
@@ -232,13 +242,15 @@ footer,
   border-color: var(--bs-second-other) !important;
   outline: none !important;
 }
+
 .border-red {
   border-radius: 0.5rem !important;
   border: 1px solid rgb(255, 47, 47) !important;
   transition: box-shadow 0.3s ease-in-out !important;
-  padding: 0.375rem , 0.75rem ;
+  padding: 0.375rem, 0.75rem;
   width: 100%;
 }
+
 .border-red:focus {
   box-shadow: 0px 0px 0px 5px red !important;
 
@@ -310,13 +322,16 @@ span {
 }
 
 button,
-.sendBtn , .btnAddcomment {
+.sendBtn,
+.btnAddcomment ,
+.ParentIconChangeImage {
   color: var(--bs-text-color) !important;
   background-color: var(--bs-buttonsAndIcons-bgColor) !important;
   transition: ease-in-out 0.3s background-color, ease-in-out 0.3s color !important;
 }
 
-button:hover , .btnAddcomment:hover {
+button:hover,
+.btnAddcomment:hover {
   background-color: var(--bs-third-other) !important;
 }
 
@@ -457,9 +472,12 @@ input {
 
 /* Small devices (landscape phones) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .editInnerWidth , .editAreaSearch {
+
+  .editInnerWidth,
+  .editAreaSearch {
     width: 100% !important;
   }
+
   li.nav-item {
     all: unset !important;
     width: 100% !important;
@@ -468,9 +486,11 @@ input {
     margin-block: 0.25rem !important;
     border-radius: 0.25rem !important;
   }
+
   .main-text-area {
     width: 100% !important;
   }
+
   div.modal-content {
     width: 75% !important;
   }
@@ -478,9 +498,12 @@ input {
 
 /* Medium devices (tablets) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .editInnerWidth , .editAreaSearch {
+
+  .editInnerWidth,
+  .editAreaSearch {
     width: 100% !important;
   }
+
   li.nav-item {
     all: unset !important;
     width: 100% !important;
@@ -494,9 +517,9 @@ input {
     all: unset !important;
   }
 
-  div.modal-content {
+  /* div.modal-content {
     width: 50% !important;
-  }
+  } */
 
   .main-text-area {
     width: 100% !important;
@@ -505,6 +528,7 @@ input {
   .formDarkNdlight {
     width: 75% !important;
   }
+
   .serviceImageCol {
     height: 258px !important;
   }
@@ -515,16 +539,19 @@ input {
   .options-ul {
     width: 25% !important;
   }
-  .editInnerWidth , .editAreaSearch {
+
+  .editInnerWidth,
+  .editAreaSearch {
     width: 100% !important;
   }
+
   .innerProfile {
     min-height: 100% !important;
   }
 
-  div.modal-content {
+  /* div.modal-content {
     width: 35% !important;
-  }
+  } */
 
   .main-text-area {
     width: 73% !important;
@@ -533,16 +560,25 @@ input {
   .formDarkNdlight {
     width: 55% !important;
   }
+
   .serviceImageCol {
     height: 250px !important;
   }
 }
 
+.buttonsSideNav {
+  width: unset !important;
+  height: unset !important;
+}
+
 /* Extra large devices (large desktops) */
 @media (min-width: 1200px) and (max-width: 1399.98px) {
-  .editInnerWidth , .editAreaSearch {
+
+  .editInnerWidth,
+  .editAreaSearch {
     width: 100% !important;
   }
+
   .options-ul {
     width: 25% !important;
   }
@@ -551,10 +587,10 @@ input {
     min-height: 100% !important;
   }
 
-  div.modal-content {
+  /* div.modal-content {
     width: 35% !important;
     margin-inline: auto !important;
-  }
+  } */
 
   .main-text-area {
     width: 73% !important;
@@ -563,6 +599,7 @@ input {
   .formDarkNdlight {
     width: 45% !important;
   }
+
   .serviceImageCol {
     height: 220px !important;
   }
@@ -570,12 +607,16 @@ input {
 
 /* Extra extra large devices (larger desktops) */
 @media (min-width: 1400px) {
-  .editInnerWidth , .editAreaSearch {
+
+  .editInnerWidth,
+  .editAreaSearch {
     width: 100% !important;
   }
+
   .serviceImageCol {
     height: 220px !important;
   }
+
   .formDarkNdlight {
     width: 35% !important;
   }
@@ -588,9 +629,9 @@ input {
     min-height: 100% !important;
   }
 
-  div.modal-content {
+  /* div.modal-content {
     width: 25% !important;
-  }
+  } */
 
   .main-text-area {
     width: 73% !important;

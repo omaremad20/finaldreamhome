@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from "./layouts/footer/footer.component";
 import { NavbarComponent } from "./layouts/navbar/navbar.component";
@@ -13,8 +13,11 @@ import { NgxSpinnerComponent } from 'ngx-spinner';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  isopenChat:boolean = false;
   hideFooter = false;
+  hasAccess:boolean = false;
+
   title = 'dreamhome';
   currentLang!:string ;
   public authService = inject(AuthService)
@@ -30,6 +33,21 @@ export class AppComponent {
       this.hideFooter = currentUrl.startsWith('/chat') || currentUrl.startsWith('/main-chat')  || currentUrl.startsWith('/comments');
     });
   }
+  openChat():void {
+    this.isopenChat = !this.isopenChat ;
   }
+  ngOnInit(): void {
+    this.getAccessAi();
+  }
+  getAccessAi():void {
+    if(isPlatformBrowser(this._PLATFORM_ID)) {
+      if(sessionStorage.getItem('userId') && sessionStorage.getItem('userRole') === "customer" && this.hideFooter) {
+        this.hasAccess = true
+      }else {
+        this.hasAccess = false
+      }
+    }
+  }
+}
 
 

@@ -59,8 +59,14 @@ button.deleteComment:hober {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.imgParent img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
 }
 button.removeHover:hover {
   background-color: unset !important;

@@ -1,18 +1,24 @@
+@if(userRole === "employee") {
 <section class="row">
-  <div class="col-3  px-0  position-relative  area-search d-none d-lg-block">
+  @if(isSideNavVisible) {
+  <div class="col-3  px-0  position-relative  area-search d-none d-lg-block" style="height: calc(100vh - 120px);">
     <div class="z-3  px-3 rounded-bottom-1 position-fixed   main-area-search ">
-      <p class="pt-3 fw-bolder fs-4">{{'chatMessages.chats' |translate }}</p>
+      <div class="d-flex align-items-center justify-content-between">
+        <p class="pt-3 fw-bolder fs-4">{{'chatMessages.chats' |translate }}</p>
+        <i class="fas fa-bars cursor-pointer fw-bolder rounded-1 chatHoverd p-1 fs-4 me-2"
+          (click)="toggleSideNav()"></i>
+      </div>
       <input type="search" class="form-control mb-2 " [(ngModel)]="searchText" placeholder="search..." />
     </div>
-    <div class="SideAllChats overflow-x-hidden">
+    <div class="SideAllChats overflow-x-hidden ">
       @for (chat of AllChats | chatSearch : searchText; track chat._id) {
       <div class="row ">
         @if(chat.user1._id === currentChat){
         <div class="col-12">
           <div class="m-2 rounded-1 shadow-light cursor-pointer p-2"
-            (click)="divCilcked(chat.user1._id , chat.messages[chat.messages.length - 1]._id)" (click)="reload()">
+            [routerLink]="['/main-chat' , chat.user1._id , chat.messages[chat.messages.length - 1]._id]">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <p class="fw-bolder mb-0">{{chat.user1.email}}</p>
+              <p class="fw-bolder mb-0">{{chat.user1.email.split('@')[0]}}</p>
               <small class="timeComment fw-bolder">
                 {{ formatMessageTime(chat.messages[chat.messages.length - 1].timestamp) }}
               </small>
@@ -23,9 +29,9 @@
         } @else {
         <div class="col-12">
           <div class="inner m-2 chatHoverd rounded-1  cursor-pointer p-2"
-            (click)="divCilcked(chat.user1._id , chat.messages[chat.messages.length - 1]._id)" (click)="reload()">
+            [routerLink]="['/main-chat' , chat.user1._id , chat.messages[chat.messages.length - 1]._id]">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <p class="fw-bolder mb-0">{{chat.user1.email}}</p>
+              <p class="fw-bolder mb-0">{{chat.user1.email.split('@')[0]}}</p>
               <small class="timeComment fw-bolder">
                 {{ formatMessageTime(chat.messages[chat.messages.length - 1].timestamp) }}
               </small>
@@ -42,7 +48,7 @@
       @for (data of messagesSearch; track $index) {
       @if(data.message.includes(searchText) && searchText !== '') {
       <div class="inner  chatHoverd overflow-x-hidden rounded-1 p-2 cursor-pointer m-2 mb-3"
-        (click)="divCilcked(data.userId , data.messageId)" (click)="reload()">
+        [routerLink]="['/main-chat' ,data.userId , data.messageId]">
         <p class="mb-0 fw-bolder">{{ data.email }}</p>
         <div class="d-flex">
           @if(data.isSender === true) {
@@ -81,27 +87,82 @@
 
     </div>
   </div>
-  <div class="col-12 px-0 col-lg-9  position-relative " >
-    <div class="inner d-flex py-2  flex-column  position-fixed container z-3">
-      <p class=" cursor-pointer mb-0 w-100 my-1 mx-auto " title="View Profile"> <span class="fw-bolder">
+  }@else {
+  <div class="col-3 px-0  position-relative  area-search d-none d-lg-block">
+    <div class="container">
+      <div class="pt-3  d-flex justify-content-between align-items-center">
+        <p class="mb-0 fw-bolder fs-4 cursor-pointer"><i class="fas fa-home"></i> {{'navbar.Dream' | translate }}
+          {{'navbar.Home' | translate }}</p>
+        <i class="fas chatHoverd rounded-1 p-1 fa-xmark fs-4 me-2 cursor-pointer" (click)="toggleSideNav()"></i>
+      </div>
+      <ul
+        class="list-unstyled my-5 px-0 text-center rounded rounded-2 inner  d-flex justify-content-center align-items-center flex-column">
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/dreamhome">
+          <li class="fw-bold">{{'navbar.home'| translate}}
+          <li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/dashboard">
+          <li class="fw-bold">{{'navbar.dashboard'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2"
+          routerLink="/browse-projects">
+          <li class="fw-bold">{{'navbar.browseprojects'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/messages">
+          <li class="fw-bold">{{'navbar.messages'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/notifications">
+          <li class="fw-bold">{{'myprofile-emp.notifications'| translate}}</li>
+        </a>
+        <a class="cursor-pointer text-decoration-none my-2 w-100 rounded-1 chatHoverd py-2" routerLink="/profile">
+          <li class="fw-bold">{{'navbar.profile'| translate}}</li>
+        </a>
+      </ul>
+      <div class="justify-content-between d-flex align-items-center">
+        <button class="border-0 rounded-1 buttonsSideNav p-2" (click)="changeLanguage()">{{ "navbar.language" |
+          translate }}</button>
+        <button class="border-0 rounded-1 buttonsSideNav p-2" (click)="toggleTheme()">
+          @if(theme === 'dark') {
+          {{ "navbar.lightMode" | translate }}
+          }@else if(theme === 'light') {
+          {{ "navbar.darkMode" | translate }}
+          }
+        </button>
+      </div>
+      <p class="chatHoverd w-100 rounded-1 mb-0  my-3 fs-5  p-2 cursor-pointer fw-bold">{{'settings.logout' | translate
+        }}
+        @if (currentLang === 'ar') {
+        <i class="fa-solid fa-right-from-bracket fa-rotate-180 mx-2"></i>
+        }@else {
+        <i class="fa-solid fa-right-from-bracket mx-2"></i>
+        }
+      </p>
+    </div>
+  </div>
+  }
+
+  <div class="col-12 px-0 col-lg-9  position-relative" #mainChatContainer>
+    <div class="inner rounded-bottom-2 d-flex py-2  flex-column  position-fixed w-100 z-3">
+      <p class=" cursor-pointer mb-0 w-100 my-1 mx-3" title="View Profile"> <span class="fw-bolder">
           {{"registration.customer" | translate}} :
         </span> {{customerName}} </p>
-      <p class=" cursor-pointer mb-0 w-100 my-1 mx-auto " title="View Profile"> <span class="fw-bolder">
+      <p class=" cursor-pointer mb-0 w-100 my-1 mx-3" title="View Profile"> <span class="fw-bolder">
           {{"chatMessages.emailDot" | translate}} </span>
         {{userEmail}} </p>
     </div>
-    <div class="flex-grow-1 messages overflow-auto px-3 mb-5 " style="padding-bottom: 120px;" #messagesContainer (scroll)="onScroll($event)">
+    <div class="flex-grow-1 messages overflow-auto px-3 mb-5 position-relative" style="padding-bottom: 120px;"
+      #messagesContainer (scroll)="onScroll($event)">
       @for(msg of messages; track $index) {
-      <div class="d-flex mb-2 " [class]="{'justify-content-end': msg.sender._id === senderId,
+      <div class="d-flex mb-2" [class]="{'justify-content-end': msg.sender._id === senderId,
                     'justify-content-start': msg.sender._id !== senderId}">
-        <p class="rounded  px-2 py-1 d-flex flex-column justify-content-center w-fit message" [class]="{'sender-bg': msg.sender._id === senderId,
+        <p class="rounded px-2 py-1 d-flex flex-column justify-content-center w-fit message" [class]="{'sender-bg': msg.sender._id === senderId,
                     'reciver-bg': msg.sender._id !== senderId}">
           @if(msg._id === lastMessageToGoID){
-          <span class="breakMessage targetMessage ">{{ msg.message }} </span>
+          <span class="breakMessage targetMessage">{{ msg.message }} </span>
           }@else {
           <span class="breakMessage">{{ msg.message }}</span>
           }
-          <small class="time timeComment  justify-content-end  d-flex">
+          <small class="time timeComment justify-content-end d-flex">
             @if (+msg.timestamp.split('').slice(11 , 13).join('') + 3 >= 24) {
             {{((+msg.timestamp.split('').slice(11 , 13).join('') + 3 ) % 24 === 0 ? 12 :
             (+msg.timestamp.split('').slice(11 , 13).join('') + 3 ) % 24)
@@ -113,22 +174,19 @@
             }
             @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3 < 12) { {{+msg.timestamp.split('').slice(11 ,
               13).join('') + 3 }}:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.AM' | translate}}
-                } @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3> 12 &&
-                +msg.timestamp.split('').slice(11 , 13).join('') + 3 < 24) { {{(+msg.timestamp.split('').slice(11 ,
-                  13).join('') + 3 - 12 )}}:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.PM' |
-                  translate}} }
-          </small>
+              } @else if (+msg.timestamp.split('').slice(11 , 13).join('') + 3> 12 &&
+              +msg.timestamp.split('').slice(11 , 13).join('') + 3 < 24) { {{(+msg.timestamp.split('').slice(11 ,
+                13).join('') + 3 - 12 )}}:{{msg.timestamp.split('').slice(14 , 16).join('')}}{{'notifications.PM' |
+                translate}} } </small>
         </p>
       </div>
       }
-      @if(showGoToBottom) {
-      <div class="w-100 d-flex justify-content-end position-absolute toEndChat">
-        <div class="d-flex justify-content-center align-items-center w-fit p-1 rounded-1 parentIconGoDown" (click)="scrollToBottom()">
-          <i class="fa-solid fa-angle-down cursor-pointer fs-4" title="Go To Bottom"></i>
-        </div>
-      </div>
-      }
     </div>
+    @if(showGoToBottom) {
+    <button class="scroll-to-bottom" (click)="scrollToBottom()">
+      <i class="fas fa-arrow-down"></i>
+    </button>
+    }
     <div class="position-fixed bottom-0 col-12 col-lg-9 px-3 py-2 inner rounded-top-1 shadow" style="z-index: 10;">
       <form [formGroup]="formMessage" (ngSubmit)="sendMessage()" class="d-flex align-items-center gap-2 w-100">
         <textarea [(ngModel)]="messageText" formControlName="message"
@@ -153,3 +211,14 @@
 
   </div>
 </section>
+}@else {
+<section class="">
+  <div class="d-flex min-vh-100 flex-column justify-content-center align-items-center">
+    <h1 class="number">404</h1>
+    <h2 class="fw-bolder fs-1 middle"> {{'not-found.h2' | translate}} </h2>
+    <h3 class="middle">{{'not-found.h3' | translate}}</h3>
+    <p>{{'not-found.p' | translate}}</p>
+    <button class="linkHome text-decoration-none" routerLink="/dreamhome"> {{'not-found.button'| translate}} </button>
+  </div>
+</section>
+}

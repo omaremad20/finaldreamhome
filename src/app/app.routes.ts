@@ -24,14 +24,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'dreamhome/service-details',
+    path: 'dreamhome/service-details/:jobTitle',
     loadComponent: () => import('./pages/service-details/service-details.component')
       .then((classes) => classes.ServiceDetailsComponent),
     title: 'Service',
     canActivate: [authGuard],
   },
   {
-    path: 'services/service-details',
+    path: 'services/service-details/:jobTitle',
     loadComponent: () => import('./pages/service-details/service-details.component')
       .then((classes) => classes.ServiceDetailsComponent),
     title: 'Service',
@@ -49,7 +49,14 @@ export const routes: Routes = [
     path: 'my-profile',
     loadComponent: () => import('./pages/my-profile/my-profile.component')
       .then((classes) => classes.MyProfileComponent),
-    title: 'My Profile',
+    title: 'dash board',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile/:userId',
+    loadComponent: () => import('./pages/mine-profile/mine-profile.component')
+      .then((classes) => classes.MineProfileComponent),
+    title: 'profile',
     canActivate: [authGuard],
   },
   {
@@ -74,13 +81,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'single-post',
-    loadComponent: () => import('./pages/singlepost/singlepost.component')
-      .then((m) => m.SinglepostComponent),
-    title: 'post',
-    canActivate: [authGuard],
-  },
-  {
     path: 'chat/:userToGo/:messageToGo',
     loadComponent: () => import('./pages/chat/chat.component')
       .then((m) => m.ChatComponent),
@@ -88,7 +88,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'main-chat',
+    path: 'chat/:userToGo',
+    loadComponent: () => import('./pages/chat/chat.component')
+      .then((m) => m.ChatComponent),
+    title: 'Chat',
+    canActivate: [authGuard],
+  },
+  {
+    path: 'main-chat/:userToGo/:messageToGo',
     loadComponent: () => import('./pages/main-chat/main-chat.component')
       .then((classes) => classes.MainChatComponent),
     title: 'Chat',

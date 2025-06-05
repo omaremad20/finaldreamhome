@@ -49,7 +49,8 @@
       </div>
 
       <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
-        <div class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+        <div
+          class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
           routerLink="/notifications">
           <div class="text-center mb-3">
             <i class="fa-solid fa-bell fs-1 py-3 d-flex justify-content-center"></i>
@@ -64,13 +65,14 @@
               {{ 'dashboard.notificationsNote' | translate }}
             </p>
           </div>
-          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">{{notficationCount}}</p>
+          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">
+            {{notficationCount}}</p>
         </div>
       </div>
 
       <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
         <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
-          routerLink="/">
+          [routerLink]="['/profile' , userId]">
           <div class="text-center mb-3">
             <i class="fa-solid fa-user fs-1 py-3 d-flex justify-content-center"></i>
             <h2 class="fs-5 fw-bold mb-2">{{ 'dashboard.profileTitle' | translate }}</h2>
@@ -135,7 +137,8 @@
       </div>
 
       <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
-        <div class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
+        <div
+          class="inner position-relative h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
           routerLink="/notifications">
           <div class="text-center mb-3">
             <i class="fa-solid fa-bell fs-1 py-3 d-flex justify-content-center"></i>
@@ -148,13 +151,14 @@
               {{ 'myprofile-emp.notifications_note' | translate }}
             </p>
           </div>
-          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">{{notficationCount}}</p>
+          <p class="counter" [class.end-0]="currentLang === 'en'" [class.start-0]="currentLang === 'ar'">
+            {{notficationCount}}</p>
         </div>
       </div>
 
       <div class="col-12 col-xl-3 col-lg-6 my-4 text-capitalize cursor-pointer">
         <div class="inner h-100 d-flex flex-column justify-content-between innerProfile shadow rounded-4 p-4"
-          routerLink="/">
+          [routerLink]="['/profile' , userId]">
           <div class="text-center mb-3">
             <i class="fa-solid fa-user fs-1 py-3 d-flex justify-content-center"></i>
             <h2 class="fs-5 fw-bold mb-2">{{ 'myprofile-emp.profile' | translate }}</h2>

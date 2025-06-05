@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -18,22 +18,24 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './messages.component.css',
   imports: [RouterLink, TranslatePipe, ChatSearchPipe, FormsModule]
 })
-export class MessagesComponent implements OnInit, OnDestroy {
+export class MessagesComponent implements OnInit, OnDestroy , AfterViewInit{
   private _ChatService = inject(ChatService);
   private _AuthService = inject(AuthService);
   private _ReviewsService = inject(ReviewsService);
   private __NotficationsService = inject(NotficationsService);
-  private readonly _ActivatedRoute = inject(ActivatedRoute)
-  private router = inject(Router);
   private translate = inject(TranslateService);
   private _PLATFORM_ID = inject(PLATFORM_ID);
   private _NgxSpinnerService = inject(NgxSpinnerService);
   private _ToastrService = inject(ToastrService);
-  messagesSearch: any = [];
 
+  hasPreviousSent: boolean = true;
+  showNoChatsDiv = false;
+  isLoading = true;
+  hasPreviousRequest = false;
   searchText: string = ''
   currentChat!: string;
   empName!: string;
+  receiverId!: string;
   reviewId!: string;
   custName!: string;
   userId!: string;
@@ -44,17 +46,13 @@ export class MessagesComponent implements OnInit, OnDestroy {
   customers: string[] = []
   customersNO: string[] = []
   AllChats: Chat[] = [];
-  hasPreviousSent: boolean = true;
-  showNoChatsDiv = false;
-  isLoading = true;
-  hasPreviousRequest = false;
   callingApi: Subscription | null = null;
   chatIDS: string[] = [];
-  receiverId!: string;
+  messagesSearch: any = [];
 
   ngOnInit(): void {
-    this.isLoading = true;
     this._NgxSpinnerService.show();
+    this.isLoading = true;
     if (isPlatformBrowser(this._PLATFORM_ID)) {
       this.currentLang = sessionStorage.getItem('language') || 'en';
       this.translate.setDefaultLang(this.currentLang);
@@ -72,8 +70,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.AllChats = res.chats.sort((a: any, b: any) => {
           return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
         });
-        console.log(this.AllChats);
-
         for (let i = 0; i < this.AllChats.length; i++) {
           this.chatIDS.push(this.AllChats[i].user2._id)
         }
@@ -104,7 +100,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.showNoChatsDiv = true;
         } else {
         }
-
         this._NgxSpinnerService.hide();
       },
       error: (err) => {
@@ -127,7 +122,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this._NgxSpinnerService.hide();
       }
     })
-
   }
   sendReviewRequest(customerId: string) {
     this._NgxSpinnerService.show();
@@ -137,6 +131,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.reviewId = response?.review?._id;
         this.custName = response.review.customer.name;
         this.empName = response.review.employee.name;
+        this.customersNO.push(customerId);
         const messageForEmp = `{"reviewId" : "${this.reviewId}" , "customerName" : "${this.custName}"}`
         this.__NotficationsService.addNotification(this.userId, messageForEmp).subscribe({
           next: (res) => {
@@ -150,9 +145,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
           error: (err) => {
           }
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
         this._ToastrService.success('Request Review Sent Successfully !', '', {
           toastClass: 'toastarSuccess'
         })
@@ -163,34 +155,59 @@ export class MessagesComponent implements OnInit, OnDestroy {
       }
     });
   }
-  divCilcked(userIdTargetChat: any , messageId:any): void {
-    if (isPlatformBrowser(this._PLATFORM_ID)) {
-      sessionStorage.setItem('messageToScroll' , messageId)
-      if (sessionStorage.getItem('userId') && this.userRole === 'customer') {
-        sessionStorage.setItem('userIdTargetChat', userIdTargetChat);
-      } else if (this.userRole === 'employee') {
-        sessionStorage.setItem('custIdTarget', userIdTargetChat);
-      }
+  ngAfterViewInit(): void {
+    if(isPlatformBrowser(this._PLATFORM_ID)) {
+      window.scrollTo(-10 , 0)
     }
   }
-  divCilckedProfile(_id: any): void {
-    if (isPlatformBrowser(this._PLATFORM_ID)) {
-      if (sessionStorage.getItem('userId')) {
-        sessionStorage.setItem('_id', _id);
+  formatMessageTime(timestamp: string): string {
+    const messageDate = new Date(timestamp);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    // Reset hours to compare dates only
+    const messageDateOnly = new Date(messageDate.getFullYear(), messageDate.getMonth(), messageDate.getDate());
+    const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const yesterdayOnly = new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate());
+
+    if (messageDateOnly.getTime() === todayOnly.getTime()) {
+      // Today - show time
+      const hour = +timestamp.split('').slice(11, 13).join('');
+      const minute = timestamp.split('').slice(14, 16).join('');
+      const adjustedHour = hour + 3;
+      let displayHour: number;
+      let ampm: string;
+
+      if (adjustedHour >= 24) {
+        displayHour = adjustedHour % 24 === 0 ? 12 : adjustedHour % 24;
+        ampm = this.translate.instant('notifications.AM');
+      } else if (adjustedHour === 12) {
+        displayHour = 12;
+        ampm = this.translate.instant('notifications.PM');
+      } else if (adjustedHour < 12) {
+        displayHour = adjustedHour;
+        ampm = this.translate.instant('notifications.AM');
+      } else {
+        displayHour = adjustedHour - 12;
+        ampm = this.translate.instant('notifications.PM');
       }
+
+      return `${displayHour}:${minute} ${ampm}`;
+    } else if (messageDateOnly.getTime() === yesterdayOnly.getTime()) {
+      // Yesterday
+      return this.translate.instant('notifications.Yesterday');
+    } else {
+      // Show date
+      const day = messageDate.getDate().toString().padStart(2, '0');
+      const month = (messageDate.getMonth() + 1).toString().padStart(2, '0');
+      const year = messageDate.getFullYear();
+      return `${day}/${month}/${year}`;
     }
   }
 
-  btnCilcked(custIdTarget: string): void {
-    if (isPlatformBrowser(this._PLATFORM_ID)) {
-      if (sessionStorage.getItem('userId')) {
-        sessionStorage.setItem('custIdTarget', custIdTarget);
-      }
-    }
-  }
-
-  reload(): void {
-    window.location.reload();
+  hasSearchResults(): boolean {
+    return this.messagesSearch.some((data: { message: string }) => data.message.includes(this.searchText));
   }
 
   ngOnDestroy(): void {
