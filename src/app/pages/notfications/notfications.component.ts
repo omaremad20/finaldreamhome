@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, OnDestroy, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ declare var bootstrap: any;
   selector: 'app-notfications',
   templateUrl: './notfications.component.html',
   styleUrl: './notfications.component.css',
-  imports: [FormsModule, TranslatePipe, ReactiveFormsModule],
+  imports: [FormsModule, TranslatePipe, ReactiveFormsModule , RouterLink],
 })
 export class NotficationsComponent implements OnInit, OnDestroy {
   // services
