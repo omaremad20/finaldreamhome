@@ -24,7 +24,6 @@ export class UploadpostComponent implements OnInit, OnDestroy {
   private _NgxSpinnerService = inject(NgxSpinnerService);
   private isErrorToastShown = false;
   private _Router = inject(Router);
-
   currentLang: string = 'en';
   userId!: string;
   userRole!: string;
@@ -32,6 +31,7 @@ export class UploadpostComponent implements OnInit, OnDestroy {
   selectedFile: File | null = null;
   cancelSetTimeOutTwo: any;
   cancelSetTimeOutOne: any;
+  cancelSetTimeOutThree: any;
   cancelsendImageToCloudinary!: Subscription
   cancelIsIMage!: Subscription
   cancelUploadPost!: Subscription;
@@ -58,63 +58,95 @@ export class UploadpostComponent implements OnInit, OnDestroy {
     if (this.selectedFile) {
       formCloud.append('file', this.selectedFile);
       formCloud.append('upload_preset', 'test_cloud');
-    }
-    this.cancelsendImageToCloudinary = this._PostsService.sendImageToCloudinary(`https://api.cloudinary.com/v1_1/dvuxvcida/image/upload`, formCloud).subscribe({
-      next: (res) => {
-        if (this.postForm.valid) {
-          this.isVaild = true;
-          const formToSumbit = {
-            job: this.postForm.get('job')?.value,
-            content: this.postForm.get('content')?.value,
-            image: res.url,
-            userId: this.userId
-          }
-          this.cancelUploadPost = this._PostsService.Createanewpost(formToSumbit).subscribe({
-            next: (res) => {
-              this._NgxSpinnerService.hide();
-              this._ToastrService.success('Post Uploaded Successfully !', '', {
-                "toastClass": "toastarSuccess"
-              })
-              this.postForm.reset();
-              this._Router.navigateByUrl('/my-profile')
-            },
-            error: (err) => {
-              this._NgxSpinnerService.hide();
-              if (err.error.message === "Failed to fetch") {
-                if (!this.isErrorToastShown) {
-                  this._ToastrService.success('No Internet Connection !', '', {
-                    toastClass: 'toastarError',
-                    timeOut: 10000
-                  });
-                  this.isErrorToastShown = true;
-                  this.cancelSetTimeOutOne = setTimeout(() => {
-                    this.isErrorToastShown = false;
-                  }, 10000);
-                }
-              } else {
-                this._ToastrService.success('Failed To Upload Post', '', {
-                  "toastClass": "toastarError"
-                })
-              }
+      this.cancelsendImageToCloudinary = this._PostsService.sendImageToCloudinary(`https://api.cloudinary.com/v1_1/dvuxvcida/image/upload`, formCloud).subscribe({
+        next: (res) => {
+          if (this.postForm.valid) {
+            this.isVaild = true;
+            const formToSumbit = {
+              job: this.postForm.get('job')?.value,
+              content: this.postForm.get('content')?.value,
+              image: res.url,
+              userId: this.userId
             }
-          })
-        } else {
-          this.postForm.markAllAsTouched();
-          this._NgxSpinnerService.hide();
+            this.cancelUploadPost = this._PostsService.Createanewpost(formToSumbit).subscribe({
+              next: (res) => {
+                this._NgxSpinnerService.hide();
+                this._ToastrService.success('Post Uploaded Successfully !', '', {
+                  "toastClass": "toastarSuccess"
+                })
+                this.postForm.reset();
+                this._Router.navigateByUrl('/my-profile')
+              },
+              error: (err) => {
+                this._NgxSpinnerService.hide();
+                if (err.error.message === "Failed to fetch") {
+                  if (!this.isErrorToastShown) {
+                    this._ToastrService.success('No Internet Connection !', '', {
+                      toastClass: 'toastarError',
+                      timeOut: 10000
+                    });
+                    this.isErrorToastShown = true;
+                    this.cancelSetTimeOutOne = setTimeout(() => {
+                      this.isErrorToastShown = false;
+                    }, 10000);
+                  }
+                } else {
+                  this._ToastrService.success('Failed To Upload Post', '', {
+                    "toastClass": "toastarError"
+                  })
+                }
+              }
+            })
+          } else {
+            this.postForm.markAllAsTouched();
+            this._NgxSpinnerService.hide();
+          }
+        }, error: (err) => {
+          if (!this.isErrorToastShown) {
+            this._ToastrService.success('Failed To Upload Image', '', {
+              toastClass: 'toastarError',
+              timeOut: 10000
+            });
+            this.isErrorToastShown = true;
+            this.cancelSetTimeOutTwo = setTimeout(() => {
+              this.isErrorToastShown = false;
+            }, 10000);
+          }
         }
-      }, error: (err) => {
-        if (!this.isErrorToastShown) {
-          this._ToastrService.success('Failed To Upload Image', '', {
-            toastClass: 'toastarError',
-            timeOut: 10000
-          });
-          this.isErrorToastShown = true;
-          this.cancelSetTimeOutTwo = setTimeout(() => {
-            this.isErrorToastShown = false;
-          }, 10000);
-        }
+      })
+    } else {
+      if (this.postForm.valid) {
+        this.isVaild = true;
+        this._NgxSpinnerService.show();
+        const formTosend = this.postForm.value;
+        formTosend.userId = this.userId;
+        this._PostsService.Createanewpost(formTosend).subscribe({
+          next: (res) => {
+            this._NgxSpinnerService.hide();
+            this.postForm.reset();
+            this._ToastrService.success('Post Uploaded Successfully !', '', {
+              "toastClass": "toastarSuccess"
+            })
+          },
+          error: (err) => {
+            this._NgxSpinnerService.hide();
+            if (!this.isErrorToastShown) {
+              this._ToastrService.success('Failed To Upload Image', '', {
+                toastClass: 'toastarError',
+                timeOut: 10000
+              });
+              this.isErrorToastShown = true;
+              this.cancelSetTimeOutThree = setTimeout(() => {
+                this.isErrorToastShown = false;
+              }, 10000);
+            }
+          }
+        })
+      } else {
+        this.postForm.markAllAsTouched();
+        this._NgxSpinnerService.hide();
       }
-    })
+    }
   }
   isImage(): void {
     const imageValue = this.postForm.get('image')?.value;
@@ -130,8 +162,9 @@ export class UploadpostComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy(): void {
-    clearTimeout(this.cancelSetTimeOutOne)
-    clearTimeout(this.cancelSetTimeOutTwo)
+    clearTimeout(this.cancelSetTimeOutOne);
+    clearTimeout(this.cancelSetTimeOutTwo);
+    clearTimeout(this.cancelSetTimeOutThree);
     this.cancelIsIMage?.unsubscribe();
     this.cancelUploadPost?.unsubscribe();
     this.cancelsendImageToCloudinary?.unsubscribe();

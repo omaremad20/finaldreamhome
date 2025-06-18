@@ -12,7 +12,7 @@ import { provideToastr } from 'ngx-toastr';
 // Firebase imports 👇
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { environment } from '../environments/environment';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,11 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptors([])),
     provideTranslateLoader(),
-    importProvidersFrom(BrowserAnimationsModule , NgxSpinnerModule),
+    importProvidersFrom(BrowserAnimationsModule, NgxSpinnerModule),
     provideToastr(),
-
-    // Firebase providers 👇
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideStorage(() => getStorage()),
   ]
 };

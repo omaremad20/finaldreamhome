@@ -5,14 +5,20 @@
     "Comments": "التعليقات"
   },
   "comments": {
-    "Start": "ابدأ المحادثة",
-    "EditComment": "تعديل التعليق",
-    "DeleteComment": "حذف التعليق",
-    "Cancel": "إلغاء",
-    "Save": "حفظ",
-    "ConfirmDelete": "تأكيد حذف التعليق",
-    "Delete": "حذف",
-    "Leaveacomment": "اترك تعليقًا هنا"
+      "Start": "ابدأ المحادثة",
+      "EditComment": "تعديل التعليق",
+      "DeleteComment": "حذف التعليق",
+      "Cancel": "إلغاء",
+      "Save": "حفظ",
+      "ConfirmDelete": "هل أنت متأكد من حذف التعليق؟",
+      "Delete": "حذف",
+      "Leaveacomment": "اكتب تعليقك هنا",
+      "Comments": "التعليقات",
+      "You": "أنت",
+      "EditPost": "تعديل المنشور",
+      "DeletePost": "حذف المنشور",
+      "ConfirmDeletePost": "هل تريد بالتأكيد حذف المنشور؟",
+      "profilePhoto": "صورة الملف الشخصي"
   },
   "uploadPost": {
     "UploadPost": "انشاء منشور",
@@ -22,7 +28,8 @@
     "Optional": "أختياري",
     "onlyImages": "صور فقط",
     "Post": "رفع المنشور",
-    "whatsProblem": "ما هي مشكلتك ؟"
+    "whatsProblem": "ما هي مشكلتك ؟",
+    "chooseImage": "صورة المشكله"
   },
   "servicex": {
     "workers": "العمال",
@@ -391,7 +398,7 @@
     "MyProjectPhoto": "صورة مشروعي",
     "ABOUT": "حول"
   },
-    "browse-projects": {
+  "browse-projects": {
     "postPhoto": "Post Photo",
     "noPosts": "No Posts Yet !"
   }

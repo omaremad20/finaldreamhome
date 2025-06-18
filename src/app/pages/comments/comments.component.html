@@ -1,5 +1,6 @@
 <section class="container " #parent>
   <!-- post -->
+
   @if (post) {
   <div class="post w-100 ">
     <div class="row ">
@@ -10,20 +11,21 @@
               @if (isDone === true) {
               @if(userProfileData.images !== null) {
               <div class="imgParent align-self-start userPhoto">
-                <img [src]="userProfileData.images" class="d-block w-100 " alt="" srcset="">
+                <img [src]="userProfileData.images" class="d-block w-100 "
+                  [alt]="userProfileData.firstName + 'comments.profilePhoto' | translate" />
               </div>
               }@else {
               <div class="imgParent align-self-start ">
-                <img src="./images/none.jpg" class="d-block w-100 " alt="" srcset="">
+                <img src="./images/none.jpg" class="d-block w-100 "
+                  [alt]="userProfileData.firstName + 'comments.profilePhoto' | translate" />
               </div>
               }
-
               }
               <div class="mx-2  w-100">
                 <div class=" d-flex justify-content-between align-items-center">
                   <p class="customerName mb-0 fw-bolder "> {{"posts.Customer" | translate }} : {{userNameMakePost}}
                     @if (userIdMakePost === userId) {
-                    <small class="text-muted">(You)</small>
+                    <small class="text-muted">({{'comments.You' | translate }})</small>
                     }
                   </p>
                   @if(userIdMakePost === userId) {
@@ -37,12 +39,13 @@
                         <div class="modal-body d-flex flex-column px-0 pb-0">
                           <button class="border-0 bg-transparent rounded-1 fs-6 noneButton"
                             [attr.data-bs-target]="'#formEdit' + post._id" data-bs-toggle="modal"
-                            (click)="commentValue(post.content)"> <span class="cursor-pointer">Edit Post</span>
+                            (click)="commentValue(post.content)"> <span class="cursor-pointer">{{ "comments.EditPost" |
+                              translate }}</span>
                           </button>
                           <div class="horzint my-1"></div>
                           <button class="border-0 bg-transparent rounded-1 fs-6  noneButton "
                             [attr.data-bs-target]="'#exampleModalToggle' + post._id" data-bs-toggle="modal"> <span
-                              class="cursor-pointer text-danger">Delete Post</span>
+                              class="cursor-pointer text-danger">{{ "comments.DeletePost" | translate }}</span>
                           </button>
                         </div>
                         <div class="horzint my-1"></div>
@@ -57,7 +60,7 @@
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                       <div class="modal-content optionsModal">
                         <div class="modal-header d-flex justify-content-between align-items-center">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel"> Edit Post
+                          <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ "comments.EditPost" | translate }}
                           </h1>
                           <button type="button" class="border-0 bg-transparent text-danger fs-3 removeHover"
                             data-bs-dismiss="modal" aria-label="Close"><i
@@ -86,14 +89,14 @@
                     <div class="modal-dialog modal-dialog-centered">
                       <div class="modal-content optionsModal">
                         <div class="modal-header">
-                          <h3 class="mb-0 fs-5">Confirm Delete Post</h3>
+                          <h3 class="mb-0 fs-5">{{ "comments.ConfirmDeletePost" | translate }}</h3>
                         </div>
                         <div class="modal-body">
                           <div class="d-flex  align-items-center justify-content-between">
                             <button type="button" class="border-0 bg-transparent removeHover colorHover"
                               data-bs-dismiss="modal" aria-label="Close">{{ "comments.Cancel" | translate }}</button>
-                            <button class="btn border-0 text-white deleteComment" (click)="deletePost(post._id)">Delete
-                              Post</button>
+                            <button class="btn border-0 text-white deleteComment" (click)="deletePost(post._id)">{{
+                              "comments.DeletePost" | translate }}</button>
                           </div>
                         </div>
                       </div>
@@ -101,7 +104,6 @@
                   </div>
                   }
                 </div>
-
                 <div class="mx-1">
                   <small class="time  timeComment  fw-bolder  ">
                     {{post.updatedAt.split('').slice(8 , 10).join('')}}/{{post.updatedAt.split('').slice(5
@@ -129,6 +131,18 @@
                   <div class="py-1 ">
                     <p class="contentBE mb-0 fs-5 px-2">{{post.content}}</p>
                   </div>
+                  <!--
+                    <div class="parentImagePost position-relative" (click)="openImage(post.image)">
+                    <img [src]="post.image" [alt] = "'mineprofile.minePostPhoto' | translate" class="w-100 cursor-pointer rounded rounded-2 d-block" />
+                  </div>
+                  @if (selectedImage) {
+                  <div class="image-modal" (click)="closeImage()">
+                    <img [src]="selectedImage" [alt]="'mineprofile.fullImage'| translate" (click)="$event.stopPropagation()" />
+                    <button class="rounded rounded-2 close-btn" (click)="closeImage()"><i
+                        class="fa-solid fa-xmark"></i></button>
+                  </div>
+  -->
+
                   <div class="parentImage  position-relative">
                     <img [src]="post.image" alt="" class="w-100 d-block" srcset="">
                   </div>
@@ -142,7 +156,6 @@
   </div>
   }
   <!-- end-post -->
-
   <!-- comments -->
   @if (comments) {
   @if(!comments.length) {
@@ -152,21 +165,14 @@
   </div>
   }@else {
   <div class="commentsOnPost  container mt-2 padding-140px" #commentsOnPost>
-    <h2>Comments</h2>
-    <div class="position-relative ">
-      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer z-3 position-relative " #mostRelevant
-        (click)="showAllCommentsText()">Most Relevant <i class="fas fa-chevron-left"
-          style="transform: rotate(270deg);"></i></p>
-      <p class="fw-bolder mb-0 mx-3 text-muted cursor-pointer bg-white w-fit rounded-2 py-1 px-2 position-absolute top-0 z-0 opacity-0"
-        (click)="removeMostRelevantText()">All Comments</p>
-    </div>
+    <h2>{{ 'comments.Comments' | translate }}</h2>
     @for (comment of comments; track comment._id) {
     <div class="row mx-2">
       <div class="col-12 my-2  rounded-1 p-1 d-flex align-items-center" [class]="{
         'targetComment' :commentTarget == comment._id
       }">
         <div class="imgParent mt-2 mx-1 align-self-start">
-          <img src="./images/none.jpg" class="d-block w-100 rounded-circle" alt="userImage" srcset="">
+          <img src="./images/none.jpg" class="d-block w-100 rounded-circle" alt="userImage" />
         </div>
         <div class="d-flex flex-column">
           <div class="inner p-2 rounded-1 d-flex flex-column justify-content-start w-fit align-items-start"
@@ -310,4 +316,3 @@
   </div>
   <!-- end-upload-comment -->
 </section>
-<!-- <button class="btn btn-dark text-white" (click)="commentsUser()">hello</button> -->

@@ -12,7 +12,13 @@
     "Save": "Save",
     "ConfirmDelete": "Confirm Delete Comment?",
     "Delete": "Delete",
-    "Leaveacomment": "Leave a comment here"
+    "Leaveacomment": "Leave a comment here",
+    "Comments": "Comments",
+    "You": "You",
+    "EditPost": "Edit Post",
+    "DeletePost": "Delete Post",
+    "ConfirmDeletePost": "Confirm Delete Post",
+    "profilePhoto" : "Profile Photo"
   },
   "uploadPost": {
     "UploadPost": "Upload Post",
@@ -22,7 +28,8 @@
     "Optional": "Optional",
     "onlyImages": "Only images Accepted",
     "Post": "Post",
-    "whatsProblem": "What's Your Problem"
+    "whatsProblem": "What's Your Problem",
+    "chooseImage": "Choose Image"
   },
   "servicex": {
     "workers": "Workers",
@@ -384,7 +391,7 @@
     "ABOUT": "About"
   },
   "browse-projects": {
-    "postPhoto" : "Post Photo" ,
-    "noPosts" : "No Posts Yet !"
+    "postPhoto": "Post Photo",
+    "noPosts": "No Posts Yet !"
   }
 }
